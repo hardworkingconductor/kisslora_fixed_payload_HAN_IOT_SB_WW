@@ -12,7 +12,7 @@ function decodeUplink(input) {
     (((input.bytes[0] & 0x80 ? input.bytes[0] - 0x100 : input.bytes[0]) << 8) +
       input.bytes[1]) /
     10;
-    data.humitidy = input.bytes[2];
+    data.humitidy = (((input.bytes[2] & 0x80 ? input.bytes[2] - 0x100 : input.bytes[2]) << 8); //controleer deze functie
     data.light = (input.bytes[3] << 8) + input.bytes[4];
 
 
