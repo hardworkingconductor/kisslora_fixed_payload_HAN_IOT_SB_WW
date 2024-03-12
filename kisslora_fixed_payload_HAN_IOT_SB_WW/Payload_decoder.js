@@ -18,6 +18,16 @@ function decodeUplink(input) {
     data.acX =  (((input.bytes[6] & 0x80 ? input.bytes[6] - 0x100 : input.bytes[6]) << 8) +
       input.bytes[7]) /
     1000;
+    data.acY =  (((input.bytes[8] & 0x80 ? input.bytes[8] - 0x100 : input.bytes[8]) << 8) +
+      input.bytes[9]) /
+    1000;
+    data.acZ =  (((input.bytes[10] & 0x80 ? input.bytes[10] - 0x100 : input.bytes[10]) << 8) +
+      input.bytes[11]) /
+    1000;
+    data.analogIN =
+    (((input.bytes[12] & 0x80 ? input.bytes[12] - 0x100 : input.bytes[12) << 8) +
+      input.bytes[13]) /
+    100;
     
 
 
