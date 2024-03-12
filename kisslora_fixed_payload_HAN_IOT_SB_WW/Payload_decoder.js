@@ -28,6 +28,7 @@ function decodeUplink(input) {
     (((input.bytes[12] & 0x80 ? input.bytes[12] - 0x100 : input.bytes[12) << 8) +
       input.bytes[13]) /
     100;
+    //dit werkt niet, fix het
     
 
 
