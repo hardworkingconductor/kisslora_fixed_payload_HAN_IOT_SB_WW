@@ -12,8 +12,13 @@ function decodeUplink(input) {
     (((input.bytes[0] & 0x80 ? input.bytes[0] - 0x100 : input.bytes[0]) << 8) +
       input.bytes[1]) /
     10;
-    data.humitidy = (((input.bytes[2] & 0x80 ? input.bytes[2] - 0x100 : input.bytes[2]) << 8); //controleer deze functie
+    //data.humitidy = (((input.bytes[2] & 0x80 ? input.bytes[2] - 0x100 : input.bytes[2]) << 8) //controleer deze functie
     data.light = (input.bytes[3] << 8) + input.bytes[4];
+    data.rotpos = input.bytes[5];
+    data.acX =  (((input.bytes[6] & 0x80 ? input.bytes[6] - 0x100 : input.bytes[6]) << 8) +
+      input.bytes[7]) /
+    1000;
+    
 
 
     var warnings = [];
