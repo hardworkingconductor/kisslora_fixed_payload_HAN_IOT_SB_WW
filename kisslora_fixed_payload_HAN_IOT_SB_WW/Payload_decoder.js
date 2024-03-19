@@ -27,9 +27,8 @@ function decodeUplink(input) {
       input.bytes[16]) /
     100;
     
-    
 
-//}
+    
     var warnings = [];
     if (data.temperature < -10) {
       warnings.push("it's cold");
