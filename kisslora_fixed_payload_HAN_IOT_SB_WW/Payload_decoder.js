@@ -1,5 +1,10 @@
 function decodeUplink(input) {
     var data = {};
+
+    if(input.bytes.length === 2){
+    data.presence = input.bytes[0];
+    data.digIN = input.bytes[1];
+    } else{
     data.temperature =
     (((input.bytes[0] & 0x80 ? input.bytes[0] - 0x100 : input.bytes[0]) << 8) +
       input.bytes[1]) /
@@ -27,7 +32,7 @@ function decodeUplink(input) {
       input.bytes[16]) /
     100;
     
-
+    }
     
     var warnings = [];
     if (data.temperature < -10) {
