@@ -1,0 +1,62 @@
+\doxysection{Payload\+\_\+decoder.\+js}
+\hypertarget{_payload__decoder_8js_source}{}\label{_payload__decoder_8js_source}\mbox{\hyperlink{_payload__decoder_8js}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00001}00001\ /*}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00002}00002\ To\ use\ this\ custom\ payload\ decoder\ go\ to\ payload\ formatters\ in\ your}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00003}00003\ things\ network\ console.}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00004}00004\ Then\ click\ on\ the\ uplink\ and\ select\ custom\ javascript.}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00005}00005\ paste\ this\ code\ there\ and\ save\ it.}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00006}00006\ */}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00008}00008\ function\ decodeUplink(input)\ \{}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00009}00009\ \ \ \ \ var\ data\ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00010}00010\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00011}00011\ \ \ \ \ //checks\ if\ the\ data\ is\ the\ short\ message\ or\ the\ long\ message}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00012}00012\ \ \ \ \ if(input.bytes.length\ ===\ 2)\{}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00013}00013\ \ \ \ \ //short\ message}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00014}00014\ \ \ \ \ data.presence\ =\ input.bytes[0];}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00015}00015\ \ \ \ \ data.digIN\ =\ input.bytes[1];}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00016}00016\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00017}00017\ \ \ \ \ \}\ else\{}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00018}00018\ \ \ \ \ //long\ message}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00019}00019\ \ \ \ \ data.temperature\ =}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00020}00020\ \ \ \ \ (((input.bytes[0]\ \&\ 0x80\ ?\ input.bytes[0]\ -\/\ 0x100\ :\ input.bytes[0])\ <<\ 8)\ +}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00021}00021\ \ \ \ \ \ \ input.bytes[1])\ /}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00022}00022\ \ \ \ \ 10;}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00023}00023\ \ \ \ \ //calculates\ the\ unsigned\ value\ back\ into\ a\ signed\ value}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00024}00024\ \ \ \ \ data.humitidy\ =\ ((input.bytes[2]\ \&\ 0x80\ ?\ input.bytes[2]\ -\/\ 0x100\ :\ input.bytes[2])\ <<\ 8);\ //controleer\ deze\ functie}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00025}00025\ \ \ \ \ data.light\ =\ (input.bytes[3]\ <<\ 8)\ +\ input.bytes[4];}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00026}00026\ \ \ \ \ data.rotpos\ =\ input.bytes[5];}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00027}00027\ \ \ \ \ data.acX\ =\ \ (((input.bytes[6]\ \&\ 0x80\ ?\ input.bytes[6]\ -\/\ 0x100\ :\ input.bytes[6])\ <<\ 8)\ +}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00028}00028\ \ \ \ \ \ \ input.bytes[7])\ /}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00029}00029\ \ \ \ \ 1000;}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00030}00030\ \ \ \ \ data.acY\ =\ \ (((input.bytes[8]\ \&\ 0x80\ ?\ input.bytes[8]\ -\/\ 0x100\ :\ input.bytes[8])\ <<\ 8)\ +}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00031}00031\ \ \ \ \ \ \ input.bytes[9])\ /}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00032}00032\ \ \ \ \ 1000;}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00033}00033\ \ \ \ \ data.acZ\ =\ \ (((input.bytes[10]\ \&\ 0x80\ ?\ input.bytes[10]\ -\/\ 0x100\ :\ input.bytes[10])\ <<\ 8)\ +}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00034}00034\ \ \ \ \ \ \ input.bytes[11])\ /}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00035}00035\ \ \ \ \ 1000;}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00036}00036\ \ \ \ \ data.analogIN\ =}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00037}00037\ \ \ \ \ (((input.bytes[12]\ \&\ 0x80\ ?\ input.bytes[12]\ -\/\ 0x100\ :\ input.bytes[12])\ <<\ 8)\ +}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00038}00038\ \ \ \ \ \ \ input.bytes[13])\ /}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00039}00039\ \ \ \ \ 100;}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00040}00040\ \ \ \ \ data.presence\ =\ input.bytes[14];}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00041}00041\ \ \ \ \ data.analogOUT\ =}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00042}00042\ \ \ \ \ (((input.bytes[15]\ \&\ 0x80\ ?\ input.bytes[15]\ -\/\ 0x100\ :\ input.bytes[15])\ <<\ 8)\ +}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00043}00043\ \ \ \ \ \ \ input.bytes[16])\ /}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00044}00044\ \ \ \ \ 100;}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00045}00045\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00047}00047\ \ \ \ \ return\ \{}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00048}00048\ \ \ \ \ \ \ data:\ data,}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00049}00049\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00050}00050\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00052}00052\ \ \ function\ normalizeUplink(input)\ \{}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00053}00053\ \ \ \ \ return\ \{}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00054}00054\ \ \ \ \ \ \ data:\ \{}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00055}00055\ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00056}00056\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_payload__decoder_8js_source_l00057}00057\ \ \ \}}
+
+\end{DoxyCode}

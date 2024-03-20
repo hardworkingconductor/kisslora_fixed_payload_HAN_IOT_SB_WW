@@ -1,0 +1,81 @@
+\doxysection{Cayenne\+LPP.\+h}
+\hypertarget{_cayenne_l_p_p_8h_source}{}\label{_cayenne_l_p_p_8h_source}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/CayenneLPP.h@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/CayenneLPP.h}}
+\mbox{\hyperlink{_cayenne_l_p_p_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00001}00001\ \textcolor{comment}{//\ Adapted\ from\ https://developer.mbed.org/teams/myDevicesIoT/code/Cayenne-\/LPP/}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00003}00003\ \textcolor{comment}{//\ Copyright\ ©\ 2017\ The\ Things\ Network}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00004}00004\ \textcolor{comment}{//\ Use\ of\ this\ source\ code\ is\ governed\ by\ the\ MIT\ license\ that\ can\ be\ found\ in\ the\ LICENSE\ file.}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00008}00008\ \textcolor{preprocessor}{\#ifndef\ \_CAYENNE\_LPP\_H\_}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ \_CAYENNE\_LPP\_H\_}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00013}00013\ \textcolor{comment}{//LPP\_BATTERY\ =\ //\ TODO\ Unsupported\ in\ IPSO\ Smart\ Object}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00014}00014\ \textcolor{comment}{//LPP\_PROXIMITY\ =\ //\ TODO\ Unsupported\ in\ IPSO\ Smart\ Object}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00018}00018\ \textcolor{comment}{//\#define\ LPP\_DIGITAL\_INPUT\ 0\ \ \ \ \ \ \ \ \ //\ 1\ byte}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00019}00019\ \textcolor{comment}{//\#define\ LPP\_DIGITAL\_OUTPUT\ 1\ \ \ \ \ \ \ \ //\ 1\ byte}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00020}00020\ \textcolor{comment}{//\#define\ LPP\_ANALOG\_INPUT\ 2\ \ \ \ \ \ \ \ \ \ //\ 2\ bytes,\ 0.01\ signed}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00021}00021\ \textcolor{comment}{//\#define\ LPP\_ANALOG\_OUTPUT\ 3\ \ \ \ \ \ \ \ \ //\ 2\ bytes,\ 0.01\ signed}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00022}00022\ \textcolor{comment}{//\#define\ LPP\_LUMINOSITY\ 101\ \ \ \ \ \ \ \ \ \ //\ 2\ bytes,\ 1\ lux\ unsigned}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00023}00023\ \textcolor{comment}{//\#define\ LPP\_PRESENCE\ 102\ \ \ \ \ \ \ \ \ \ \ \ //\ 1\ byte,\ 1}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00024}00024\ \textcolor{comment}{//\#define\ LPP\_TEMPERATURE\ 103\ \ \ \ \ \ \ \ \ //\ 2\ bytes,\ 0.1°C\ signed}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00025}00025\ \textcolor{comment}{//\#define\ LPP\_RELATIVE\_HUMIDITY\ 104\ \ \ //\ 1\ byte,\ 0.5\%\ unsigned}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00026}00026\ \textcolor{comment}{//\#define\ LPP\_ACCELEROMETER\ 113\ \ \ \ \ \ \ //\ 2\ bytes\ per\ axis,\ 0.001G}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00027}00027\ \textcolor{comment}{//\#define\ LPP\_BAROMETRIC\_PRESSURE\ 115\ //\ 2\ bytes\ 0.1\ hPa\ Unsigned}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00028}00028\ \textcolor{comment}{//\#define\ LPP\_GYROMETER\ 134\ \ \ \ \ \ \ \ \ \ \ //\ 2\ bytes\ per\ axis,\ 0.01\ °/s}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00029}00029\ \textcolor{comment}{//\#define\ LPP\_GPS\ 136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ 3\ byte\ lon/lat\ 0.0001\ °,\ 3\ bytes\ alt\ 0.01\ meter}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00031}00031\ \textcolor{comment}{//\ Data\ ID\ +\ Data\ Type\ +\ Data\ Size}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00033}00033\ \textcolor{comment}{//\#define\ LPP\_DIGITAL\_SIZE\ 3\ \ \ \ \ \ \ \ \ \ \ \ \ //2\ byes\ unsigned}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00034}00034\ \textcolor{comment}{//\#define\ LPP\_ANALOG\_INPUT\_SIZE\ 4\ \ \ \ \ \ \ \ //\ 2\ bytes,\ 0.01\ signed}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00035}00035\ \textcolor{comment}{//\#define\ LPP\_ANALOG\_OUTPUT\_SIZE\ 4\ \ \ \ \ \ \ //\ 2\ bytes,\ 0.01\ signed}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00036}00036\ \textcolor{comment}{//\#define\ LPP\_ANALOG\_SIZE\ 4\ \ \ \ \ \ \ \ \ \ \ \ \ \ //}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00037}00037\ \textcolor{comment}{//\#define\ LPP\_LUMINOSITY\_SIZE\ 4\ \ \ \ \ \ \ \ \ \ //\ 2\ bytes,\ 1\ lux\ unsigned}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00038}00038\ \textcolor{comment}{//\#define\ LPP\_PRESENCE\_SIZE\ 3\ \ \ \ \ \ \ \ \ \ \ \ //\ 1\ byte,\ 1}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00039}00039\ \textcolor{comment}{//\#define\ LPP\_TEMPERATURE\_SIZE\ 4\ \ \ \ \ \ \ \ \ \ //\ 2\ bytes,\ 0.1°C\ signed}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00040}00040\ \textcolor{comment}{//\#define\ LPP\_RELATIVE\_HUMIDITY\_SIZE\ 3\ \ \ //\ 1\ byte,\ 0.5\%\ unsigned}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00041}00041\ \textcolor{comment}{//\#define\ LPP\_ACCELEROMETER\_SIZE\ 8\ \ \ \ \ \ \ //\ 2\ bytes\ per\ axis,\ 0.001G}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00042}00042\ \textcolor{comment}{//\#define\ LPP\_BAROMETRIC\_PRESSURE\_SIZE\ 4\ //\ 2\ bytes\ 0.1\ hPa\ Unsigned}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00043}00043\ \textcolor{comment}{//\#define\ LPP\_GYROMETER\_SIZE\ 8\ \ \ \ \ \ \ \ \ \ \ //\ 2\ bytes\ per\ axis,\ 0.01\ °/s}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00044}00044\ \textcolor{comment}{//\#define\ LPP\_GPS\_SIZE\ 11\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ 3\ byte\ lon/lat\ 0.0001\ °,\ 3\ bytes\ alt\ 0.01\ meter}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00046}\mbox{\hyperlink{class_cayenne_l_p_p}{00046}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_cayenne_l_p_p}{CayenneLPP}}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00047}00047\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00048}00048\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00049}00049\ \ \ \mbox{\hyperlink{class_cayenne_l_p_p_a36adb2a5b4762d16d2f185e14ff69622}{CayenneLPP}}(uint8\_t\ size);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00050}00050\ \ \ \mbox{\hyperlink{class_cayenne_l_p_p_a87ca867c5f9516622e02e0199d357fac}{\string~CayenneLPP}}();}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00053}00053\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_cayenne_l_p_p_aa34ffe8eae08b7e69b288fa213aac594}{reset}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00056}00056\ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a82b65449c4987cb435ec4f1f94cd16d5}{getSize}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00057}00057\ \ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00060}00060\ \ \ uint8\_t\ *\mbox{\hyperlink{class_cayenne_l_p_p_a76e9b677f69f82e58875af03c3da68c4}{getBuffer}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00061}00061\ \ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00063}00063\ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a18472d3f416a889d3c64dcc3be416e14}{copy}}(uint8\_t\ *buffer);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00067}00067\ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a82eae5db461965a7fb9552e210efc871}{addDigital}}(uint8\_t\ value);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00070}00070\ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_ae07b47107f7a0257ea0cbca86935afaf}{addAnalog}}(\ uint8\_t\ value);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00073}00073\ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a37c98239b66047ff6f968fac11af65ee}{addLuminosity}}(\ uint16\_t\ lux);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00076}00076\ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_af0bc1b394caf47335f9fa1ada5e376c1}{addPresence}}(\ uint8\_t\ value);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00079}00079\ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_af7fdeea0725c38e886e23f2af066319b}{addTemperature}}(\ \textcolor{keywordtype}{float}\ celsius);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00082}00082\ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a7fe5076c6b22656903871d19fa8746d6}{addRelativeHumidity}}(\textcolor{keywordtype}{float}\ rh);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00085}00085\ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a1a90661520108931d1456e9792ed2d8d}{addAccelerometer}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa4f0d3eebc3c443f9be81bf48561a217}{y}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af73583b1e980b0aa03f9884812e9fd4d}{z}});}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00088}00088\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00090}00090\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00091}00091\ \ \ uint8\_t\ *buffer;\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00092}00092\ \ \ uint8\_t\ maxsize;\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00093}00093\ \ \ uint8\_t\ cursor;\ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00094}00094\ \};}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8h_source_l00096}00096\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

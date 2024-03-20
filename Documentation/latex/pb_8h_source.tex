@@ -1,0 +1,562 @@
+\doxysection{pb.\+h}
+\hypertarget{pb_8h_source}{}\label{pb_8h_source}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/pb.h@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/pb.h}}
+\mbox{\hyperlink{pb_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00001}00001\ \textcolor{comment}{/*\ Common\ parts\ of\ the\ nanopb\ library.\ Most\ of\ these\ are\ quite\ low-\/level}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00002}00002\ \textcolor{comment}{\ *\ stuff.\ For\ the\ high-\/level\ interface,\ see\ pb\_encode.h\ and\ pb\_decode.h.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00003}00003\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ PB\_H\_INCLUDED}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ PB\_H\_INCLUDED}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00008}00008\ \textcolor{comment}{/*****************************************************************}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00009}00009\ \textcolor{comment}{\ *\ Nanopb\ compilation\ time\ options.\ You\ can\ change\ these\ here\ by\ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00010}00010\ \textcolor{comment}{\ *\ uncommenting\ the\ lines,\ or\ on\ the\ compiler\ command\ line.\ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00011}00011\ \textcolor{comment}{\ *****************************************************************/}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00013}00013\ \textcolor{comment}{/*\ Enable\ support\ for\ dynamically\ allocated\ fields\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00014}00014\ \textcolor{comment}{/*\ \#define\ PB\_ENABLE\_MALLOC\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00016}00016\ \textcolor{comment}{/*\ Define\ this\ if\ your\ CPU\ /\ compiler\ combination\ does\ not\ support}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00017}00017\ \textcolor{comment}{\ *\ unaligned\ memory\ access\ to\ packed\ structures.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00018}00018\ \textcolor{comment}{/*\ \#define\ PB\_NO\_PACKED\_STRUCTS\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00020}00020\ \textcolor{comment}{/*\ Increase\ the\ number\ of\ required\ fields\ that\ are\ tracked.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00021}00021\ \textcolor{comment}{\ *\ A\ compiler\ warning\ will\ tell\ if\ you\ need\ this.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00022}00022\ \textcolor{comment}{/*\ \#define\ PB\_MAX\_REQUIRED\_FIELDS\ 256\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00024}00024\ \textcolor{comment}{/*\ Add\ support\ for\ tag\ numbers\ >\ 255\ and\ fields\ larger\ than\ 255\ bytes.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00025}00025\ \textcolor{comment}{/*\ \#define\ PB\_FIELD\_16BIT\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00027}00027\ \textcolor{comment}{/*\ Add\ support\ for\ tag\ numbers\ >\ 65536\ and\ fields\ larger\ than\ 65536\ bytes.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00028}00028\ \textcolor{comment}{/*\ \#define\ PB\_FIELD\_32BIT\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00030}00030\ \textcolor{comment}{/*\ Disable\ support\ for\ error\ messages\ in\ order\ to\ save\ some\ code\ space.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00031}00031\ \textcolor{comment}{/*\ \#define\ PB\_NO\_ERRMSG\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00033}00033\ \textcolor{comment}{/*\ Disable\ support\ for\ custom\ streams\ (support\ only\ memory\ buffers).\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00034}00034\ \textcolor{comment}{/*\ \#define\ PB\_BUFFER\_ONLY\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00036}00036\ \textcolor{comment}{/*\ Switch\ back\ to\ the\ old-\/style\ callback\ function\ signature.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00037}00037\ \textcolor{comment}{\ *\ This\ was\ the\ default\ until\ nanopb-\/0.2.1.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00038}00038\ \textcolor{comment}{/*\ \#define\ PB\_OLD\_CALLBACK\_STYLE\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00041}00041\ \textcolor{comment}{/******************************************************************}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00042}00042\ \textcolor{comment}{\ *\ You\ usually\ don't\ need\ to\ change\ anything\ below\ this\ line.\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00043}00043\ \textcolor{comment}{\ *\ Feel\ free\ to\ look\ around\ and\ use\ the\ defined\ macros,\ though.\ \ \ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00044}00044\ \textcolor{comment}{\ ******************************************************************/}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00047}00047\ \textcolor{comment}{/*\ Version\ of\ the\ nanopb\ library.\ Just\ in\ case\ you\ want\ to\ check\ it\ in}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00048}00048\ \textcolor{comment}{\ *\ your\ own\ program.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00049}\mbox{\hyperlink{pb_8h_aef35e924c16176e0d488e8835e0fb9a2}{00049}}\ \textcolor{preprocessor}{\#define\ NANOPB\_VERSION\ nanopb-\/0.3.6}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00051}00051\ \textcolor{comment}{/*\ Include\ all\ the\ system\ headers\ needed\ by\ nanopb.\ You\ will\ need\ the}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00052}00052\ \textcolor{comment}{\ *\ definitions\ of\ the\ following:}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00053}00053\ \textcolor{comment}{\ *\ -\/\ strlen,\ memcpy,\ memset\ functions}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00054}00054\ \textcolor{comment}{\ *\ -\/\ [u]int\_least8\_t,\ uint\_fast8\_t,\ [u]int\_least16\_t,\ [u]int32\_t,\ [u]int64\_t}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00055}00055\ \textcolor{comment}{\ *\ -\/\ size\_t}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00056}00056\ \textcolor{comment}{\ *\ -\/\ bool}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00057}00057\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00058}00058\ \textcolor{comment}{\ *\ If\ you\ don't\ have\ the\ standard\ header\ files,\ you\ can\ instead\ provide}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00059}00059\ \textcolor{comment}{\ *\ a\ custom\ header\ that\ defines\ or\ includes\ all\ this.\ In\ that\ case,}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00060}00060\ \textcolor{comment}{\ *\ define\ PB\_SYSTEM\_HEADER\ to\ the\ path\ of\ this\ file.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00061}00061\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00062}00062\ \textcolor{preprocessor}{\#ifdef\ PB\_SYSTEM\_HEADER}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00063}00063\ \textcolor{preprocessor}{\#include\ PB\_SYSTEM\_HEADER}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00064}00064\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00065}00065\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00066}00066\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00067}00067\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00068}00068\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00070}00070\ \textcolor{preprocessor}{\#ifdef\ PB\_ENABLE\_MALLOC}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00071}00071\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00072}00072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00073}00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00075}00075\ \textcolor{comment}{/*\ Macro\ for\ defining\ packed\ structures\ (compiler\ dependent).}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00076}00076\ \textcolor{comment}{\ *\ This\ just\ reduces\ memory\ requirements,\ but\ is\ not\ required.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00077}00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00078}00078\ \textcolor{preprocessor}{\#if\ defined(PB\_NO\_PACKED\_STRUCTS)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00079}00079\ \ \ \ \ \textcolor{comment}{/*\ Disable\ struct\ packing\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00080}00080\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_START}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00081}00081\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_END}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00082}00082\ \textcolor{preprocessor}{\#\ \ \ define\ pb\_packed}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00083}00083\ \textcolor{preprocessor}{\#elif\ defined(\_\_GNUC\_\_)\ ||\ defined(\_\_clang\_\_)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00084}00084\ \ \ \ \ \textcolor{comment}{/*\ For\ GCC\ and\ clang\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00085}00085\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_START}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00086}00086\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_END}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00087}00087\ \textcolor{preprocessor}{\#\ \ \ define\ pb\_packed\ \_\_attribute\_\_((packed))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00088}00088\ \textcolor{preprocessor}{\#elif\ defined(\_\_ICCARM\_\_)\ ||\ defined(\_\_CC\_ARM)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00089}00089\ \ \ \ \ \textcolor{comment}{/*\ For\ IAR\ ARM\ and\ Keil\ MDK-\/ARM\ compilers\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00090}00090\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_START\ \_Pragma("{}pack(push,\ 1)"{})}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00091}00091\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_END\ \_Pragma("{}pack(pop)"{})}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00092}00092\ \textcolor{preprocessor}{\#\ \ \ define\ pb\_packed}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00093}00093\ \textcolor{preprocessor}{\#elif\ defined(\_MSC\_VER)\ \&\&\ (\_MSC\_VER\ >=\ 1500)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00094}00094\ \ \ \ \ \textcolor{comment}{/*\ For\ Microsoft\ Visual\ C++\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00095}00095\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_START\ \_\_pragma(pack(push,\ 1))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00096}00096\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_END\ \_\_pragma(pack(pop))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00097}00097\ \textcolor{preprocessor}{\#\ \ \ define\ pb\_packed}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00098}00098\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00099}00099\ \ \ \ \ \textcolor{comment}{/*\ Unknown\ compiler\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00100}\mbox{\hyperlink{pb_8h_a92cc851115d087966aa219a2301a721d}{00100}}\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_START}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00101}\mbox{\hyperlink{pb_8h_a298390c2a9b3911c09f6467d9427aa20}{00101}}\ \textcolor{preprocessor}{\#\ \ \ define\ PB\_PACKED\_STRUCT\_END}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00102}\mbox{\hyperlink{pb_8h_a4bfa1b4964889b18e285d43526d8e735}{00102}}\ \textcolor{preprocessor}{\#\ \ \ define\ pb\_packed}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00103}00103\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00105}00105\ \textcolor{comment}{/*\ Handly\ macro\ for\ suppressing\ unreferenced-\/parameter\ compiler\ warnings.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00106}00106\ \textcolor{preprocessor}{\#ifndef\ PB\_UNUSED}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00107}\mbox{\hyperlink{pb_8h_a3fe9ec0dadeae0dc1950ed714a8f59f2}{00107}}\ \textcolor{preprocessor}{\#define\ PB\_UNUSED(x)\ (void)(x)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00108}00108\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00110}00110\ \textcolor{comment}{/*\ Compile-\/time\ assertion,\ used\ for\ checking\ compatible\ compilation\ options.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00111}00111\ \textcolor{comment}{\ *\ If\ this\ does\ not\ work\ properly\ on\ your\ compiler,\ use}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00112}00112\ \textcolor{comment}{\ *\ \#define\ PB\_NO\_STATIC\_ASSERT\ to\ disable\ it.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00113}00113\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00114}00114\ \textcolor{comment}{\ *\ But\ before\ doing\ that,\ check\ carefully\ the\ error\ message\ /\ place\ where\ it}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00115}00115\ \textcolor{comment}{\ *\ comes\ from\ to\ see\ if\ the\ error\ has\ a\ real\ cause.\ Unfortunately\ the\ error}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00116}00116\ \textcolor{comment}{\ *\ message\ is\ not\ always\ very\ clear\ to\ read,\ but\ you\ can\ see\ the\ reason\ better}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00117}00117\ \textcolor{comment}{\ *\ in\ the\ place\ where\ the\ PB\_STATIC\_ASSERT\ macro\ was\ called.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00118}00118\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00119}00119\ \textcolor{preprocessor}{\#ifndef\ PB\_NO\_STATIC\_ASSERT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00120}00120\ \textcolor{preprocessor}{\#ifndef\ PB\_STATIC\_ASSERT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00121}\mbox{\hyperlink{pb_8h_a109c137397d42393f89fa66d22b19468}{00121}}\ \textcolor{preprocessor}{\#define\ PB\_STATIC\_ASSERT(COND,MSG)\ typedef\ char\ PB\_STATIC\_ASSERT\_MSG(MSG,\ \_\_LINE\_\_,\ \_\_COUNTER\_\_)[(COND)?1:-\/1];}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00122}\mbox{\hyperlink{pb_8h_a1bd9c8adf0e28119bf4ab17bc17b365a}{00122}}\ \textcolor{preprocessor}{\#define\ PB\_STATIC\_ASSERT\_MSG(MSG,\ LINE,\ COUNTER)\ PB\_STATIC\_ASSERT\_MSG\_(MSG,\ LINE,\ COUNTER)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00123}\mbox{\hyperlink{pb_8h_a200664240fb80b0119976c49ece7f51e}{00123}}\ \textcolor{preprocessor}{\#define\ PB\_STATIC\_ASSERT\_MSG\_(MSG,\ LINE,\ COUNTER)\ pb\_static\_assertion\_\#\#MSG\#\#LINE\#\#COUNTER}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00124}00124\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00125}00125\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00126}00126\ \textcolor{preprocessor}{\#define\ PB\_STATIC\_ASSERT(COND,MSG)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00127}00127\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00129}00129\ \textcolor{comment}{/*\ Number\ of\ required\ fields\ to\ keep\ track\ of.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00130}00130\ \textcolor{preprocessor}{\#ifndef\ PB\_MAX\_REQUIRED\_FIELDS}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00131}\mbox{\hyperlink{pb_8h_a312441992d22a4a1e3fdc0245eeb50c0}{00131}}\ \textcolor{preprocessor}{\#define\ PB\_MAX\_REQUIRED\_FIELDS\ 64}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00132}00132\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00134}00134\ \textcolor{preprocessor}{\#if\ PB\_MAX\_REQUIRED\_FIELDS\ <\ 64}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00135}00135\ \textcolor{preprocessor}{\#error\ You\ should\ not\ lower\ PB\_MAX\_REQUIRED\_FIELDS\ from\ the\ default\ value\ (64).}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00136}00136\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00138}00138\ \textcolor{comment}{/*\ List\ of\ possible\ field\ types.\ These\ are\ used\ in\ the\ autogenerated\ code.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00139}00139\ \textcolor{comment}{\ *\ Least-\/significant\ 4\ bits\ tell\ the\ scalar\ type}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00140}00140\ \textcolor{comment}{\ *\ Most-\/significant\ 4\ bits\ specify\ repeated/required/packed\ etc.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00141}00141\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00143}\mbox{\hyperlink{pb_8h_aef2b931eff868535f32a94ceb8daab8c}{00143}}\ \textcolor{keyword}{typedef}\ uint\_least8\_t\ \mbox{\hyperlink{pb_8h_aef2b931eff868535f32a94ceb8daab8c}{pb\_type\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00145}00145\ \textcolor{comment}{/****\ Field\ data\ types\ ****/}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00147}00147\ \textcolor{comment}{/*\ Numeric\ types\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00148}\mbox{\hyperlink{pb_8h_ac2d06294cb8dddb1e380409766c96a0f}{00148}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_VARINT\ \ 0x00\ }\textcolor{comment}{/*\ int32,\ int64,\ enum,\ bool\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00149}\mbox{\hyperlink{pb_8h_ab523fcf3796998715f3cb35e797ce71c}{00149}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_UVARINT\ 0x01\ }\textcolor{comment}{/*\ uint32,\ uint64\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00150}\mbox{\hyperlink{pb_8h_a908472de368f552e756077a2154a80fa}{00150}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_SVARINT\ 0x02\ }\textcolor{comment}{/*\ sint32,\ sint64\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00151}\mbox{\hyperlink{pb_8h_ad6c4209af66b9ffc977655f155ef6515}{00151}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_FIXED32\ 0x03\ }\textcolor{comment}{/*\ fixed32,\ sfixed32,\ float\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00152}\mbox{\hyperlink{pb_8h_a7e2aa141f9c7119af517d9ab16cf617b}{00152}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_FIXED64\ 0x04\ }\textcolor{comment}{/*\ fixed64,\ sfixed64,\ double\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00154}00154\ \textcolor{comment}{/*\ Marker\ for\ last\ packable\ field\ type.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00155}\mbox{\hyperlink{pb_8h_a8e49852a79ff629d50adc4ff88d3ed05}{00155}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_LAST\_PACKABLE\ 0x04}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00157}00157\ \textcolor{comment}{/*\ Byte\ array\ with\ pre-\/allocated\ buffer.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00158}00158\ \textcolor{comment}{\ *\ data\_size\ is\ the\ length\ of\ the\ allocated\ PB\_BYTES\_ARRAY\ structure.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00159}\mbox{\hyperlink{pb_8h_ac62f6dfbd8a02837bcb1450faa0e607c}{00159}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_BYTES\ 0x05}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00161}00161\ \textcolor{comment}{/*\ String\ with\ pre-\/allocated\ buffer.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00162}00162\ \textcolor{comment}{\ *\ data\_size\ is\ the\ maximum\ length.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00163}\mbox{\hyperlink{pb_8h_a588498669978143152bf436948f1fe4d}{00163}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_STRING\ 0x06}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00165}00165\ \textcolor{comment}{/*\ Submessage}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00166}00166\ \textcolor{comment}{\ *\ submsg\_fields\ is\ pointer\ to\ field\ descriptions\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00167}\mbox{\hyperlink{pb_8h_af301c0b3dcbb91a28042f96ab3eed106}{00167}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_SUBMESSAGE\ 0x07}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00169}00169\ \textcolor{comment}{/*\ Extension\ pseudo-\/field}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00170}00170\ \textcolor{comment}{\ *\ The\ field\ contains\ a\ pointer\ to\ pb\_extension\_t\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00171}\mbox{\hyperlink{pb_8h_a3ca4eec70c9bca93486aecc789c25dbd}{00171}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_EXTENSION\ 0x08}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00173}00173\ \textcolor{comment}{/*\ Number\ of\ declared\ LTYPES\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00174}\mbox{\hyperlink{pb_8h_abc499d8b4d9285dd03653e6a2bd8cb00}{00174}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPES\_COUNT\ 9}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00175}\mbox{\hyperlink{pb_8h_a381da9d00b4c9b2c13511badcc6697c9}{00175}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MASK\ 0x0F}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00177}00177\ \textcolor{comment}{/****\ Field\ repetition\ rules\ ****/}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00179}\mbox{\hyperlink{pb_8h_a82a7b6075d38e16c232fa2b3ae815d70}{00179}}\ \textcolor{preprocessor}{\#define\ PB\_HTYPE\_REQUIRED\ 0x00}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00180}\mbox{\hyperlink{pb_8h_a9e4034bb0c19a4c5c63cabc8b6941665}{00180}}\ \textcolor{preprocessor}{\#define\ PB\_HTYPE\_OPTIONAL\ 0x10}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00181}\mbox{\hyperlink{pb_8h_abe1cd338c5f62f35eacc6d452ef7161e}{00181}}\ \textcolor{preprocessor}{\#define\ PB\_HTYPE\_REPEATED\ 0x20}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00182}\mbox{\hyperlink{pb_8h_a945245b9fd421de3741911a90b84d86b}{00182}}\ \textcolor{preprocessor}{\#define\ PB\_HTYPE\_ONEOF\ \ \ \ 0x30}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00183}\mbox{\hyperlink{pb_8h_a0207b9f868bf26c683101730df79c6c0}{00183}}\ \textcolor{preprocessor}{\#define\ PB\_HTYPE\_MASK\ \ \ \ \ 0x30}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00185}00185\ \textcolor{comment}{/****\ Field\ allocation\ types\ ****/}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00186}00186\ \ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00187}\mbox{\hyperlink{pb_8h_a4d8cc2e7871464f160eed76e4bc99d63}{00187}}\ \textcolor{preprocessor}{\#define\ PB\_ATYPE\_STATIC\ \ \ 0x00}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00188}\mbox{\hyperlink{pb_8h_a5feef62dd049a1761b82d01145c53761}{00188}}\ \textcolor{preprocessor}{\#define\ PB\_ATYPE\_POINTER\ \ 0x80}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00189}\mbox{\hyperlink{pb_8h_a4d2036c3aa39d8116f1e3e0e521c5ee2}{00189}}\ \textcolor{preprocessor}{\#define\ PB\_ATYPE\_CALLBACK\ 0x40}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00190}\mbox{\hyperlink{pb_8h_ae2a1f0b166f3590461bef06633c2eab3}{00190}}\ \textcolor{preprocessor}{\#define\ PB\_ATYPE\_MASK\ \ \ \ \ 0xC0}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00192}\mbox{\hyperlink{pb_8h_a9a4e06170a1f4ad57b72e3d3e9aed726}{00192}}\ \textcolor{preprocessor}{\#define\ PB\_ATYPE(x)\ ((x)\ \&\ PB\_ATYPE\_MASK)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00193}\mbox{\hyperlink{pb_8h_a13b6b66eac64ebe9f39d08901f5f8a1e}{00193}}\ \textcolor{preprocessor}{\#define\ PB\_HTYPE(x)\ ((x)\ \&\ PB\_HTYPE\_MASK)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00194}\mbox{\hyperlink{pb_8h_ab616ebc3e83e52264f910cffcfa8a08a}{00194}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE(x)\ ((x)\ \&\ PB\_LTYPE\_MASK)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00196}00196\ \textcolor{comment}{/*\ Data\ type\ used\ for\ storing\ sizes\ of\ struct\ fields}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00197}00197\ \textcolor{comment}{\ *\ and\ array\ counts.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00198}00198\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00199}00199\ \textcolor{preprocessor}{\#if\ defined(PB\_FIELD\_32BIT)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00200}00200\ \ \ \ \ \textcolor{keyword}{typedef}\ uint32\_t\ \mbox{\hyperlink{pb_8h_a07fe6866e0d1d9332669cdae10fe6519}{pb\_size\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00201}00201\ \ \ \ \ \textcolor{keyword}{typedef}\ int32\_t\ \mbox{\hyperlink{pb_8h_acaf22c3be27fb961a1cb348a8eed8621}{pb\_ssize\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00202}00202\ \textcolor{preprocessor}{\#elif\ defined(PB\_FIELD\_16BIT)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00203}00203\ \ \ \ \ \textcolor{keyword}{typedef}\ uint\_least16\_t\ \mbox{\hyperlink{pb_8h_a07fe6866e0d1d9332669cdae10fe6519}{pb\_size\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00204}00204\ \ \ \ \ \textcolor{keyword}{typedef}\ int\_least16\_t\ \mbox{\hyperlink{pb_8h_acaf22c3be27fb961a1cb348a8eed8621}{pb\_ssize\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00205}00205\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00206}\mbox{\hyperlink{pb_8h_a07fe6866e0d1d9332669cdae10fe6519}{00206}}\ \ \ \ \ \textcolor{keyword}{typedef}\ uint\_least8\_t\ \mbox{\hyperlink{pb_8h_a07fe6866e0d1d9332669cdae10fe6519}{pb\_size\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00207}\mbox{\hyperlink{pb_8h_acaf22c3be27fb961a1cb348a8eed8621}{00207}}\ \ \ \ \ \textcolor{keyword}{typedef}\ int\_least8\_t\ \mbox{\hyperlink{pb_8h_acaf22c3be27fb961a1cb348a8eed8621}{pb\_ssize\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00208}00208\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00209}\mbox{\hyperlink{pb_8h_a74df46046a4da8b65c73a7459a0e32d7}{00209}}\ \textcolor{preprocessor}{\#define\ PB\_SIZE\_MAX\ ((pb\_size\_t)-\/1)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00211}00211\ \textcolor{comment}{/*\ Data\ type\ for\ storing\ encoded\ data\ and\ other\ byte\ streams.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00212}00212\ \textcolor{comment}{\ *\ This\ typedef\ exists\ to\ support\ platforms\ where\ uint8\_t\ does\ not\ exist.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00213}00213\ \textcolor{comment}{\ *\ You\ can\ regard\ it\ as\ equivalent\ on\ uint8\_t\ on\ other\ platforms.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00214}00214\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00215}\mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{00215}}\ \textcolor{keyword}{typedef}\ uint\_least8\_t\ \mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\_byte\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00217}00217\ \textcolor{comment}{/*\ This\ structure\ is\ used\ in\ auto-\/generated\ constants}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00218}00218\ \textcolor{comment}{\ *\ to\ specify\ struct\ fields.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00219}00219\ \textcolor{comment}{\ *\ You\ can\ change\ field\ sizes\ if\ you\ need\ structures}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00220}00220\ \textcolor{comment}{\ *\ larger\ than\ 256\ bytes\ or\ field\ tags\ larger\ than\ 256.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00221}00221\ \textcolor{comment}{\ *\ The\ compiler\ should\ complain\ if\ your\ .proto\ has\ such}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00222}00222\ \textcolor{comment}{\ *\ structures.\ Fix\ that\ by\ defining\ PB\_FIELD\_16BIT\ or}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00223}00223\ \textcolor{comment}{\ *\ PB\_FIELD\_32BIT.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00224}00224\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00225}00225\ \mbox{\hyperlink{pb_8h_a92cc851115d087966aa219a2301a721d}{PB\_PACKED\_STRUCT\_START}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00226}\mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{00226}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__field__s}{pb\_field\_s}}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00227}\mbox{\hyperlink{structpb__field__s}{00227}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__field__s}{pb\_field\_s}}\ \{}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00228}\mbox{\hyperlink{structpb__field__s_ab357e50f9a06af66b19dd4040a1a7a7d}{00228}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_a07fe6866e0d1d9332669cdae10fe6519}{pb\_size\_t}}\ \mbox{\hyperlink{structpb__field__s_ab357e50f9a06af66b19dd4040a1a7a7d}{tag}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00229}\mbox{\hyperlink{structpb__field__s_a3e1f6228b883e14c108cbfd9dbaaa392}{00229}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_aef2b931eff868535f32a94ceb8daab8c}{pb\_type\_t}}\ \mbox{\hyperlink{structpb__field__s_a3e1f6228b883e14c108cbfd9dbaaa392}{type}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00230}\mbox{\hyperlink{structpb__field__s_ab285835e1ec2e72000a9ac4083e7a0bc}{00230}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_a07fe6866e0d1d9332669cdae10fe6519}{pb\_size\_t}}\ \mbox{\hyperlink{structpb__field__s_ab285835e1ec2e72000a9ac4083e7a0bc}{data\_offset}};\ \textcolor{comment}{/*\ Offset\ of\ field\ data,\ relative\ to\ previous\ field.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00231}\mbox{\hyperlink{structpb__field__s_a98de59ce77ceb2bea4ffcc6cef93cac1}{00231}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_acaf22c3be27fb961a1cb348a8eed8621}{pb\_ssize\_t}}\ \mbox{\hyperlink{structpb__field__s_a98de59ce77ceb2bea4ffcc6cef93cac1}{size\_offset}};\ \textcolor{comment}{/*\ Offset\ of\ array\ size\ or\ has-\/boolean,\ relative\ to\ data\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00232}\mbox{\hyperlink{structpb__field__s_ad8bc42878809b80ca060f8eb4feeb87f}{00232}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_a07fe6866e0d1d9332669cdae10fe6519}{pb\_size\_t}}\ \mbox{\hyperlink{structpb__field__s_ad8bc42878809b80ca060f8eb4feeb87f}{data\_size}};\ \textcolor{comment}{/*\ Data\ size\ in\ bytes\ for\ a\ single\ item\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00233}\mbox{\hyperlink{structpb__field__s_a35a0a07c83af6f4c6911e5fdd834a0bf}{00233}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_a07fe6866e0d1d9332669cdae10fe6519}{pb\_size\_t}}\ \mbox{\hyperlink{structpb__field__s_a35a0a07c83af6f4c6911e5fdd834a0bf}{array\_size}};\ \textcolor{comment}{/*\ Maximum\ number\ of\ entries\ in\ array\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00234}00234\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00235}00235\ \ \ \ \ \textcolor{comment}{/*\ Field\ definitions\ for\ submessage}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00236}00236\ \textcolor{comment}{\ \ \ \ \ *\ OR\ default\ value\ for\ all\ other\ non-\/array,\ non-\/callback\ types}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00237}00237\ \textcolor{comment}{\ \ \ \ \ *\ If\ null,\ then\ field\ will\ zeroed.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00238}\mbox{\hyperlink{structpb__field__s_a67a073f9609017ffcba6010abe9d867d}{00238}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__field__s_a67a073f9609017ffcba6010abe9d867d}{ptr}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00239}\mbox{\hyperlink{pb_8h_a22ccf7062034dd415674b8ae5e6e2f7f}{00239}}\ \}\ \mbox{\hyperlink{pb_8h_a4bfa1b4964889b18e285d43526d8e735}{pb\_packed}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00240}00240\ \mbox{\hyperlink{pb_8h_a298390c2a9b3911c09f6467d9427aa20}{PB\_PACKED\_STRUCT\_END}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00242}00242\ \textcolor{comment}{/*\ Make\ sure\ that\ the\ standard\ integer\ types\ are\ of\ the\ expected\ sizes.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00243}00243\ \textcolor{comment}{\ *\ Otherwise\ fixed32/fixed64\ fields\ can\ break.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00244}00244\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00245}00245\ \textcolor{comment}{\ *\ If\ you\ get\ errors\ here,\ it\ probably\ means\ that\ your\ stdint.h\ is\ not}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00246}00246\ \textcolor{comment}{\ *\ correct\ for\ your\ platform.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00247}00247\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00248}\mbox{\hyperlink{pb_8h_a27cbbefea96d7af93baad9e864a03361}{00248}}\ \mbox{\hyperlink{pb_8h_a109c137397d42393f89fa66d22b19468}{PB\_STATIC\_ASSERT}}(\textcolor{keyword}{sizeof}(int64\_t)\ ==\ 2\ *\ \textcolor{keyword}{sizeof}(int32\_t),\ INT64\_T\_WRONG\_SIZE)}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00249}00249\ \mbox{\hyperlink{pb_8h_a109c137397d42393f89fa66d22b19468}{PB\_STATIC\_ASSERT}}(\textcolor{keyword}{sizeof}(uint64\_t)\ ==\ 2\ *\ \textcolor{keyword}{sizeof}(uint32\_t),\ UINT64\_T\_WRONG\_SIZE)}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00251}00251\ \textcolor{comment}{/*\ This\ structure\ is\ used\ for\ 'bytes'\ arrays.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00252}00252\ \textcolor{comment}{\ *\ It\ has\ the\ number\ of\ bytes\ in\ the\ beginning,\ and\ after\ that\ an\ array.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00253}00253\ \textcolor{comment}{\ *\ Note\ that\ actual\ structs\ used\ will\ have\ a\ different\ length\ of\ bytes\ array.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00254}00254\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00255}\mbox{\hyperlink{pb_8h_a750bdea0f2da13f5a959ff3fc94e790f}{00255}}\ \textcolor{preprocessor}{\#define\ PB\_BYTES\_ARRAY\_T(n)\ struct\ \{\ pb\_size\_t\ size;\ pb\_byte\_t\ bytes[n];\ \}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00256}\mbox{\hyperlink{pb_8h_a6f914e09ca94cfe2af00880e4401823a}{00256}}\ \textcolor{preprocessor}{\#define\ PB\_BYTES\_ARRAY\_T\_ALLOCSIZE(n)\ ((size\_t)n\ +\ offsetof(pb\_bytes\_array\_t,\ bytes))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00258}\mbox{\hyperlink{structpb__bytes__array__s}{00258}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__bytes__array__s}{pb\_bytes\_array\_s}}\ \{}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00259}\mbox{\hyperlink{structpb__bytes__array__s_a4b4511e93a62ffd36f6b066273a3f53d}{00259}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_a07fe6866e0d1d9332669cdae10fe6519}{pb\_size\_t}}\ \mbox{\hyperlink{structpb__bytes__array__s_a4b4511e93a62ffd36f6b066273a3f53d}{size}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00260}\mbox{\hyperlink{structpb__bytes__array__s_a9d726987b85fa78c85c5def56a1ca4b1}{00260}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\_byte\_t}}\ \mbox{\hyperlink{structpb__bytes__array__s_a9d726987b85fa78c85c5def56a1ca4b1}{bytes}}[1];}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00261}00261\ \};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00262}\mbox{\hyperlink{pb_8h_a60003640da6f887fee73fab65e8c110d}{00262}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__bytes__array__s}{pb\_bytes\_array\_s}}\ \mbox{\hyperlink{structpb__bytes__array__s}{pb\_bytes\_array\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00264}00264\ \textcolor{comment}{/*\ This\ structure\ is\ used\ for\ giving\ the\ callback\ function.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00265}00265\ \textcolor{comment}{\ *\ It\ is\ stored\ in\ the\ message\ structure\ and\ filled\ in\ by\ the\ method\ that}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00266}00266\ \textcolor{comment}{\ *\ calls\ pb\_decode.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00267}00267\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00268}00268\ \textcolor{comment}{\ *\ The\ decoding\ callback\ will\ be\ given\ a\ limited-\/length\ stream}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00269}00269\ \textcolor{comment}{\ *\ If\ the\ wire\ type\ was\ string,\ the\ length\ is\ the\ length\ of\ the\ string.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00270}00270\ \textcolor{comment}{\ *\ If\ the\ wire\ type\ was\ a\ varint/fixed32/fixed64,\ the\ length\ is\ the\ length}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00271}00271\ \textcolor{comment}{\ *\ of\ the\ actual\ value.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00272}00272\ \textcolor{comment}{\ *\ The\ function\ may\ be\ called\ multiple\ times\ (especially\ for\ repeated\ types,}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00273}00273\ \textcolor{comment}{\ *\ but\ also\ otherwise\ if\ the\ message\ happens\ to\ contain\ the\ field\ multiple}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00274}00274\ \textcolor{comment}{\ *\ times.)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00275}00275\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00276}00276\ \textcolor{comment}{\ *\ The\ encoding\ callback\ will\ receive\ the\ actual\ output\ stream.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00277}00277\ \textcolor{comment}{\ *\ It\ should\ write\ all\ the\ data\ in\ one\ call,\ including\ the\ field\ tag\ and}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00278}00278\ \textcolor{comment}{\ *\ wire\ type.\ It\ can\ write\ multiple\ fields.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00279}00279\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00280}00280\ \textcolor{comment}{\ *\ The\ callback\ can\ be\ null\ if\ you\ want\ to\ skip\ a\ field.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00281}00281\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00282}\mbox{\hyperlink{pb_8h_ae4a0d49c85b2eb9e3497a4352aa0db63}{00282}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__istream__s}{pb\_istream\_s}}\ \mbox{\hyperlink{structpb__istream__s}{pb\_istream\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00283}\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{00283}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_s}}\ \mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00284}\mbox{\hyperlink{pb_8h_adc7a7a4ae9fb6a19766dc6ae0c272012}{00284}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__callback__s}{pb\_callback\_s}}\ \mbox{\hyperlink{structpb__callback__s}{pb\_callback\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00285}\mbox{\hyperlink{structpb__callback__s}{00285}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__callback__s}{pb\_callback\_s}}\ \{}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00286}00286\ \textcolor{preprocessor}{\#ifdef\ PB\_OLD\_CALLBACK\_STYLE}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00287}00287\ \ \ \ \ \textcolor{comment}{/*\ Deprecated\ since\ nanopb-\/0.2.1\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00288}00288\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00289}00289\ \ \ \ \ \ \ \ \ bool\ (*\mbox{\hyperlink{structpb__callback__s_a2653fd8f7b040fdf0e3c71c0b72ed35a}{decode}})(\mbox{\hyperlink{structpb__istream__s}{pb\_istream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ *field,\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__callback__s_a3cc8f3ad6ff8c967d392a7b1f1451a1b}{arg}});}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00290}00290\ \ \ \ \ \ \ \ \ bool\ (*\mbox{\hyperlink{structpb__callback__s_afda7608dcc2d2c4515a9c4c2112d583f}{encode}})(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ *field,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__callback__s_a3cc8f3ad6ff8c967d392a7b1f1451a1b}{arg}});}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00291}00291\ \ \ \ \ \}\ \mbox{\hyperlink{structpb__callback__s_a7edb97d5e20cf31e6aa23320e8f62a2f}{funcs}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00292}00292\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00293}00293\ \ \ \ \ \textcolor{comment}{/*\ New\ function\ signature,\ which\ allows\ modifying\ arg\ contents\ in\ callback.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00294}00294\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00295}\mbox{\hyperlink{structpb__callback__s_a2653fd8f7b040fdf0e3c71c0b72ed35a}{00295}}\ \ \ \ \ \ \ \ \ bool\ (*\mbox{\hyperlink{structpb__callback__s_a2653fd8f7b040fdf0e3c71c0b72ed35a}{decode}})(\mbox{\hyperlink{structpb__istream__s}{pb\_istream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ *field,\ \textcolor{keywordtype}{void}\ **\mbox{\hyperlink{structpb__callback__s_a3cc8f3ad6ff8c967d392a7b1f1451a1b}{arg}});}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00296}\mbox{\hyperlink{structpb__callback__s_afda7608dcc2d2c4515a9c4c2112d583f}{00296}}\ \ \ \ \ \ \ \ \ bool\ (*\mbox{\hyperlink{structpb__callback__s_afda7608dcc2d2c4515a9c4c2112d583f}{encode}})(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ *field,\ \textcolor{keywordtype}{void}\ *\ \textcolor{keyword}{const}\ *\mbox{\hyperlink{structpb__callback__s_a3cc8f3ad6ff8c967d392a7b1f1451a1b}{arg}});}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00297}\mbox{\hyperlink{structpb__callback__s_a7edb97d5e20cf31e6aa23320e8f62a2f}{00297}}\ \ \ \ \ \}\ \mbox{\hyperlink{structpb__callback__s_a7edb97d5e20cf31e6aa23320e8f62a2f}{funcs}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00298}00298\ \textcolor{preprocessor}{\#endif\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00299}00299\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00300}00300\ \ \ \ \ \textcolor{comment}{/*\ Free\ arg\ for\ use\ by\ callback\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00301}\mbox{\hyperlink{structpb__callback__s_a3cc8f3ad6ff8c967d392a7b1f1451a1b}{00301}}\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__callback__s_a3cc8f3ad6ff8c967d392a7b1f1451a1b}{arg}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00302}00302\ \};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00303}00303\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00304}00304\ \textcolor{comment}{/*\ Wire\ types.\ Library\ user\ needs\ these\ only\ in\ encoder\ callbacks.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00305}\mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bf}{00305}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00306}\mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bfa11971c70664957a2b6cfaf0bb849009d}{00306}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bfa11971c70664957a2b6cfaf0bb849009d}{PB\_WT\_VARINT}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00307}\mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bfaf958e1dfda6fe6eb3a477234b394abec}{00307}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bfaf958e1dfda6fe6eb3a477234b394abec}{PB\_WT\_64BIT}}\ \ =\ 1,}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00308}\mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bfae3bb480a42c661a43f2a29c3ea9ef5e7}{00308}}\ \ \ \ \ \mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bfae3bb480a42c661a43f2a29c3ea9ef5e7}{PB\_WT\_STRING}}\ =\ 2,}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00309}00309\ \ \ \ \ \mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bfa810a9701e115714e2fc7d02fb1666f09}{PB\_WT\_32BIT}}\ \ =\ 5}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00310}\mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bfa810a9701e115714e2fc7d02fb1666f09}{00310}}\ \}\ \mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bf}{pb\_wire\_type\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00312}00312\ \textcolor{comment}{/*\ Structure\ for\ defining\ the\ handling\ of\ unknown/extension\ fields.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00313}00313\ \textcolor{comment}{\ *\ Usually\ the\ pb\_extension\_type\_t\ structure\ is\ automatically\ generated,}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00314}00314\ \textcolor{comment}{\ *\ while\ the\ pb\_extension\_t\ structure\ is\ created\ by\ the\ user.\ However,}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00315}00315\ \textcolor{comment}{\ *\ if\ you\ want\ to\ catch\ all\ unknown\ fields,\ you\ can\ also\ create\ a\ custom}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00316}00316\ \textcolor{comment}{\ *\ pb\_extension\_type\_t\ with\ your\ own\ callback.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00317}00317\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00318}\mbox{\hyperlink{pb_8h_a70b16f1415cf84ba36fc38ed07c19c6f}{00318}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__extension__type__s}{pb\_extension\_type\_s}}\ \mbox{\hyperlink{structpb__extension__type__s}{pb\_extension\_type\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00319}\mbox{\hyperlink{pb_8h_acdcaf79f3e81e71ad851c9c4aef5ad69}{00319}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__extension__s}{pb\_extension\_s}}\ \mbox{\hyperlink{structpb__extension__s}{pb\_extension\_t}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00320}\mbox{\hyperlink{structpb__extension__type__s}{00320}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__extension__type__s}{pb\_extension\_type\_s}}\ \{}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00321}00321\ \ \ \ \ \textcolor{comment}{/*\ Called\ for\ each\ unknown\ field\ in\ the\ message.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00322}00322\ \textcolor{comment}{\ \ \ \ \ *\ If\ you\ handle\ the\ field,\ read\ off\ all\ of\ its\ data\ and\ return\ true.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00323}00323\ \textcolor{comment}{\ \ \ \ \ *\ If\ you\ do\ not\ handle\ the\ field,\ do\ not\ read\ anything\ and\ return\ true.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00324}00324\ \textcolor{comment}{\ \ \ \ \ *\ If\ you\ run\ into\ an\ error,\ return\ false.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00325}00325\ \textcolor{comment}{\ \ \ \ \ *\ Set\ to\ NULL\ for\ default\ handler.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00326}00326\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00327}\mbox{\hyperlink{structpb__extension__type__s_ad6b83e237c3366f4c2f0f189c46718be}{00327}}\ \ \ \ \ bool\ (*\mbox{\hyperlink{structpb__extension__type__s_ad6b83e237c3366f4c2f0f189c46718be}{decode}})(\mbox{\hyperlink{structpb__istream__s}{pb\_istream\_t}}\ *stream,\ \mbox{\hyperlink{structpb__extension__s}{pb\_extension\_t}}\ *extension,}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ tag,\ \mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bf}{pb\_wire\_type\_t}}\ wire\_type);}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00329}00329\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00330}00330\ \ \ \ \ \textcolor{comment}{/*\ Called\ once\ after\ all\ regular\ fields\ have\ been\ encoded.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00331}00331\ \textcolor{comment}{\ \ \ \ \ *\ If\ you\ have\ something\ to\ write,\ do\ so\ and\ return\ true.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00332}00332\ \textcolor{comment}{\ \ \ \ \ *\ If\ you\ do\ not\ have\ anything\ to\ write,\ just\ return\ true.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00333}00333\ \textcolor{comment}{\ \ \ \ \ *\ If\ you\ run\ into\ an\ error,\ return\ false.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00334}00334\ \textcolor{comment}{\ \ \ \ \ *\ Set\ to\ NULL\ for\ default\ handler.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00335}00335\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00336}\mbox{\hyperlink{structpb__extension__type__s_afc835c35b4af322d911caab10ceb6928}{00336}}\ \ \ \ \ bool\ (*\mbox{\hyperlink{structpb__extension__type__s_afc835c35b4af322d911caab10ceb6928}{encode}})(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structpb__extension__s}{pb\_extension\_t}}\ *extension);}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00337}00337\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00338}00338\ \ \ \ \ \textcolor{comment}{/*\ Free\ field\ for\ use\ by\ the\ callback.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00339}\mbox{\hyperlink{structpb__extension__type__s_a814b085ac56b866b4ae74795277809a2}{00339}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__extension__type__s_a814b085ac56b866b4ae74795277809a2}{arg}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00340}00340\ \};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00342}\mbox{\hyperlink{structpb__extension__s}{00342}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__extension__s}{pb\_extension\_s}}\ \{}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00343}00343\ \ \ \ \ \textcolor{comment}{/*\ Type\ describing\ the\ extension\ field.\ Usually\ you'll\ initialize}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00344}00344\ \textcolor{comment}{\ \ \ \ \ *\ this\ to\ a\ pointer\ to\ the\ automatically\ generated\ structure.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00345}\mbox{\hyperlink{structpb__extension__s_a3c3a1998be35b8c6486d19a45dbe613e}{00345}}\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structpb__extension__type__s}{pb\_extension\_type\_t}}\ *\mbox{\hyperlink{structpb__extension__s_a3c3a1998be35b8c6486d19a45dbe613e}{type}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00346}00346\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00347}00347\ \ \ \ \ \textcolor{comment}{/*\ Destination\ for\ the\ decoded\ data.\ This\ must\ match\ the\ datatype}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00348}00348\ \textcolor{comment}{\ \ \ \ \ *\ of\ the\ extension\ field.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00349}\mbox{\hyperlink{structpb__extension__s_a1d7be46f262b691d70a9ec502534f8ae}{00349}}\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__extension__s_a1d7be46f262b691d70a9ec502534f8ae}{dest}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00350}00350\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00351}00351\ \ \ \ \ \textcolor{comment}{/*\ Pointer\ to\ the\ next\ extension\ handler,\ or\ NULL.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00352}00352\ \textcolor{comment}{\ \ \ \ \ *\ If\ this\ extension\ does\ not\ match\ a\ field,\ the\ next\ handler\ is}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00353}00353\ \textcolor{comment}{\ \ \ \ \ *\ automatically\ called.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00354}\mbox{\hyperlink{structpb__extension__s_a305c87e1aafda526be8b3d9b0b55eaa2}{00354}}\ \ \ \ \ \mbox{\hyperlink{structpb__extension__s}{pb\_extension\_t}}\ *\mbox{\hyperlink{structpb__extension__s_a305c87e1aafda526be8b3d9b0b55eaa2}{next}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00356}00356\ \ \ \ \ \textcolor{comment}{/*\ The\ decoder\ sets\ this\ to\ true\ if\ the\ extension\ was\ found.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00357}00357\ \textcolor{comment}{\ \ \ \ \ *\ Ignored\ for\ encoding.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00358}\mbox{\hyperlink{structpb__extension__s_a188b555ba3d46bfe1d46d7c89f1bbd1a}{00358}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structpb__extension__s_a188b555ba3d46bfe1d46d7c89f1bbd1a}{found}};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00359}00359\ \};}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00360}00360\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00361}00361\ \textcolor{comment}{/*\ Memory\ allocation\ functions\ to\ use.\ You\ can\ define\ pb\_realloc\ and}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00362}00362\ \textcolor{comment}{\ *\ pb\_free\ to\ custom\ functions\ if\ you\ want.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00363}00363\ \textcolor{preprocessor}{\#ifdef\ PB\_ENABLE\_MALLOC}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00364}00364\ \textcolor{preprocessor}{\#\ \ \ ifndef\ pb\_realloc}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00365}00365\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ pb\_realloc(ptr,\ size)\ realloc(ptr,\ size)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00366}00366\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00367}00367\ \textcolor{preprocessor}{\#\ \ \ ifndef\ pb\_free}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00368}00368\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ pb\_free(ptr)\ free(ptr)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00369}00369\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00370}00370\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00371}00371\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00372}00372\ \textcolor{comment}{/*\ This\ is\ used\ to\ inform\ about\ need\ to\ regenerate\ .pb.h/.pb.c\ files.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00373}\mbox{\hyperlink{pb_8h_a1a3cd235f0351442911ee35f84761b7a}{00373}}\ \textcolor{preprocessor}{\#define\ PB\_PROTO\_HEADER\_VERSION\ 30}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00374}00374\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00375}00375\ \textcolor{comment}{/*\ These\ macros\ are\ used\ to\ declare\ pb\_field\_t's\ in\ the\ constant\ array.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00376}00376\ \textcolor{comment}{/*\ Size\ of\ a\ structure\ member,\ in\ bytes.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00377}\mbox{\hyperlink{pb_8h_aaf455005b589d46e57462870e301b701}{00377}}\ \textcolor{preprocessor}{\#define\ pb\_membersize(st,\ m)\ (sizeof\ ((st*)0)-\/>m)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00378}00378\ \textcolor{comment}{/*\ Number\ of\ entries\ in\ an\ array.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00379}\mbox{\hyperlink{pb_8h_a532aedd84581cabe14f9e2b3c9b67186}{00379}}\ \textcolor{preprocessor}{\#define\ pb\_arraysize(st,\ m)\ (pb\_membersize(st,\ m)\ /\ pb\_membersize(st,\ m[0]))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00380}00380\ \textcolor{comment}{/*\ Delta\ from\ start\ of\ one\ member\ to\ the\ start\ of\ another\ member.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00381}\mbox{\hyperlink{pb_8h_a986f3ea4d74541a9918007078b2bac99}{00381}}\ \textcolor{preprocessor}{\#define\ pb\_delta(st,\ m1,\ m2)\ ((int)offsetof(st,\ m1)\ -\/\ (int)offsetof(st,\ m2))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00382}00382\ \textcolor{comment}{/*\ Marks\ the\ end\ of\ the\ field\ list\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00383}\mbox{\hyperlink{pb_8h_a605c728e9539a47fabdec96745b92a39}{00383}}\ \textcolor{preprocessor}{\#define\ PB\_LAST\_FIELD\ \{0,(pb\_type\_t)\ 0,0,0,0,0,0\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00385}00385\ \textcolor{comment}{/*\ Macros\ for\ filling\ in\ the\ data\_offset\ field\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00386}00386\ \textcolor{comment}{/*\ data\_offset\ for\ first\ field\ in\ a\ message\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00387}\mbox{\hyperlink{pb_8h_a5057f877a167b3e945f9a70db7939319}{00387}}\ \textcolor{preprocessor}{\#define\ PB\_DATAOFFSET\_FIRST(st,\ m1,\ m2)\ (offsetof(st,\ m1))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00388}00388\ \textcolor{comment}{/*\ data\_offset\ for\ subsequent\ fields\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00389}\mbox{\hyperlink{pb_8h_a00bea7936c0b4dfe10babdc32662ba41}{00389}}\ \textcolor{preprocessor}{\#define\ PB\_DATAOFFSET\_OTHER(st,\ m1,\ m2)\ (offsetof(st,\ m1)\ -\/\ offsetof(st,\ m2)\ -\/\ pb\_membersize(st,\ m2))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00390}00390\ \textcolor{comment}{/*\ Choose\ first/other\ based\ on\ m1\ ==\ m2\ (deprecated,\ remains\ for\ backwards\ compatibility)\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00391}\mbox{\hyperlink{pb_8h_a043b48d448b3cb4141715df4b6017f85}{00391}}\ \textcolor{preprocessor}{\#define\ PB\_DATAOFFSET\_CHOOSE(st,\ m1,\ m2)\ (int)(offsetof(st,\ m1)\ ==\ offsetof(st,\ m2)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00392}00392\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ PB\_DATAOFFSET\_FIRST(st,\ m1,\ m2)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00393}00393\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ PB\_DATAOFFSET\_OTHER(st,\ m1,\ m2))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00394}00394\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00395}00395\ \textcolor{comment}{/*\ Required\ fields\ are\ the\ simplest.\ They\ just\ have\ delta\ (padding)\ from}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00396}00396\ \textcolor{comment}{\ *\ previous\ field\ end,\ and\ the\ size\ of\ the\ field.\ Pointer\ is\ used\ for}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00397}00397\ \textcolor{comment}{\ *\ submessages\ and\ default\ values.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00398}00398\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00399}\mbox{\hyperlink{pb_8h_a15dfb97e7e125788d1f8edce11855552}{00399}}\ \textcolor{preprocessor}{\#define\ PB\_REQUIRED\_STATIC(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00400}00400\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_STATIC\ |\ PB\_HTYPE\_REQUIRED\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00401}00401\ \textcolor{preprocessor}{\ \ \ \ fd,\ 0,\ pb\_membersize(st,\ m),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00403}00403\ \textcolor{comment}{/*\ Optional\ fields\ add\ the\ delta\ to\ the\ has\_\ variable.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00404}\mbox{\hyperlink{pb_8h_a4980556234e8eedc7b9d51c879fcab34}{00404}}\ \textcolor{preprocessor}{\#define\ PB\_OPTIONAL\_STATIC(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00405}00405\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_STATIC\ |\ PB\_HTYPE\_OPTIONAL\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00406}00406\ \textcolor{preprocessor}{\ \ \ \ fd,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00407}00407\ \textcolor{preprocessor}{\ \ \ \ pb\_delta(st,\ has\_\ \#\#\ m,\ m),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00408}00408\ \textcolor{preprocessor}{\ \ \ \ pb\_membersize(st,\ m),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00409}00409\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00410}00410\ \textcolor{comment}{/*\ Repeated\ fields\ have\ a\ \_count\ field\ and\ also\ the\ maximum\ number\ of\ entries.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00411}\mbox{\hyperlink{pb_8h_a7eb682896e21747912767c49825a7788}{00411}}\ \textcolor{preprocessor}{\#define\ PB\_REPEATED\_STATIC(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00412}00412\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_STATIC\ |\ PB\_HTYPE\_REPEATED\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00413}00413\ \textcolor{preprocessor}{\ \ \ \ fd,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00414}00414\ \textcolor{preprocessor}{\ \ \ \ pb\_delta(st,\ m\ \#\#\ \_count,\ m),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00415}00415\ \textcolor{preprocessor}{\ \ \ \ pb\_membersize(st,\ m[0]),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00416}00416\ \textcolor{preprocessor}{\ \ \ \ pb\_arraysize(st,\ m),\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00417}00417\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00418}00418\ \textcolor{comment}{/*\ Allocated\ fields\ carry\ the\ size\ of\ the\ actual\ data,\ not\ the\ pointer\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00419}\mbox{\hyperlink{pb_8h_a2884070b9ad92ba35ba4575d1dcfc3db}{00419}}\ \textcolor{preprocessor}{\#define\ PB\_REQUIRED\_POINTER(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00420}00420\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_POINTER\ |\ PB\_HTYPE\_REQUIRED\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00421}00421\ \textcolor{preprocessor}{\ \ \ \ fd,\ 0,\ pb\_membersize(st,\ m[0]),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00422}00422\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00423}00423\ \textcolor{comment}{/*\ Optional\ fields\ don't\ need\ a\ has\_\ variable,\ as\ information\ would\ be\ redundant\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00424}\mbox{\hyperlink{pb_8h_ad28ad4baced037dfbc0ffcace17e049a}{00424}}\ \textcolor{preprocessor}{\#define\ PB\_OPTIONAL\_POINTER(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00425}00425\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_POINTER\ |\ PB\_HTYPE\_OPTIONAL\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00426}00426\ \textcolor{preprocessor}{\ \ \ \ fd,\ 0,\ pb\_membersize(st,\ m[0]),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00427}00427\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00428}00428\ \textcolor{comment}{/*\ Repeated\ fields\ have\ a\ \_count\ field\ and\ a\ pointer\ to\ array\ of\ pointers\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00429}\mbox{\hyperlink{pb_8h_ab0abd759ac5ebb5247aa58b7296b19f2}{00429}}\ \textcolor{preprocessor}{\#define\ PB\_REPEATED\_POINTER(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00430}00430\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_POINTER\ |\ PB\_HTYPE\_REPEATED\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00431}00431\ \textcolor{preprocessor}{\ \ \ \ fd,\ pb\_delta(st,\ m\ \#\#\ \_count,\ m),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00432}00432\ \textcolor{preprocessor}{\ \ \ \ pb\_membersize(st,\ m[0]),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00433}00433\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00434}00434\ \textcolor{comment}{/*\ Callbacks\ are\ much\ like\ required\ fields\ except\ with\ special\ datatype.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00435}\mbox{\hyperlink{pb_8h_a5036905f0fe495fc3ca286040ed87848}{00435}}\ \textcolor{preprocessor}{\#define\ PB\_REQUIRED\_CALLBACK(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00436}00436\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_CALLBACK\ |\ PB\_HTYPE\_REQUIRED\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00437}00437\ \textcolor{preprocessor}{\ \ \ \ fd,\ 0,\ pb\_membersize(st,\ m),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00438}00438\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00439}\mbox{\hyperlink{pb_8h_a4ea7c6ec61eaf2a978fcde540518896d}{00439}}\ \textcolor{preprocessor}{\#define\ PB\_OPTIONAL\_CALLBACK(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00440}00440\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_CALLBACK\ |\ PB\_HTYPE\_OPTIONAL\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00441}00441\ \textcolor{preprocessor}{\ \ \ \ fd,\ 0,\ pb\_membersize(st,\ m),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00442}00442\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00443}\mbox{\hyperlink{pb_8h_aefcf9199e49bcbaac7015a522c9422c9}{00443}}\ \textcolor{preprocessor}{\#define\ PB\_REPEATED\_CALLBACK(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00444}00444\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_CALLBACK\ |\ PB\_HTYPE\_REPEATED\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00445}00445\ \textcolor{preprocessor}{\ \ \ \ fd,\ 0,\ pb\_membersize(st,\ m),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00446}00446\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00447}00447\ \textcolor{comment}{/*\ Optional\ extensions\ don't\ have\ the\ has\_\ field,\ as\ that\ would\ be\ redundant.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00448}\mbox{\hyperlink{pb_8h_abbb9206c8d6400e8142f324ae5e3a8c7}{00448}}\ \textcolor{preprocessor}{\#define\ PB\_OPTEXT\_STATIC(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00449}00449\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_STATIC\ |\ PB\_HTYPE\_OPTIONAL\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00450}00450\ \textcolor{preprocessor}{\ \ \ \ 0,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00451}00451\ \textcolor{preprocessor}{\ \ \ \ 0,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00452}00452\ \textcolor{preprocessor}{\ \ \ \ pb\_membersize(st,\ m),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00453}00453\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00454}\mbox{\hyperlink{pb_8h_a47d1c80c1e3150efa8681f587c944b05}{00454}}\ \textcolor{preprocessor}{\#define\ PB\_OPTEXT\_POINTER(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00455}00455\ \textcolor{preprocessor}{\ \ \ \ PB\_OPTIONAL\_POINTER(tag,\ st,\ m,\ fd,\ ltype,\ ptr)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00456}00456\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00457}\mbox{\hyperlink{pb_8h_a0d7f6cb967b28925f4567c3b7088c931}{00457}}\ \textcolor{preprocessor}{\#define\ PB\_OPTEXT\_CALLBACK(tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00458}00458\ \textcolor{preprocessor}{\ \ \ \ PB\_OPTIONAL\_CALLBACK(tag,\ st,\ m,\ fd,\ ltype,\ ptr)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00459}00459\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00460}00460\ \textcolor{comment}{/*\ The\ mapping\ from\ protobuf\ types\ to\ LTYPEs\ is\ done\ using\ these\ macros.\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00461}\mbox{\hyperlink{pb_8h_a3e4a45f8aba1f63053b3064b13f5d643}{00461}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_BOOL\ \ \ \ \ \ \ PB\_LTYPE\_VARINT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00462}\mbox{\hyperlink{pb_8h_a0589e9591f99ea24cc549617dd2fbbee}{00462}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_BYTES\ \ \ \ \ \ PB\_LTYPE\_BYTES}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00463}\mbox{\hyperlink{pb_8h_a04b70bbaaf6ffeabc829b49e5e4c843c}{00463}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_DOUBLE\ \ \ \ \ PB\_LTYPE\_FIXED64}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00464}\mbox{\hyperlink{pb_8h_afca59ab4029d8f56be08a84379759d65}{00464}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_ENUM\ \ \ \ \ \ \ PB\_LTYPE\_VARINT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00465}\mbox{\hyperlink{pb_8h_a5f0a5a3f45c27b5a766c31853cbab0e1}{00465}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_UENUM\ \ \ \ \ \ PB\_LTYPE\_UVARINT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00466}\mbox{\hyperlink{pb_8h_a2a0d5f08f3cc26331c450a4b093741be}{00466}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_FIXED32\ \ \ \ PB\_LTYPE\_FIXED32}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00467}\mbox{\hyperlink{pb_8h_ad5ccf85f68840535b1ddc035b475c79a}{00467}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_FIXED64\ \ \ \ PB\_LTYPE\_FIXED64}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00468}\mbox{\hyperlink{pb_8h_abe046fe370901352af9dd4e40fbf7734}{00468}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_FLOAT\ \ \ \ \ \ PB\_LTYPE\_FIXED32}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00469}\mbox{\hyperlink{pb_8h_ac4bbefef25a26a6110566552e3cae889}{00469}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_INT32\ \ \ \ \ \ PB\_LTYPE\_VARINT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00470}\mbox{\hyperlink{pb_8h_a70a922c1e7e907a3878c47c404f0f2f6}{00470}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_INT64\ \ \ \ \ \ PB\_LTYPE\_VARINT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00471}\mbox{\hyperlink{pb_8h_a06358883b992977278fc176025c575b1}{00471}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_MESSAGE\ \ \ \ PB\_LTYPE\_SUBMESSAGE}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00472}\mbox{\hyperlink{pb_8h_a2402dcf3724300cb18d19e2c813db38b}{00472}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_SFIXED32\ \ \ PB\_LTYPE\_FIXED32}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00473}\mbox{\hyperlink{pb_8h_a655004b52aef4fae9ab9feba800e9436}{00473}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_SFIXED64\ \ \ PB\_LTYPE\_FIXED64}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00474}\mbox{\hyperlink{pb_8h_a0d75d1888e9d3097968c073da741f2f4}{00474}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_SINT32\ \ \ \ \ PB\_LTYPE\_SVARINT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00475}\mbox{\hyperlink{pb_8h_a81f0f4117262527de4f143ee47a14d95}{00475}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_SINT64\ \ \ \ \ PB\_LTYPE\_SVARINT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00476}\mbox{\hyperlink{pb_8h_a6cca242172be28f6f4cf6b8f932dea42}{00476}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_STRING\ \ \ \ \ PB\_LTYPE\_STRING}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00477}\mbox{\hyperlink{pb_8h_aba9b3426fe13496a1f139650ebe288e6}{00477}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_UINT32\ \ \ \ \ PB\_LTYPE\_UVARINT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00478}\mbox{\hyperlink{pb_8h_a1f2e09f5ec5bdd0452312ef41ed12ba6}{00478}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_UINT64\ \ \ \ \ PB\_LTYPE\_UVARINT}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00479}\mbox{\hyperlink{pb_8h_a2a60c7c6ee3a7ccc0b1a7762e2be964b}{00479}}\ \textcolor{preprocessor}{\#define\ PB\_LTYPE\_MAP\_EXTENSION\ \ PB\_LTYPE\_EXTENSION}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00480}00480\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00481}00481\ \textcolor{comment}{/*\ This\ is\ the\ actual\ macro\ used\ in\ field\ descriptions.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00482}00482\ \textcolor{comment}{\ *\ It\ takes\ these\ arguments:}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00483}00483\ \textcolor{comment}{\ *\ -\/\ Field\ tag\ number}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00484}00484\ \textcolor{comment}{\ *\ -\/\ Field\ type:\ \ \ BOOL,\ BYTES,\ DOUBLE,\ ENUM,\ UENUM,\ FIXED32,\ FIXED64,}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00485}00485\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOAT,\ INT32,\ INT64,\ MESSAGE,\ SFIXED32,\ SFIXED64}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00486}00486\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SINT32,\ SINT64,\ STRING,\ UINT32,\ UINT64\ or\ EXTENSION}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00487}00487\ \textcolor{comment}{\ *\ -\/\ Field\ rules:\ \ REQUIRED,\ OPTIONAL\ or\ REPEATED}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00488}00488\ \textcolor{comment}{\ *\ -\/\ Allocation:\ \ \ STATIC\ or\ CALLBACK}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00489}00489\ \textcolor{comment}{\ *\ -\/\ Placement:\ FIRST\ or\ OTHER,\ depending\ on\ if\ this\ is\ the\ first\ field\ in\ structure.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00490}00490\ \textcolor{comment}{\ *\ -\/\ Message\ name}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00491}00491\ \textcolor{comment}{\ *\ -\/\ Field\ name}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00492}00492\ \textcolor{comment}{\ *\ -\/\ Previous\ field\ name\ (or\ field\ name\ again\ for\ first\ field)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00493}00493\ \textcolor{comment}{\ *\ -\/\ Pointer\ to\ default\ value\ or\ submsg\ fields.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00494}00494\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00495}00495\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00496}\mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{00496}}\ \textcolor{preprocessor}{\#define\ PB\_FIELD(tag,\ type,\ rules,\ allocation,\ placement,\ message,\ field,\ prevfield,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00497}00497\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ PB\_\ \#\#\ rules\ \#\#\ \_\ \#\#\ allocation(tag,\ message,\ field,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00498}00498\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ PB\_DATAOFFSET\_\ \#\#\ placement(message,\ field,\ prevfield),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00499}00499\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ PB\_LTYPE\_MAP\_\ \#\#\ type,\ ptr)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00500}00500\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00501}00501\ \textcolor{comment}{/*\ Field\ description\ for\ oneof\ fields.\ This\ requires\ taking\ into\ account\ the}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00502}00502\ \textcolor{comment}{\ *\ union\ name\ also,\ that's\ why\ a\ separate\ set\ of\ macros\ is\ needed.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00503}00503\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00504}\mbox{\hyperlink{pb_8h_a4bf81c7fb91e037b1ece6e2d8406ca0b}{00504}}\ \textcolor{preprocessor}{\#define\ PB\_ONEOF\_STATIC(u,\ tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00505}00505\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_STATIC\ |\ PB\_HTYPE\_ONEOF\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00506}00506\ \textcolor{preprocessor}{\ \ \ \ fd,\ pb\_delta(st,\ which\_\ \#\#\ u,\ u.m),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00507}00507\ \textcolor{preprocessor}{\ \ \ \ pb\_membersize(st,\ u.m),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00508}00508\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00509}\mbox{\hyperlink{pb_8h_a342614096416a4bdf136584f2daf0237}{00509}}\ \textcolor{preprocessor}{\#define\ PB\_ONEOF\_POINTER(u,\ tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00510}00510\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_POINTER\ |\ PB\_HTYPE\_ONEOF\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00511}00511\ \textcolor{preprocessor}{\ \ \ \ fd,\ pb\_delta(st,\ which\_\ \#\#\ u,\ u.m),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00512}00512\ \textcolor{preprocessor}{\ \ \ \ pb\_membersize(st,\ u.m[0]),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00513}00513\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00514}\mbox{\hyperlink{pb_8h_aa9777dc8f56877fc7a3395e0e77bc534}{00514}}\ \textcolor{preprocessor}{\#define\ PB\_ONEOF\_FIELD(union\_name,\ tag,\ type,\ rules,\ allocation,\ placement,\ message,\ field,\ prevfield,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00515}00515\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ PB\_ONEOF\_\ \#\#\ allocation(union\_name,\ tag,\ message,\ field,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00516}00516\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ PB\_DATAOFFSET\_\ \#\#\ placement(message,\ union\_name.field,\ prevfield),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00517}00517\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ PB\_LTYPE\_MAP\_\ \#\#\ type,\ ptr)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00518}00518\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00519}\mbox{\hyperlink{pb_8h_a6c061e8da3bc5dcb4422b413d9642b66}{00519}}\ \textcolor{preprocessor}{\#define\ PB\_ANONYMOUS\_ONEOF\_STATIC(u,\ tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00520}00520\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_STATIC\ |\ PB\_HTYPE\_ONEOF\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00521}00521\ \textcolor{preprocessor}{\ \ \ \ fd,\ pb\_delta(st,\ which\_\ \#\#\ u,\ m),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00522}00522\ \textcolor{preprocessor}{\ \ \ \ pb\_membersize(st,\ m),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00523}00523\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00524}\mbox{\hyperlink{pb_8h_ac3bbf8c1ec6854fc17db5c2a62fa8fe0}{00524}}\ \textcolor{preprocessor}{\#define\ PB\_ANONYMOUS\_ONEOF\_POINTER(u,\ tag,\ st,\ m,\ fd,\ ltype,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00525}00525\ \textcolor{preprocessor}{\ \ \ \ \{tag,\ PB\_ATYPE\_POINTER\ |\ PB\_HTYPE\_ONEOF\ |\ ltype,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00526}00526\ \textcolor{preprocessor}{\ \ \ \ fd,\ pb\_delta(st,\ which\_\ \#\#\ u,\ m),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00527}00527\ \textcolor{preprocessor}{\ \ \ \ pb\_membersize(st,\ m[0]),\ 0,\ ptr\}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00528}00528\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00529}\mbox{\hyperlink{pb_8h_a71d362634ab5cdd2c3b6dc53310c22cb}{00529}}\ \textcolor{preprocessor}{\#define\ PB\_ANONYMOUS\_ONEOF\_FIELD(union\_name,\ tag,\ type,\ rules,\ allocation,\ placement,\ message,\ field,\ prevfield,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00530}00530\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ PB\_ANONYMOUS\_ONEOF\_\ \#\#\ allocation(union\_name,\ tag,\ message,\ field,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00531}00531\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ PB\_DATAOFFSET\_\ \#\#\ placement(message,\ field,\ prevfield),\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00532}00532\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ PB\_LTYPE\_MAP\_\ \#\#\ type,\ ptr)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00533}00533\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00534}00534\ \textcolor{comment}{/*\ These\ macros\ are\ used\ for\ giving\ out\ error\ messages.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00535}00535\ \textcolor{comment}{\ *\ They\ are\ mostly\ a\ debugging\ aid;\ the\ main\ error\ information}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00536}00536\ \textcolor{comment}{\ *\ is\ the\ true/false\ return\ value\ from\ functions.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00537}00537\ \textcolor{comment}{\ *\ Some\ code\ space\ can\ be\ saved\ by\ disabling\ the\ error}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00538}00538\ \textcolor{comment}{\ *\ messages\ if\ not\ used.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00539}00539\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00540}00540\ \textcolor{comment}{\ *\ PB\_SET\_ERROR()\ sets\ the\ error\ message\ if\ none\ has\ been\ set\ yet.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00541}00541\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg\ must\ be\ a\ constant\ string\ literal.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00542}00542\ \textcolor{comment}{\ *\ PB\_GET\_ERROR()\ always\ returns\ a\ pointer\ to\ a\ string.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00543}00543\ \textcolor{comment}{\ *\ PB\_RETURN\_ERROR()\ sets\ the\ error\ and\ returns\ false\ from\ current}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00544}00544\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ function.}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00545}00545\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00546}00546\ \textcolor{preprocessor}{\#ifdef\ PB\_NO\_ERRMSG}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00547}00547\ \textcolor{preprocessor}{\#define\ PB\_SET\_ERROR(stream,\ msg)\ PB\_UNUSED(stream)}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00548}00548\ \textcolor{preprocessor}{\#define\ PB\_GET\_ERROR(stream)\ "{}(errmsg\ disabled)"{}}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00549}00549\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00550}\mbox{\hyperlink{pb_8h_a57fc5f33f782a9199c1151084893db6b}{00550}}\ \textcolor{preprocessor}{\#define\ PB\_SET\_ERROR(stream,\ msg)\ (stream-\/>errmsg\ =\ (stream)-\/>errmsg\ ?\ (stream)-\/>errmsg\ :\ (msg))}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00551}\mbox{\hyperlink{pb_8h_a2d7551876cd376fde55768d63e7b675d}{00551}}\ \textcolor{preprocessor}{\#define\ PB\_GET\_ERROR(stream)\ ((stream)-\/>errmsg\ ?\ (stream)-\/>errmsg\ :\ "{}(none)"{})}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00552}00552\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00553}00553\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00554}\mbox{\hyperlink{pb_8h_acf7e262cb8017608ea3c7deb66803a94}{00554}}\ \textcolor{preprocessor}{\#define\ PB\_RETURN\_ERROR(stream,\ msg)\ return\ PB\_SET\_ERROR(stream,\ msg),\ false}}
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00555}00555\ }
+\DoxyCodeLine{\Hypertarget{pb_8h_source_l00556}00556\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

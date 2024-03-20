@@ -1,0 +1,245 @@
+\doxysection{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+cpp}
+\hypertarget{_spark_fun___si7021___breakout___library_8cpp_source}{}\label{_spark_fun___si7021___breakout___library_8cpp_source}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00002}00002\ \textcolor{comment}{\ SparkFun\ Si7021\ Temperature\ and\ HUmidity\ Breakout\ }}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00003}00003\ \textcolor{comment}{\ By:\ Joel\ Bartlett}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00004}00004\ \textcolor{comment}{\ SparkFun\ Electronics}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00005}00005\ \textcolor{comment}{\ Date:\ December\ 10,\ 2015}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00006}00006\ \textcolor{comment}{\ }}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00007}00007\ \textcolor{comment}{\ This\ is\ an\ Arduino\ library\ for\ the\ Si7021\ Temperature\ and\ Humidity\ Sensor\ Breakout}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00008}00008\ \textcolor{comment}{\ }}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00009}00009\ \textcolor{comment}{\ This\ library\ is\ based\ on\ the\ following\ libraries:}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00010}00010\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00011}00011\ \textcolor{comment}{\ HTU21D\ Temperature\ /\ Humidity\ Sensor\ Library}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00012}00012\ \textcolor{comment}{\ By:\ Nathan\ Seidle}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00013}00013\ \textcolor{comment}{\ https://github.com/sparkfun/HTU21D\_Breakout/tree/master/Libraries}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00015}00015\ \textcolor{comment}{\ Arduino\ Si7010\ relative\ humidity\ +\ temperature\ sensor}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00016}00016\ \textcolor{comment}{\ By:\ Jakub\ Kaminski,\ 2014}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00017}00017\ \textcolor{comment}{\ https://github.com/teoqba/ADDRESS}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00018}00018\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00019}00019\ \textcolor{comment}{\ This\ Library\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00020}00020\ \textcolor{comment}{\ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00021}00021\ \textcolor{comment}{\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00022}00022\ \textcolor{comment}{\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00024}00024\ \textcolor{comment}{\ This\ Library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00025}00025\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00026}00026\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00027}00027\ \textcolor{comment}{\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00028}00028\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00029}00029\ \textcolor{comment}{\ For\ a\ copy\ of\ the\ GNU\ General\ Public\ License,\ see}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00030}00030\ \textcolor{comment}{\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00031}00031\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00033}00033\ \textcolor{preprocessor}{\#if\ defined(ARDUINO)}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00034}00034\ \textcolor{preprocessor}{\#include\ "{}Wire.h"{}}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h}{SparkFun\_Si7021\_Breakout\_Library.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00036}00036\ \textcolor{preprocessor}{\#elif\ defined(SPARK)}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00037}00037\ \textcolor{preprocessor}{\#include\ "{}SparkFun\_Si7021\_Breakout\_Library/SparkFun\_Si7021\_Breakout\_Library.h"{}}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00038}00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00041}00041\ \ \textcolor{comment}{//Initialize}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00042}\mbox{\hyperlink{class_weather_aa404c94fec05b825454a7309827767c6}{00042}}\ \ \mbox{\hyperlink{class_weather_aa404c94fec05b825454a7309827767c6}{Weather::Weather}}()\{\}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00044}\mbox{\hyperlink{class_weather_a085af8bc5bc8d090420fd111a24196b2}{00044}}\ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_weather_a085af8bc5bc8d090420fd111a24196b2}{Weather::begin}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00045}00045\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00046}00046\ \ \ Wire.begin();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00048}00048\ \ \ uint8\_t\ ID\_Temp\_Hum\ =\ \mbox{\hyperlink{class_weather_ad046823ebed45cebd082981126218e04}{checkID}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00050}00050\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00052}00052\ \ \ \textcolor{keywordflow}{if}(ID\_Temp\_Hum\ ==\ 0x15)\textcolor{comment}{//Ping\ CheckID\ register}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00053}00053\ \ \ \ \ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00054}00054\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ID\_Temp\_Hum\ ==\ 0x32)}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}}\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00056}00056\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00059}00059\ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}}\ ==\ 1)}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00060}00060\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00061}00061\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Si7021\ Found"{}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{comment}{//Serial.println(ID\_Temp\_Hum,\ HEX);}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00063}00063\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00064}00064\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}}\ ==\ 2)}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00065}00065\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00066}00066\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}HTU21D\ Found"{}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00067}00067\ \ \ \ \ \textcolor{comment}{//Serial.println(ID\_Temp\_Hum,\ HEX);}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00068}00068\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00069}00069\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00070}00070\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}No\ Devices\ Detected"{}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00071}00071\ \ \ \ \ \textcolor{comment}{//Serial.println(ID\_Temp\_Hum,\ HEX);}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00074}00074\ \textcolor{comment}{/****************Si7021\ \&\ HTU21D\ Functions**************************************/}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00077}\mbox{\hyperlink{class_weather_a34b3c48cde3cc75f9e2e30e6b25785d4}{00077}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a34b3c48cde3cc75f9e2e30e6b25785d4}{Weather::getRH}}()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00078}00078\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00079}00079\ \ \ \ \ \textcolor{comment}{//\ Measure\ the\ relative\ humidity}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00080}00080\ \ \ \ \ uint16\_t\ RH\_Code\ =\ makeMeasurment(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a7a8b2dc5b1c7611a6ebbc83fb35e7b77}{HUMD\_MEASURE\_NOHOLD}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00081}00081\ \ \ \ \ \textcolor{keywordtype}{float}\ result\ =\ (125.0*RH\_Code/65536)-\/6;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00083}00083\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00085}\mbox{\hyperlink{class_weather_a0fa1895958dcd12c21e22c469ef4561d}{00085}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a0fa1895958dcd12c21e22c469ef4561d}{Weather::readTemp}}()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00086}00086\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//\ Read\ temperature\ from\ previous\ RH\ measurement.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00088}00088\ \ \ \ \ uint16\_t\ temp\_Code\ =\ makeMeasurment(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a1939bc96cbb65ab247c83734ac06fb12}{TEMP\_PREV}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00089}00089\ \ \ \ \ \textcolor{keywordtype}{float}\ result\ =\ (175.25*temp\_Code/65536)-\/46.85;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00093}\mbox{\hyperlink{class_weather_a35568e635e7b92edf85937fdab293d9d}{00093}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a35568e635e7b92edf85937fdab293d9d}{Weather::getTemp}}()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00094}00094\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00095}00095\ \ \ \ \ \textcolor{comment}{//\ Measure\ temperature}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00096}00096\ \ \ \ \ uint16\_t\ temp\_Code\ =\ makeMeasurment(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a44457a4e034fb3ae0dae37b86597c8fd}{TEMP\_MEASURE\_NOHOLD}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00097}00097\ \ \ \ \ \textcolor{keywordtype}{float}\ result\ =\ (175.25*temp\_Code/65536)-\/46.85;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00099}00099\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00100}00100\ \textcolor{comment}{//Give\ me\ temperature\ in\ fahrenheit!}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00101}\mbox{\hyperlink{class_weather_a7ddfca9fcc509340f6f4828383bef768}{00101}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a7ddfca9fcc509340f6f4828383bef768}{Weather::readTempF}}()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00102}00102\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00103}00103\ \ \ \textcolor{keywordflow}{return}((\mbox{\hyperlink{class_weather_a0fa1895958dcd12c21e22c469ef4561d}{readTemp}}()\ *\ 1.8)\ +\ 32.0);\ \textcolor{comment}{//\ Convert\ celsius\ to\ fahrenheit}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00104}00104\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00106}\mbox{\hyperlink{class_weather_a5ca452a6a3e1a59e5972415aca30b034}{00106}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a5ca452a6a3e1a59e5972415aca30b034}{Weather::getTempF}}()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00107}00107\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00108}00108\ \ \ \textcolor{keywordflow}{return}((\mbox{\hyperlink{class_weather_a35568e635e7b92edf85937fdab293d9d}{getTemp}}()\ *\ 1.8)\ +\ 32.0);\ \textcolor{comment}{//\ Convert\ celsius\ to\ fahrenheit}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00109}00109\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00112}\mbox{\hyperlink{class_weather_af61d1356d51f025dc73ed9fca1e359fc}{00112}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_weather_af61d1356d51f025dc73ed9fca1e359fc}{Weather::heaterOn}}()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00113}00113\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00114}00114\ \ \ \ \ \textcolor{comment}{//\ Turns\ on\ the\ ADDRESS\ heater}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00115}00115\ \ \ \ \ uint8\_t\ regVal\ =\ readReg();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00116}00116\ \ \ \ \ regVal\ |=\ \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a11643f271076024c395a93800b3d9546}{\_BV}}(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_ad8b1bf9f34b5b1f953c6b81767a8838e}{HTRE}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00117}00117\ \ \ \ \ \textcolor{comment}{//turn\ on\ the\ heater}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00118}00118\ \ \ \ \ writeReg(regVal);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00119}00119\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00121}\mbox{\hyperlink{class_weather_a372b58337cca7cfa8fa8d486139a4079}{00121}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_weather_a372b58337cca7cfa8fa8d486139a4079}{Weather::heaterOff}}()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00122}00122\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00123}00123\ \ \ \ \ \textcolor{comment}{//\ Turns\ off\ the\ ADDRESS\ heater}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00124}00124\ \ \ \ \ uint8\_t\ regVal\ =\ readReg();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00125}00125\ \ \ \ \ regVal\ \&=\ \string~\_BV(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_ad8b1bf9f34b5b1f953c6b81767a8838e}{HTRE}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00126}00126\ \ \ \ \ writeReg(regVal);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00127}00127\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00129}\mbox{\hyperlink{class_weather_a8397294312549b90dd44ca1fa40989eb}{00129}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_weather_a8397294312549b90dd44ca1fa40989eb}{Weather::changeResolution}}(uint8\_t\ i)}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00130}00130\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00131}00131\ \ \ \ \ \textcolor{comment}{//\ Changes\ to\ resolution\ of\ ADDRESS\ measurements.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00132}00132\ \ \ \ \ \textcolor{comment}{//\ Set\ i\ to:}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00133}00133\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ RH\ \ \ \ \ \ \ \ \ Temp}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00134}00134\ \ \ \ \ \textcolor{comment}{//\ 0:\ 12\ bit\ \ \ \ \ \ \ 14\ bit\ (default)}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00135}00135\ \ \ \ \ \textcolor{comment}{//\ 1:\ \ 8\ bit\ \ \ \ \ \ \ 12\ bit}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00136}00136\ \ \ \ \ \textcolor{comment}{//\ 2:\ 10\ bit\ \ \ \ \ \ \ 13\ bit}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00137}00137\ \ \ \ \ \textcolor{comment}{//\ 3:\ 11\ bit\ \ \ \ \ \ \ 11\ bit}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00139}00139\ \ \ \ \ uint8\_t\ regVal\ =\ readReg();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00140}00140\ \ \ \ \ \textcolor{comment}{//\ zero\ resolution\ bits}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00141}00141\ \ \ \ \ regVal\ \&=\ 0b011111110;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00142}00142\ \ \ \ \ \textcolor{keywordflow}{switch}\ (i)\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00143}00143\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ regVal\ |=\ 0b00000001;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00146}00146\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ regVal\ |=\ 0b10000000;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00149}00149\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ regVal\ |=\ 0b10000001;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00151}00151\ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ regVal\ |=\ 0b00000000;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00154}00154\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00155}00155\ \ \ \ \ \textcolor{comment}{//\ write\ new\ resolution\ settings\ to\ the\ register}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00156}00156\ \ \ \ \ writeReg(regVal);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00157}00157\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00159}\mbox{\hyperlink{class_weather_ac21195f89c82700ab346f42ef434e0da}{00159}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_weather_ac21195f89c82700ab346f42ef434e0da}{Weather::reset}}()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00160}00160\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00161}00161\ \ \ \ \ \textcolor{comment}{//Reset\ user\ resister}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00162}00162\ \ \ \ \ writeReg(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a74625341a79e3484830c401d8947443c}{SOFT\_RESET}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00163}00163\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00165}\mbox{\hyperlink{class_weather_ad046823ebed45cebd082981126218e04}{00165}}\ uint8\_t\ \mbox{\hyperlink{class_weather_ad046823ebed45cebd082981126218e04}{Weather::checkID}}()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00166}00166\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00167}00167\ \ \ \ \ uint8\_t\ ID\_1;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00169}00169\ \ \ \ \ \textcolor{comment}{//\ Check\ device\ ID}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00170}00170\ \ \ \ \ Wire.beginTransmission(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}{ADDRESS}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00171}00171\ \ \ \ \ Wire.write(0xFC);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00172}00172\ \ \ \ \ Wire.write(0xC9);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00173}00173\ \ \ \ \ Wire.endTransmission();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00175}00175\ \ \ \ \ Wire.requestFrom(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}{ADDRESS}},1);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00177}00177\ \ \ \ \ ID\_1\ =\ Wire.read();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00179}00179\ \ \ \ \ \textcolor{keywordflow}{return}(ID\_1);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00180}00180\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00182}00182\ uint16\_t\ Weather::makeMeasurment(uint8\_t\ command)}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00183}00183\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00184}00184\ \ \ \ \ \textcolor{comment}{//\ Take\ one\ ADDRESS\ measurement\ given\ by\ command.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00185}00185\ \ \ \ \ \textcolor{comment}{//\ It\ can\ be\ either\ temperature\ or\ relative\ humidity}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00186}00186\ \ \ \ \ \textcolor{comment}{//\ TODO:\ implement\ checksum\ checking}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00188}00188\ \ \ \ \ uint16\_t\ nBytes\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00189}00189\ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ only\ reading\ old\ temperature,\ read\ olny\ msb\ and\ lsb}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00190}00190\ \ \ \ \ \textcolor{keywordflow}{if}\ (command\ ==\ 0xE0)\ nBytes\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00192}00192\ \ \ \ \ Wire.beginTransmission(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}{ADDRESS}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00193}00193\ \ \ \ \ Wire.write(command);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00194}00194\ \ \ \ \ Wire.endTransmission();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00195}00195\ \ \ \ \ \textcolor{comment}{//\ When\ not\ using\ clock\ stretching\ (*\_NOHOLD\ commands)\ delay\ here}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00196}00196\ \ \ \ \ \textcolor{comment}{//\ is\ needed\ to\ wait\ for\ the\ measurement.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00197}00197\ \ \ \ \ \textcolor{comment}{//\ According\ to\ datasheet\ the\ max.\ conversion\ time\ is\ \string~22ms}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00198}00198\ \ \ \ \ \ delay(100);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00200}00200\ \ \ \ \ Wire.requestFrom(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}{ADDRESS}},nBytes);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00201}00201\ \ \ \ \ \textcolor{comment}{//Wait\ for\ data}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00202}00202\ \ \ \ \ \textcolor{keywordtype}{int}\ counter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00203}00203\ \ \ \ \ \textcolor{keywordflow}{while}\ (Wire.available()\ <\ nBytes)\{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00204}00204\ \ \ \ \ \ \ delay(1);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00205}00205\ \ \ \ \ \ \ counter\ ++;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00206}00206\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (counter\ >100)\{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Timeout:\ Sensor\ did\ not\ return\ any\ data}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 100;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00209}00209\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00210}00210\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00212}00212\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ msb\ =\ Wire.read();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00213}00213\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lsb\ =\ Wire.read();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00214}00214\ \ \ \ \ \textcolor{comment}{//\ Clear\ the\ last\ to\ bits\ of\ LSB\ to\ 00.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00215}00215\ \ \ \ \ \textcolor{comment}{//\ According\ to\ datasheet\ LSB\ of\ RH\ is\ always\ xxxxxx10}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00216}00216\ \ \ \ \ lsb\ \&=\ 0xFC;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00217}00217\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ mesurment\ =\ msb\ <<\ 8\ |\ lsb;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{return}\ mesurment;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00220}00220\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00222}00222\ \textcolor{keywordtype}{void}\ Weather::writeReg(uint8\_t\ value)}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00223}00223\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00224}00224\ \ \ \ \ \textcolor{comment}{//\ Write\ to\ user\ register\ on\ ADDRESS}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00225}00225\ \ \ \ \ Wire.beginTransmission(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}{ADDRESS}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00226}00226\ \ \ \ \ Wire.write(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a55ed60e8a2df61a067ef0fb42f79f6b2}{WRITE\_USER\_REG}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00227}00227\ \ \ \ \ Wire.write(value);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00228}00228\ \ \ \ \ Wire.endTransmission();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00229}00229\ \}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00231}00231\ uint8\_t\ Weather::readReg()}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00232}00232\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00233}00233\ \ \ \ \ \textcolor{comment}{//\ Read\ from\ user\ register\ on\ ADDRESS}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00234}00234\ \ \ \ \ Wire.beginTransmission(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}{ADDRESS}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00235}00235\ \ \ \ \ Wire.write(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_ac8f29e611d6f87ee93d909b98a4db95d}{READ\_USER\_REG}});}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00236}00236\ \ \ \ \ Wire.endTransmission();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00237}00237\ \ \ \ \ Wire.requestFrom(\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}{ADDRESS}},1);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00238}00238\ \ \ \ \ uint8\_t\ regVal\ =\ Wire.read();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00239}00239\ \ \ \ \ \textcolor{keywordflow}{return}\ regVal;}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8cpp_source_l00240}00240\ \}}
+
+\end{DoxyCode}

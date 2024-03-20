@@ -1,0 +1,455 @@
+\doxysection{C\+:/\+Users/coole/\+One\+Drive/\+HAN Elec Engineering Year 3/\+S6/\+Io\+T/\+Payload\+\_\+\+Encoder/\+The\+Things\+Network/src/\+The\+Things\+Network.h File Reference}
+\hypertarget{_the_things_network_8h}{}\label{_the_things_network_8h}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/TheThingsNetwork.h@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/TheThingsNetwork.h}}
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$Stream.\+h$>$}\newline
+{\ttfamily \#include $<$pgmspace.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_the_things_network}{The\+Things\+Network}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_a528ede8662587b994c42f558b14170da}{TTN\+\_\+\+DEFAULT\+\_\+\+SF}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_a5e0c56cbaa5a2d775d9ae090580e54eb}{TTN\+\_\+\+DEFAULT\+\_\+\+FSB}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_a192b44ddcc7aba97344fbbfd28f09387}{TTN\+\_\+\+RETX}}~"{}7"{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_a08fb60f43410bfbd8014bbb975724e87}{TTN\+\_\+\+PWRIDX\+\_\+\+EU868}}~"{}1"{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_ae3172d8da53208731b649efff1a31e81}{TTN\+\_\+\+PWRIDX\+\_\+\+US915}}~"{}5"{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_a9b0c96085a90f1db0d57f7e9ffcfdfdb}{TTN\+\_\+\+PWRIDX\+\_\+\+AU915}}~"{}5"{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_ad75a9807baf1a0c566a0f51c6eee3e09}{TTN\+\_\+\+PWRIDX\+\_\+\+AS920\+\_\+923}}~"{}1"{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_a549937a38e8f0ab7a3c19d684969805a}{TTN\+\_\+\+PWRIDX\+\_\+\+AS923\+\_\+925}}~"{}1"{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_a9720643bd085d1534e03e3355ef1e9ad}{TTN\+\_\+\+PWRIDX\+\_\+\+KR920\+\_\+923}}~"{}1"{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_a955ec8f91558f1b4086123fe9e0b77c2}{TTN\+\_\+\+PWRIDX\+\_\+\+IN865\+\_\+867}}~"{}1"{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_ac05781acdb585b44989ea0092ff4da02}{TTN\+\_\+\+BUFFER\+\_\+\+SIZE}}~300
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8h_a623bfd373694a0243fa864387861d4de}{TTN\+\_\+\+DEFAULT\+\_\+\+TIMEOUT}}~10000
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef uint8\+\_\+t \mbox{\hyperlink{_the_things_network_8h_a952c3d3a3609b7a37731b8458e87ca3a}{port\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9cab}{ttn\+\_\+response\+\_\+t}} \{ \newline
+\mbox{\hyperlink{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba5e5c8227e267d176ae00815e2e939ecb}{TTN\+\_\+\+ERROR\+\_\+\+SEND\+\_\+\+COMMAND\+\_\+\+FAILED}} = (-\/1)
+, \mbox{\hyperlink{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba16b8b0abee4ac2cb6d18d3c5532404ea}{TTN\+\_\+\+ERROR\+\_\+\+UNEXPECTED\+\_\+\+RESPONSE}} = (-\/10)
+, \mbox{\hyperlink{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba83726ae6b40cc1dd0a5b5ab66d06e904}{TTN\+\_\+\+SUCCESSFUL\+\_\+\+TRANSMISSION}} = 1
+, \mbox{\hyperlink{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba3cbd355db33084c9b3cb9684ec9ac840}{TTN\+\_\+\+SUCCESSFUL\+\_\+\+RECEIVE}} = 2
+, \newline
+\mbox{\hyperlink{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba356c02f589a1fb60d44a9e2f0de03230}{TTN\+\_\+\+UNSUCCESSFUL\+\_\+\+RECEIVE}} = 3
+ \}
+\item 
+enum \mbox{\hyperlink{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818}{ttn\+\_\+fp\+\_\+t}} \{ \newline
+\mbox{\hyperlink{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a20fab5e911cd758db2ec9cea80247004}{TTN\+\_\+\+FP\+\_\+\+EU868}}
+, \mbox{\hyperlink{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818aef56c515d319c482ba4d9b9c8fdf7645}{TTN\+\_\+\+FP\+\_\+\+US915}}
+, \mbox{\hyperlink{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818aa1fdca72358f36580a8e848570143eba}{TTN\+\_\+\+FP\+\_\+\+AU915}}
+, \mbox{\hyperlink{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a0e90aab48d68ddbde8a9e78d8516b11a}{TTN\+\_\+\+FP\+\_\+\+AS920\+\_\+923}}
+, \newline
+\mbox{\hyperlink{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a408cf829a7a88949b8ef0341e310a638}{TTN\+\_\+\+FP\+\_\+\+AS923\+\_\+925}}
+, \mbox{\hyperlink{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a46c9675e83521b8a94ab51e7ba15549f}{TTN\+\_\+\+FP\+\_\+\+KR920\+\_\+923}}
+, \mbox{\hyperlink{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818aac96bf31ec1307efca4d07725e6fdc52}{TTN\+\_\+\+FP\+\_\+\+IN865\+\_\+867}}
+ \}
+\item 
+enum \mbox{\hyperlink{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5}{lorawan\+\_\+class\+\_\+t}} \{ \mbox{\hyperlink{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5a307ee33f71385819abc142fe4f23c3bb}{CLASS\+\_\+A}}
+, \mbox{\hyperlink{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5a10611f4c3b970c7d722c98eaea63ddd5}{CLASS\+\_\+B}}
+, \mbox{\hyperlink{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5abfee35359a39adbacbc3f13eddc76cd0}{CLASS\+\_\+C}}
+ \}
+\item 
+enum \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0}{ttn\+\_\+response\+\_\+code\+\_\+t}} \{ \newline
+\mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae52e9110e3cc26c1169d6083a2a316fc}{TTN\+\_\+\+OK}}
+, \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae101f31ba25e51160baeb8df429e2047}{TTN\+\_\+\+ERROR\+\_\+\+BUSY}} = (-\/1)
+, \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a36439d404cfb96c23c10c14f4bd3ac88}{TTN\+\_\+\+ERROR\+\_\+\+FRAME\+\_\+\+COUNTER\+\_\+\+ERROR}} = (-\/2)
+, \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a63be0d3349ba17f478e25f8fa68038f8}{TTN\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+CLASS}} = (-\/3)
+, \newline
+\mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae314b221ea55d3e5e02252566dcbd11d}{TTN\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+LENGTH}} = (-\/4)
+, \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a6fa88c7caa1c266372eae75ca2d2b92e}{TTN\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+PARAMETER}} = (-\/5)
+, \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a808425b7a2a7199d7c0715bef41a591e}{TTN\+\_\+\+ERROR\+\_\+\+NO\+\_\+\+KEY\+\_\+\+INTITIALIZED}} = (-\/6)
+, \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a848b270174c1c3125f408dab3a62a4c2}{TTN\+\_\+\+ERROR\+\_\+\+MAC\+\_\+\+PAUSE}} = (-\/7)
+, \newline
+\mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a2e3e9089a46e2738de63f4a38f1ba299}{TTN\+\_\+\+ERROR\+\_\+\+NO\+\_\+\+KEY\+\_\+\+MULTICAST}} = (-\/8)
+, \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a445a09eb9f3661eacb34e6293bece141}{TTN\+\_\+\+ERROR\+\_\+\+NO\+\_\+\+FREE\+\_\+\+CHANNEL}} = (-\/9)
+, \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a207e6fd542ca88568979c50b31042b23}{TTN\+\_\+\+ERROR\+\_\+\+NOT\+\_\+\+JOINED}} = (-\/10)
+, \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a543698a2a67e4b873d6fcbd66b8e5d52}{TTN\+\_\+\+ERROR\+\_\+\+SILENT}} = (-\/11)
+, \newline
+\mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae4368a00cb3d543df7ad46f97968da70}{TTN\+\_\+\+ERROR\+\_\+\+ERR}} = (-\/12)
+ \}
+\item 
+enum \mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5}{ttn\+\_\+modem\+\_\+status\+\_\+t}} \{ \newline
+\mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5ab965e6d99ef7dff92078d269867d55be}{TTN\+\_\+\+MODEM\+\_\+\+READ\+\_\+\+ERR}} = -\/1
+, \mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5adc9b056ff8d7eb1a27f8b958659c4322}{TTN\+\_\+\+MODEM\+\_\+\+IDLE}} = 0
+, \mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a9e369d9cdc52cb4127c514b3c76258d7}{TTN\+\_\+\+MODEM\+\_\+\+TX}}
+, \mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a44916c0600d5240c3878cf3c0f3edfd1}{TTN\+\_\+\+MODEM\+\_\+\+BEFORE\+\_\+\+RX}}
+, \newline
+\mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a2eae58638f10e0d755e9840128a0a51b}{TTN\+\_\+\+MODEM\+\_\+\+RX1}}
+, \mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a59d2f8d527ef17a7c60addbb26a712a3}{TTN\+\_\+\+MODEM\+\_\+\+BEFORE\+\_\+\+RX2}}
+, \mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5ab892b25b0dd544f94cc700d8b128b145}{TTN\+\_\+\+MODEM\+\_\+\+RETX\+\_\+\+DELAY}}
+, \mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5aee1332a45fef53a06332a12ffade8996}{TTN\+\_\+\+MODEM\+\_\+\+APB\+\_\+\+DELAY}}
+, \newline
+\mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5aae4ba6b1421163ab7dc4d6013dcb5f85}{TTN\+\_\+\+MODEM\+\_\+\+C\+\_\+\+RX1}}
+, \mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a705eb079c5e3df770e00bed5e8e37167}{TTN\+\_\+\+MODEM\+\_\+\+C\+\_\+\+RX2}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_the_things_network_8h_ac05781acdb585b44989ea0092ff4da02}\label{_the_things_network_8h_ac05781acdb585b44989ea0092ff4da02} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_BUFFER\_SIZE@{TTN\_BUFFER\_SIZE}}
+\index{TTN\_BUFFER\_SIZE@{TTN\_BUFFER\_SIZE}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_BUFFER\_SIZE}{TTN\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+BUFFER\+\_\+\+SIZE~300}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00027}{27}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a5e0c56cbaa5a2d775d9ae090580e54eb}\label{_the_things_network_8h_a5e0c56cbaa5a2d775d9ae090580e54eb} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_DEFAULT\_FSB@{TTN\_DEFAULT\_FSB}}
+\index{TTN\_DEFAULT\_FSB@{TTN\_DEFAULT\_FSB}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_DEFAULT\_FSB}{TTN\_DEFAULT\_FSB}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+DEFAULT\+\_\+\+FSB~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00016}{16}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a528ede8662587b994c42f558b14170da}\label{_the_things_network_8h_a528ede8662587b994c42f558b14170da} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_DEFAULT\_SF@{TTN\_DEFAULT\_SF}}
+\index{TTN\_DEFAULT\_SF@{TTN\_DEFAULT\_SF}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_DEFAULT\_SF}{TTN\_DEFAULT\_SF}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+DEFAULT\+\_\+\+SF~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00015}{15}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a623bfd373694a0243fa864387861d4de}\label{_the_things_network_8h_a623bfd373694a0243fa864387861d4de} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_DEFAULT\_TIMEOUT@{TTN\_DEFAULT\_TIMEOUT}}
+\index{TTN\_DEFAULT\_TIMEOUT@{TTN\_DEFAULT\_TIMEOUT}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_DEFAULT\_TIMEOUT}{TTN\_DEFAULT\_TIMEOUT}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+DEFAULT\+\_\+\+TIMEOUT~10000}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00028}{28}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_ad75a9807baf1a0c566a0f51c6eee3e09}\label{_the_things_network_8h_ad75a9807baf1a0c566a0f51c6eee3e09} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_PWRIDX\_AS920\_923@{TTN\_PWRIDX\_AS920\_923}}
+\index{TTN\_PWRIDX\_AS920\_923@{TTN\_PWRIDX\_AS920\_923}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_PWRIDX\_AS920\_923}{TTN\_PWRIDX\_AS920\_923}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+PWRIDX\+\_\+\+AS920\+\_\+923~"{}1"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00022}{22}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a549937a38e8f0ab7a3c19d684969805a}\label{_the_things_network_8h_a549937a38e8f0ab7a3c19d684969805a} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_PWRIDX\_AS923\_925@{TTN\_PWRIDX\_AS923\_925}}
+\index{TTN\_PWRIDX\_AS923\_925@{TTN\_PWRIDX\_AS923\_925}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_PWRIDX\_AS923\_925}{TTN\_PWRIDX\_AS923\_925}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+PWRIDX\+\_\+\+AS923\+\_\+925~"{}1"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00023}{23}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a9b0c96085a90f1db0d57f7e9ffcfdfdb}\label{_the_things_network_8h_a9b0c96085a90f1db0d57f7e9ffcfdfdb} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_PWRIDX\_AU915@{TTN\_PWRIDX\_AU915}}
+\index{TTN\_PWRIDX\_AU915@{TTN\_PWRIDX\_AU915}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_PWRIDX\_AU915}{TTN\_PWRIDX\_AU915}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+PWRIDX\+\_\+\+AU915~"{}5"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00021}{21}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a08fb60f43410bfbd8014bbb975724e87}\label{_the_things_network_8h_a08fb60f43410bfbd8014bbb975724e87} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_PWRIDX\_EU868@{TTN\_PWRIDX\_EU868}}
+\index{TTN\_PWRIDX\_EU868@{TTN\_PWRIDX\_EU868}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_PWRIDX\_EU868}{TTN\_PWRIDX\_EU868}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+PWRIDX\+\_\+\+EU868~"{}1"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00019}{19}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a955ec8f91558f1b4086123fe9e0b77c2}\label{_the_things_network_8h_a955ec8f91558f1b4086123fe9e0b77c2} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_PWRIDX\_IN865\_867@{TTN\_PWRIDX\_IN865\_867}}
+\index{TTN\_PWRIDX\_IN865\_867@{TTN\_PWRIDX\_IN865\_867}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_PWRIDX\_IN865\_867}{TTN\_PWRIDX\_IN865\_867}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+PWRIDX\+\_\+\+IN865\+\_\+867~"{}1"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00025}{25}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a9720643bd085d1534e03e3355ef1e9ad}\label{_the_things_network_8h_a9720643bd085d1534e03e3355ef1e9ad} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_PWRIDX\_KR920\_923@{TTN\_PWRIDX\_KR920\_923}}
+\index{TTN\_PWRIDX\_KR920\_923@{TTN\_PWRIDX\_KR920\_923}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_PWRIDX\_KR920\_923}{TTN\_PWRIDX\_KR920\_923}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+PWRIDX\+\_\+\+KR920\+\_\+923~"{}1"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00024}{24}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_ae3172d8da53208731b649efff1a31e81}\label{_the_things_network_8h_ae3172d8da53208731b649efff1a31e81} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_PWRIDX\_US915@{TTN\_PWRIDX\_US915}}
+\index{TTN\_PWRIDX\_US915@{TTN\_PWRIDX\_US915}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_PWRIDX\_US915}{TTN\_PWRIDX\_US915}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+PWRIDX\+\_\+\+US915~"{}5"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00020}{20}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a192b44ddcc7aba97344fbbfd28f09387}\label{_the_things_network_8h_a192b44ddcc7aba97344fbbfd28f09387} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_RETX@{TTN\_RETX}}
+\index{TTN\_RETX@{TTN\_RETX}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{TTN\_RETX}{TTN\_RETX}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+RETX~"{}7"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00017}{17}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_the_things_network_8h_a952c3d3a3609b7a37731b8458e87ca3a}\label{_the_things_network_8h_a952c3d3a3609b7a37731b8458e87ca3a} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!port\_t@{port\_t}}
+\index{port\_t@{port\_t}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{port\_t}{port\_t}}
+{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{_the_things_network_8h_a952c3d3a3609b7a37731b8458e87ca3a}{port\+\_\+t}}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00030}{30}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5}\label{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!lorawan\_class\_t@{lorawan\_class\_t}}
+\index{lorawan\_class\_t@{lorawan\_class\_t}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{lorawan\_class\_t}{lorawan\_class\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5}{lorawan\+\_\+class\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLASS\_A@{CLASS\_A}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!CLASS\_A@{CLASS\_A}}}\Hypertarget{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5a307ee33f71385819abc142fe4f23c3bb}\label{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5a307ee33f71385819abc142fe4f23c3bb} 
+CLASS\+\_\+A&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLASS\_B@{CLASS\_B}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!CLASS\_B@{CLASS\_B}}}\Hypertarget{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5a10611f4c3b970c7d722c98eaea63ddd5}\label{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5a10611f4c3b970c7d722c98eaea63ddd5} 
+CLASS\+\_\+B&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLASS\_C@{CLASS\_C}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!CLASS\_C@{CLASS\_C}}}\Hypertarget{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5abfee35359a39adbacbc3f13eddc76cd0}\label{_the_things_network_8h_abd5a41bd1762dec74114baeaa46251c5abfee35359a39adbacbc3f13eddc76cd0} 
+CLASS\+\_\+C&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00052}{52}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818}\label{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!ttn\_fp\_t@{ttn\_fp\_t}}
+\index{ttn\_fp\_t@{ttn\_fp\_t}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{ttn\_fp\_t}{ttn\_fp\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818}{ttn\+\_\+fp\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_FP\_EU868@{TTN\_FP\_EU868}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_FP\_EU868@{TTN\_FP\_EU868}}}\Hypertarget{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a20fab5e911cd758db2ec9cea80247004}\label{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a20fab5e911cd758db2ec9cea80247004} 
+TTN\+\_\+\+FP\+\_\+\+EU868&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_FP\_US915@{TTN\_FP\_US915}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_FP\_US915@{TTN\_FP\_US915}}}\Hypertarget{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818aef56c515d319c482ba4d9b9c8fdf7645}\label{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818aef56c515d319c482ba4d9b9c8fdf7645} 
+TTN\+\_\+\+FP\+\_\+\+US915&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_FP\_AU915@{TTN\_FP\_AU915}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_FP\_AU915@{TTN\_FP\_AU915}}}\Hypertarget{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818aa1fdca72358f36580a8e848570143eba}\label{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818aa1fdca72358f36580a8e848570143eba} 
+TTN\+\_\+\+FP\+\_\+\+AU915&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_FP\_AS920\_923@{TTN\_FP\_AS920\_923}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_FP\_AS920\_923@{TTN\_FP\_AS920\_923}}}\Hypertarget{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a0e90aab48d68ddbde8a9e78d8516b11a}\label{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a0e90aab48d68ddbde8a9e78d8516b11a} 
+TTN\+\_\+\+FP\+\_\+\+AS920\+\_\+923&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_FP\_AS923\_925@{TTN\_FP\_AS923\_925}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_FP\_AS923\_925@{TTN\_FP\_AS923\_925}}}\Hypertarget{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a408cf829a7a88949b8ef0341e310a638}\label{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a408cf829a7a88949b8ef0341e310a638} 
+TTN\+\_\+\+FP\+\_\+\+AS923\+\_\+925&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_FP\_KR920\_923@{TTN\_FP\_KR920\_923}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_FP\_KR920\_923@{TTN\_FP\_KR920\_923}}}\Hypertarget{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a46c9675e83521b8a94ab51e7ba15549f}\label{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818a46c9675e83521b8a94ab51e7ba15549f} 
+TTN\+\_\+\+FP\+\_\+\+KR920\+\_\+923&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_FP\_IN865\_867@{TTN\_FP\_IN865\_867}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_FP\_IN865\_867@{TTN\_FP\_IN865\_867}}}\Hypertarget{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818aac96bf31ec1307efca4d07725e6fdc52}\label{_the_things_network_8h_a66c35804f8a76e255b7c1d053ee79818aac96bf31ec1307efca4d07725e6fdc52} 
+TTN\+\_\+\+FP\+\_\+\+IN865\+\_\+867&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00041}{41}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!ttn\_modem\_status\_t@{ttn\_modem\_status\_t}}
+\index{ttn\_modem\_status\_t@{ttn\_modem\_status\_t}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{ttn\_modem\_status\_t}{ttn\_modem\_status\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5}{ttn\+\_\+modem\+\_\+status\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_READ\_ERR@{TTN\_MODEM\_READ\_ERR}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_READ\_ERR@{TTN\_MODEM\_READ\_ERR}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5ab965e6d99ef7dff92078d269867d55be}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5ab965e6d99ef7dff92078d269867d55be} 
+TTN\+\_\+\+MODEM\+\_\+\+READ\+\_\+\+ERR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_IDLE@{TTN\_MODEM\_IDLE}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_IDLE@{TTN\_MODEM\_IDLE}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5adc9b056ff8d7eb1a27f8b958659c4322}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5adc9b056ff8d7eb1a27f8b958659c4322} 
+TTN\+\_\+\+MODEM\+\_\+\+IDLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_TX@{TTN\_MODEM\_TX}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_TX@{TTN\_MODEM\_TX}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a9e369d9cdc52cb4127c514b3c76258d7}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a9e369d9cdc52cb4127c514b3c76258d7} 
+TTN\+\_\+\+MODEM\+\_\+\+TX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_BEFORE\_RX@{TTN\_MODEM\_BEFORE\_RX}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_BEFORE\_RX@{TTN\_MODEM\_BEFORE\_RX}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a44916c0600d5240c3878cf3c0f3edfd1}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a44916c0600d5240c3878cf3c0f3edfd1} 
+TTN\+\_\+\+MODEM\+\_\+\+BEFORE\+\_\+\+RX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_RX1@{TTN\_MODEM\_RX1}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_RX1@{TTN\_MODEM\_RX1}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a2eae58638f10e0d755e9840128a0a51b}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a2eae58638f10e0d755e9840128a0a51b} 
+TTN\+\_\+\+MODEM\+\_\+\+RX1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_BEFORE\_RX2@{TTN\_MODEM\_BEFORE\_RX2}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_BEFORE\_RX2@{TTN\_MODEM\_BEFORE\_RX2}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a59d2f8d527ef17a7c60addbb26a712a3}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a59d2f8d527ef17a7c60addbb26a712a3} 
+TTN\+\_\+\+MODEM\+\_\+\+BEFORE\+\_\+\+RX2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_RETX\_DELAY@{TTN\_MODEM\_RETX\_DELAY}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_RETX\_DELAY@{TTN\_MODEM\_RETX\_DELAY}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5ab892b25b0dd544f94cc700d8b128b145}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5ab892b25b0dd544f94cc700d8b128b145} 
+TTN\+\_\+\+MODEM\+\_\+\+RETX\+\_\+\+DELAY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_APB\_DELAY@{TTN\_MODEM\_APB\_DELAY}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_APB\_DELAY@{TTN\_MODEM\_APB\_DELAY}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5aee1332a45fef53a06332a12ffade8996}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5aee1332a45fef53a06332a12ffade8996} 
+TTN\+\_\+\+MODEM\+\_\+\+APB\+\_\+\+DELAY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_C\_RX1@{TTN\_MODEM\_C\_RX1}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_C\_RX1@{TTN\_MODEM\_C\_RX1}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5aae4ba6b1421163ab7dc4d6013dcb5f85}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5aae4ba6b1421163ab7dc4d6013dcb5f85} 
+TTN\+\_\+\+MODEM\+\_\+\+C\+\_\+\+RX1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_MODEM\_C\_RX2@{TTN\_MODEM\_C\_RX2}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_MODEM\_C\_RX2@{TTN\_MODEM\_C\_RX2}}}\Hypertarget{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a705eb079c5e3df770e00bed5e8e37167}\label{_the_things_network_8h_a95a8fdd5321d0466d6b1d262dd0f61e5a705eb079c5e3df770e00bed5e8e37167} 
+TTN\+\_\+\+MODEM\+\_\+\+C\+\_\+\+RX2&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00076}{76}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!ttn\_response\_code\_t@{ttn\_response\_code\_t}}
+\index{ttn\_response\_code\_t@{ttn\_response\_code\_t}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{ttn\_response\_code\_t}{ttn\_response\_code\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0}{ttn\+\_\+response\+\_\+code\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_OK@{TTN\_OK}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_OK@{TTN\_OK}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae52e9110e3cc26c1169d6083a2a316fc}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae52e9110e3cc26c1169d6083a2a316fc} 
+TTN\+\_\+\+OK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_BUSY@{TTN\_ERROR\_BUSY}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_BUSY@{TTN\_ERROR\_BUSY}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae101f31ba25e51160baeb8df429e2047}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae101f31ba25e51160baeb8df429e2047} 
+TTN\+\_\+\+ERROR\+\_\+\+BUSY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_FRAME\_COUNTER\_ERROR@{TTN\_ERROR\_FRAME\_COUNTER\_ERROR}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_FRAME\_COUNTER\_ERROR@{TTN\_ERROR\_FRAME\_COUNTER\_ERROR}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a36439d404cfb96c23c10c14f4bd3ac88}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a36439d404cfb96c23c10c14f4bd3ac88} 
+TTN\+\_\+\+ERROR\+\_\+\+FRAME\+\_\+\+COUNTER\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_INVALID\_CLASS@{TTN\_ERROR\_INVALID\_CLASS}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_INVALID\_CLASS@{TTN\_ERROR\_INVALID\_CLASS}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a63be0d3349ba17f478e25f8fa68038f8}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a63be0d3349ba17f478e25f8fa68038f8} 
+TTN\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+CLASS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_INVALID\_LENGTH@{TTN\_ERROR\_INVALID\_LENGTH}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_INVALID\_LENGTH@{TTN\_ERROR\_INVALID\_LENGTH}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae314b221ea55d3e5e02252566dcbd11d}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae314b221ea55d3e5e02252566dcbd11d} 
+TTN\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+LENGTH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_INVALID\_PARAMETER@{TTN\_ERROR\_INVALID\_PARAMETER}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_INVALID\_PARAMETER@{TTN\_ERROR\_INVALID\_PARAMETER}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a6fa88c7caa1c266372eae75ca2d2b92e}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a6fa88c7caa1c266372eae75ca2d2b92e} 
+TTN\+\_\+\+ERROR\+\_\+\+INVALID\+\_\+\+PARAMETER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_NO\_KEY\_INTITIALIZED@{TTN\_ERROR\_NO\_KEY\_INTITIALIZED}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_NO\_KEY\_INTITIALIZED@{TTN\_ERROR\_NO\_KEY\_INTITIALIZED}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a808425b7a2a7199d7c0715bef41a591e}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a808425b7a2a7199d7c0715bef41a591e} 
+TTN\+\_\+\+ERROR\+\_\+\+NO\+\_\+\+KEY\+\_\+\+INTITIALIZED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_MAC\_PAUSE@{TTN\_ERROR\_MAC\_PAUSE}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_MAC\_PAUSE@{TTN\_ERROR\_MAC\_PAUSE}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a848b270174c1c3125f408dab3a62a4c2}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a848b270174c1c3125f408dab3a62a4c2} 
+TTN\+\_\+\+ERROR\+\_\+\+MAC\+\_\+\+PAUSE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_NO\_KEY\_MULTICAST@{TTN\_ERROR\_NO\_KEY\_MULTICAST}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_NO\_KEY\_MULTICAST@{TTN\_ERROR\_NO\_KEY\_MULTICAST}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a2e3e9089a46e2738de63f4a38f1ba299}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a2e3e9089a46e2738de63f4a38f1ba299} 
+TTN\+\_\+\+ERROR\+\_\+\+NO\+\_\+\+KEY\+\_\+\+MULTICAST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_NO\_FREE\_CHANNEL@{TTN\_ERROR\_NO\_FREE\_CHANNEL}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_NO\_FREE\_CHANNEL@{TTN\_ERROR\_NO\_FREE\_CHANNEL}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a445a09eb9f3661eacb34e6293bece141}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a445a09eb9f3661eacb34e6293bece141} 
+TTN\+\_\+\+ERROR\+\_\+\+NO\+\_\+\+FREE\+\_\+\+CHANNEL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_NOT\_JOINED@{TTN\_ERROR\_NOT\_JOINED}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_NOT\_JOINED@{TTN\_ERROR\_NOT\_JOINED}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a207e6fd542ca88568979c50b31042b23}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a207e6fd542ca88568979c50b31042b23} 
+TTN\+\_\+\+ERROR\+\_\+\+NOT\+\_\+\+JOINED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_SILENT@{TTN\_ERROR\_SILENT}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_SILENT@{TTN\_ERROR\_SILENT}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a543698a2a67e4b873d6fcbd66b8e5d52}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0a543698a2a67e4b873d6fcbd66b8e5d52} 
+TTN\+\_\+\+ERROR\+\_\+\+SILENT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_ERR@{TTN\_ERROR\_ERR}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_ERR@{TTN\_ERROR\_ERR}}}\Hypertarget{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae4368a00cb3d543df7ad46f97968da70}\label{_the_things_network_8h_ad9ca6270660fb8ad2aac5f6694fe39e0ae4368a00cb3d543df7ad46f97968da70} 
+TTN\+\_\+\+ERROR\+\_\+\+ERR&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00059}{59}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+
+\Hypertarget{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9cab}\label{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9cab} 
+\index{TheThingsNetwork.h@{TheThingsNetwork.h}!ttn\_response\_t@{ttn\_response\_t}}
+\index{ttn\_response\_t@{ttn\_response\_t}!TheThingsNetwork.h@{TheThingsNetwork.h}}
+\doxysubsubsection{\texorpdfstring{ttn\_response\_t}{ttn\_response\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9cab}{ttn\+\_\+response\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_SEND\_COMMAND\_FAILED@{TTN\_ERROR\_SEND\_COMMAND\_FAILED}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_SEND\_COMMAND\_FAILED@{TTN\_ERROR\_SEND\_COMMAND\_FAILED}}}\Hypertarget{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba5e5c8227e267d176ae00815e2e939ecb}\label{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba5e5c8227e267d176ae00815e2e939ecb} 
+TTN\+\_\+\+ERROR\+\_\+\+SEND\+\_\+\+COMMAND\+\_\+\+FAILED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_ERROR\_UNEXPECTED\_RESPONSE@{TTN\_ERROR\_UNEXPECTED\_RESPONSE}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_ERROR\_UNEXPECTED\_RESPONSE@{TTN\_ERROR\_UNEXPECTED\_RESPONSE}}}\Hypertarget{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba16b8b0abee4ac2cb6d18d3c5532404ea}\label{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba16b8b0abee4ac2cb6d18d3c5532404ea} 
+TTN\+\_\+\+ERROR\+\_\+\+UNEXPECTED\+\_\+\+RESPONSE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_SUCCESSFUL\_TRANSMISSION@{TTN\_SUCCESSFUL\_TRANSMISSION}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_SUCCESSFUL\_TRANSMISSION@{TTN\_SUCCESSFUL\_TRANSMISSION}}}\Hypertarget{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba83726ae6b40cc1dd0a5b5ab66d06e904}\label{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba83726ae6b40cc1dd0a5b5ab66d06e904} 
+TTN\+\_\+\+SUCCESSFUL\+\_\+\+TRANSMISSION&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_SUCCESSFUL\_RECEIVE@{TTN\_SUCCESSFUL\_RECEIVE}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_SUCCESSFUL\_RECEIVE@{TTN\_SUCCESSFUL\_RECEIVE}}}\Hypertarget{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba3cbd355db33084c9b3cb9684ec9ac840}\label{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba3cbd355db33084c9b3cb9684ec9ac840} 
+TTN\+\_\+\+SUCCESSFUL\+\_\+\+RECEIVE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TTN\_UNSUCCESSFUL\_RECEIVE@{TTN\_UNSUCCESSFUL\_RECEIVE}!TheThingsNetwork.h@{TheThingsNetwork.h}}\index{TheThingsNetwork.h@{TheThingsNetwork.h}!TTN\_UNSUCCESSFUL\_RECEIVE@{TTN\_UNSUCCESSFUL\_RECEIVE}}}\Hypertarget{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba356c02f589a1fb60d44a9e2f0de03230}\label{_the_things_network_8h_a0cef256616a6b9e5cc4e099ac77c9caba356c02f589a1fb60d44a9e2f0de03230} 
+TTN\+\_\+\+UNSUCCESSFUL\+\_\+\+RECEIVE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8h_source_l00032}{32}} of file \mbox{\hyperlink{_the_things_network_8h_source}{The\+Things\+Network.\+h}}.
+

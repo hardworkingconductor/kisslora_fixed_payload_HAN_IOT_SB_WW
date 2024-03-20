@@ -1,0 +1,97 @@
+\doxysection{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}
+\hypertarget{_spark_fun___si7021___breakout___library_8h_source}{}\label{_spark_fun___si7021___breakout___library_8h_source}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00002}00002\ \textcolor{comment}{\ SparkFun\ Si7021\ Temperature\ and\ Humidity\ Breakout\ }}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00003}00003\ \textcolor{comment}{\ By:\ Joel\ Bartlett}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00004}00004\ \textcolor{comment}{\ SparkFun\ Electronics}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00005}00005\ \textcolor{comment}{\ Date:\ December\ 10,\ 2015}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00006}00006\ \textcolor{comment}{\ }}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00007}00007\ \textcolor{comment}{\ This\ is\ an\ Arduino\ library\ for\ the\ Si7021\ Temperature\ and\ Humidity\ Sensor\ Breakout}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00008}00008\ \textcolor{comment}{\ }}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00009}00009\ \textcolor{comment}{\ This\ library\ is\ based\ on\ the\ following\ libraries:}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00010}00010\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00011}00011\ \textcolor{comment}{\ HTU21D\ Temperature\ /\ Humidity\ Sensor\ Library}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00012}00012\ \textcolor{comment}{\ By:\ Nathan\ Seidle}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00013}00013\ \textcolor{comment}{\ https://github.com/sparkfun/HTU21D\_Breakout/tree/master/Libraries}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00015}00015\ \textcolor{comment}{\ Arduino\ Si7010\ relative\ humidity\ +\ temperature\ sensor}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00016}00016\ \textcolor{comment}{\ By:\ Jakub\ Kaminski,\ 2014}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00017}00017\ \textcolor{comment}{\ https://github.com/teoqba/ADDRESS}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00018}00018\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00019}00019\ \textcolor{comment}{\ This\ Library\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00020}00020\ \textcolor{comment}{\ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00021}00021\ \textcolor{comment}{\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00022}00022\ \textcolor{comment}{\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00024}00024\ \textcolor{comment}{\ This\ Library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00025}00025\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00026}00026\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00027}00027\ \textcolor{comment}{\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00028}00028\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00029}00029\ \textcolor{comment}{\ For\ a\ copy\ of\ the\ GNU\ General\ Public\ License,\ see}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00030}00030\ \textcolor{comment}{\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00031}00031\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00033}00033\ \textcolor{preprocessor}{\#ifndef\ SparkFun\_Si7021\_Breakout\_Library\_h}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00034}00034\ \textcolor{preprocessor}{\#define\ SparkFun\_Si7021\_Breakout\_Library\_h}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00036}00036\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00038}00038\ \textcolor{comment}{/****************Si7021\ \&\ HTU21D\ Definitions***************************/}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00040}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}{00040}}\ \textcolor{preprocessor}{\#define\ ADDRESS\ \ \ \ \ \ 0x40}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00042}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_aa1958e6d76aaeccf063159398e9fba32}{00042}}\ \textcolor{preprocessor}{\#define\ TEMP\_MEASURE\_HOLD\ \ 0xE3}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00043}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a07246d9438c90467db277779ecd74960}{00043}}\ \textcolor{preprocessor}{\#define\ HUMD\_MEASURE\_HOLD\ \ 0xE5}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00044}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a44457a4e034fb3ae0dae37b86597c8fd}{00044}}\ \textcolor{preprocessor}{\#define\ TEMP\_MEASURE\_NOHOLD\ \ 0xF3}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00045}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a7a8b2dc5b1c7611a6ebbc83fb35e7b77}{00045}}\ \textcolor{preprocessor}{\#define\ HUMD\_MEASURE\_NOHOLD\ \ 0xF5}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00046}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a1939bc96cbb65ab247c83734ac06fb12}{00046}}\ \textcolor{preprocessor}{\#define\ TEMP\_PREV\ \ \ 0xE0}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00048}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a55ed60e8a2df61a067ef0fb42f79f6b2}{00048}}\ \textcolor{preprocessor}{\#define\ WRITE\_USER\_REG\ \ 0xE6}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00049}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_ac8f29e611d6f87ee93d909b98a4db95d}{00049}}\ \textcolor{preprocessor}{\#define\ READ\_USER\_REG\ \ 0xE7}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00050}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a74625341a79e3484830c401d8947443c}{00050}}\ \textcolor{preprocessor}{\#define\ SOFT\_RESET\ \ 0xFE}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00052}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_ad8b1bf9f34b5b1f953c6b81767a8838e}{00052}}\ \textcolor{preprocessor}{\#define\ HTRE\ \ \ \ \ \ \ \ 0x02}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00053}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a11643f271076024c395a93800b3d9546}{00053}}\ \textcolor{preprocessor}{\#define\ \_BV(bit)\ (1\ <<\ (bit))}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00055}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a3a57af5c3275b2f53fa64274b11e8d52}{00055}}\ \textcolor{preprocessor}{\#define\ CRC\_POLY\ 0x988000\ }\textcolor{comment}{//\ Shifted\ Polynomial\ for\ CRC\ check}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00057}00057\ \textcolor{comment}{//\ Error\ codes}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00058}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_afa3215f0aa766367f5d34bee80929152}{00058}}\ \textcolor{preprocessor}{\#define\ I2C\_TIMEOUT\ \ \ \ \ 998}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00059}\mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a4bae979c4e63b1feeca389e4bb5d22d3}{00059}}\ \textcolor{preprocessor}{\#define\ BAD\_CRC\ \ \ \ \ 999}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00062}00062\ \textcolor{comment}{/****************Si7021\ \&\ HTU21D\ Class**************************************/}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00063}\mbox{\hyperlink{class_weather}{00063}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_weather}{Weather}}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00064}00064\ \{}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00065}00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00066}00066\ \ \ \ \ \textcolor{comment}{//\ Constructor}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00067}00067\ \ \ \ \ \mbox{\hyperlink{class_weather_aa404c94fec05b825454a7309827767c6}{Weather}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00069}00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \mbox{\hyperlink{class_weather_a085af8bc5bc8d090420fd111a24196b2}{begin}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00071}00071\ \ \ \ \ \textcolor{comment}{//\ Si7021\ \&\ HTU21D\ Public\ Functions}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00072}00072\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a34b3c48cde3cc75f9e2e30e6b25785d4}{getRH}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00073}00073\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a0fa1895958dcd12c21e22c469ef4561d}{readTemp}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00074}00074\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a35568e635e7b92edf85937fdab293d9d}{getTemp}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00075}00075\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a7ddfca9fcc509340f6f4828383bef768}{readTempF}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00076}00076\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_weather_a5ca452a6a3e1a59e5972415aca30b034}{getTempF}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00077}00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \mbox{\hyperlink{class_weather_af61d1356d51f025dc73ed9fca1e359fc}{heaterOn}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00078}00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \mbox{\hyperlink{class_weather_a372b58337cca7cfa8fa8d486139a4079}{heaterOff}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00079}00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \mbox{\hyperlink{class_weather_a8397294312549b90dd44ca1fa40989eb}{changeResolution}}(uint8\_t\ i);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00080}00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \mbox{\hyperlink{class_weather_ac21195f89c82700ab346f42ef434e0da}{reset}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00081}00081\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{class_weather_ad046823ebed45cebd082981126218e04}{checkID}}();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00085}00085\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00086}00086\ \ \ \ \ \textcolor{comment}{//Si7021\ \&\ HTU21D\ Private\ Functions}}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00087}00087\ \ \ \ \ uint16\_t\ makeMeasurment(uint8\_t\ command);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00088}00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ writeReg(uint8\_t\ value);}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00089}00089\ \ \ \ \ uint8\_t\ \ readReg();}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00090}00090\ \};}
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{_spark_fun___si7021___breakout___library_8h_source_l00092}00092\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

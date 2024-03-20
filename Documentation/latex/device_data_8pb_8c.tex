@@ -1,0 +1,61 @@
+\doxysection{C\+:/\+Users/coole/\+One\+Drive/\+HAN Elec Engineering Year 3/\+S6/\+Io\+T/\+Payload\+\_\+\+Encoder/\+The\+Things\+Network/src/device\+Data.pb.\+c File Reference}
+\hypertarget{device_data_8pb_8c}{}\label{device_data_8pb_8c}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/deviceData.pb.c@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/deviceData.pb.c}}
+{\ttfamily \#include "{}device\+Data.\+pb.\+h"{}}\newline
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} \mbox{\hyperlink{device_data_8pb_8c_a56ff026b51a9d50447c6c218b6d615f7}{api\+\_\+\+Location\+\_\+fields}} \mbox{[}4\mbox{]}
+\item 
+const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} \mbox{\hyperlink{device_data_8pb_8c_a39fbb493f37f1bb4a7d96acd39c82431}{api\+\_\+\+Device\+Data\+\_\+fields}} \mbox{[}12\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{device_data_8pb_8c_a39fbb493f37f1bb4a7d96acd39c82431}\label{device_data_8pb_8c_a39fbb493f37f1bb4a7d96acd39c82431} 
+\index{deviceData.pb.c@{deviceData.pb.c}!api\_DeviceData\_fields@{api\_DeviceData\_fields}}
+\index{api\_DeviceData\_fields@{api\_DeviceData\_fields}!deviceData.pb.c@{deviceData.pb.c}}
+\doxysubsubsection{\texorpdfstring{api\_DeviceData\_fields}{api\_DeviceData\_fields}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} api\+\_\+\+Device\+Data\+\_\+fields\mbox{[}12\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 1,\ BOOL\ \ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ FIRST,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ motion,\ motion,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 2,\ UINT32\ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ water,\ motion,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 3,\ FLOAT\ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ temperature\_celcius,\ water,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 4,\ FLOAT\ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ temperature\_fahrenheit,\ temperature\_celcius,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 5,\ FLOAT\ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ humidity,\ temperature\_fahrenheit,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 6,\ MESSAGE\ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ location,\ humidity,\ \&\mbox{\hyperlink{device_data_8pb_8c_a56ff026b51a9d50447c6c218b6d615f7}{api\_Location\_fields}}),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 7,\ FLOAT\ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ level,\ location,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 8,\ BOOL\ \ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ triggered,\ level,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 9,\ BOOL\ \ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ actuator\_active,\ triggered,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ 10,\ FLOAT\ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ actuator\_time,\ actuator\_active,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(110,\ UINT32\ \ ,\ REPEATED,\ CALLBACK,\ OTHER,\ \mbox{\hyperlink{struct__api___device_data}{api\_DeviceData}},\ analog\_readings,\ actuator\_time,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a605c728e9539a47fabdec96745b92a39}{PB\_LAST\_FIELD}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{device_data_8pb_8c_source_l00020}{20}} of file \mbox{\hyperlink{device_data_8pb_8c_source}{device\+Data.\+pb.\+c}}.
+
+\Hypertarget{device_data_8pb_8c_a56ff026b51a9d50447c6c218b6d615f7}\label{device_data_8pb_8c_a56ff026b51a9d50447c6c218b6d615f7} 
+\index{deviceData.pb.c@{deviceData.pb.c}!api\_Location\_fields@{api\_Location\_fields}}
+\index{api\_Location\_fields@{api\_Location\_fields}!deviceData.pb.c@{deviceData.pb.c}}
+\doxysubsubsection{\texorpdfstring{api\_Location\_fields}{api\_Location\_fields}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} api\+\_\+\+Location\+\_\+fields\mbox{[}4\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 1,\ FLOAT\ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ FIRST,\ \mbox{\hyperlink{struct__api___location}{api\_Location}},\ longitude,\ longitude,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 2,\ FLOAT\ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___location}{api\_Location}},\ latitude,\ longitude,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a8dcc92bb1b4dde51bbdbc8efb3dc39ce}{PB\_FIELD}}(\ \ 3,\ INT32\ \ \ ,\ OPTIONAL,\ STATIC\ \ ,\ OTHER,\ \mbox{\hyperlink{struct__api___location}{api\_Location}},\ altitude,\ latitude,\ 0),}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{pb_8h_a605c728e9539a47fabdec96745b92a39}{PB\_LAST\_FIELD}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{device_data_8pb_8c_source_l00013}{13}} of file \mbox{\hyperlink{device_data_8pb_8c_source}{device\+Data.\+pb.\+c}}.
+

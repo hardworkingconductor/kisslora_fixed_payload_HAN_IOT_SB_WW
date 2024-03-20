@@ -1,0 +1,126 @@
+\doxysection{Cayenne\+LPP.\+cpp}
+\hypertarget{_cayenne_l_p_p_8cpp_source}{}\label{_cayenne_l_p_p_8cpp_source}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/CayenneLPP.cpp@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/CayenneLPP.cpp}}
+\mbox{\hyperlink{_cayenne_l_p_p_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00001}00001\ \textcolor{comment}{//\ Adapted\ from\ https://developer.mbed.org/teams/myDevicesIoT/code/Cayenne-\/LPP/}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00003}00003\ \textcolor{comment}{//\ Copyright\ ©\ 2017\ The\ Things\ Network}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00004}00004\ \textcolor{comment}{//\ Use\ of\ this\ source\ code\ is\ governed\ by\ the\ MIT\ license\ that\ can\ be\ found\ in\ the\ LICENSE\ file.}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_cayenne_l_p_p_8h}{CayenneLPP.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00009}\mbox{\hyperlink{class_cayenne_l_p_p_a36adb2a5b4762d16d2f185e14ff69622}{00009}}\ \mbox{\hyperlink{class_cayenne_l_p_p_a36adb2a5b4762d16d2f185e14ff69622}{CayenneLPP::CayenneLPP}}(uint8\_t\ size)\ :\ maxsize(size)}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00011}00011\ \ \ buffer\ =\ (uint8\_t\ *)malloc(size);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00012}00012\ \ \ \mbox{\hyperlink{class_cayenne_l_p_p_aa34ffe8eae08b7e69b288fa213aac594}{reset}}();}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00013}00013\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00015}\mbox{\hyperlink{class_cayenne_l_p_p_a87ca867c5f9516622e02e0199d357fac}{00015}}\ \mbox{\hyperlink{class_cayenne_l_p_p_a87ca867c5f9516622e02e0199d357fac}{CayenneLPP::\string~CayenneLPP}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00017}00017\ \ \ free(buffer);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00018}00018\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00020}\mbox{\hyperlink{class_cayenne_l_p_p_aa34ffe8eae08b7e69b288fa213aac594}{00020}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_cayenne_l_p_p_aa34ffe8eae08b7e69b288fa213aac594}{CayenneLPP::reset}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00021}00021\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00022}00022\ \ \ cursor\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00023}00023\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00025}\mbox{\hyperlink{class_cayenne_l_p_p_a82b65449c4987cb435ec4f1f94cd16d5}{00025}}\ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a82b65449c4987cb435ec4f1f94cd16d5}{CayenneLPP::getSize}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00026}00026\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00027}00027\ \ \ \textcolor{keywordflow}{return}\ cursor;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00028}00028\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00030}\mbox{\hyperlink{class_cayenne_l_p_p_a76e9b677f69f82e58875af03c3da68c4}{00030}}\ uint8\_t\ *\mbox{\hyperlink{class_cayenne_l_p_p_a76e9b677f69f82e58875af03c3da68c4}{CayenneLPP::getBuffer}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00031}00031\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00032}00032\ \ \ \textcolor{comment}{//\ \ \ \ uint8\_t[cursor]\ result;}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00033}00033\ \ \ \textcolor{comment}{//\ \ \ \ memcpy(result,\ buffer,\ cursor);}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00034}00034\ \ \ \textcolor{comment}{//\ \ \ \ return\ result;}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00035}00035\ \ \ \textcolor{keywordflow}{return}\ buffer;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00036}00036\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00038}\mbox{\hyperlink{class_cayenne_l_p_p_a18472d3f416a889d3c64dcc3be416e14}{00038}}\ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a18472d3f416a889d3c64dcc3be416e14}{CayenneLPP::copy}}(uint8\_t\ *dst)}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00039}00039\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00040}00040\ \ \ memcpy(dst,\ buffer,\ cursor);}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00041}00041\ \ \ \textcolor{keywordflow}{return}\ cursor;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00042}00042\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00045}\mbox{\hyperlink{class_cayenne_l_p_p_a82eae5db461965a7fb9552e210efc871}{00045}}\ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a82eae5db461965a7fb9552e210efc871}{CayenneLPP::addDigital}}(uint8\_t\ value)}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00046}00046\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00048}00048\ \ \ \ \ buffer[cursor++]\ =\ value;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{return}\ cursor;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00051}00051\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00055}\mbox{\hyperlink{class_cayenne_l_p_p_ae07b47107f7a0257ea0cbca86935afaf}{00055}}\ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_ae07b47107f7a0257ea0cbca86935afaf}{CayenneLPP::addAnalog}}(\ uint8\_t\ value)\{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00056}00056\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00057}00057\ \ \ \ \ int16\_t\ val\ =\ value\ *\ 100;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00058}00058\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00059}00059\ \ \ \ \ buffer[cursor++]\ =\ val\ >>\ 8;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00060}00060\ \ \ \ \ buffer[cursor++]\ =\ val;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00061}00061\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{return}\ cursor;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00063}00063\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00066}\mbox{\hyperlink{class_cayenne_l_p_p_a37c98239b66047ff6f968fac11af65ee}{00066}}\ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a37c98239b66047ff6f968fac11af65ee}{CayenneLPP::addLuminosity}}(\ uint16\_t\ lux)}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00067}00067\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00068}00068\ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00069}00069\ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00070}00070\ \ \ buffer[cursor++]\ =\ lux\ >>\ 8;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00071}00071\ \ \ buffer[cursor++]\ =\ lux;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00073}00073\ \ \ \textcolor{keywordflow}{return}\ cursor;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00074}00074\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00076}\mbox{\hyperlink{class_cayenne_l_p_p_af0bc1b394caf47335f9fa1ada5e376c1}{00076}}\ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_af0bc1b394caf47335f9fa1ada5e376c1}{CayenneLPP::addPresence}}(\ uint8\_t\ value)}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00077}00077\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00078}00078\ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00079}00079\ \ \ buffer[cursor++]\ =\ value;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00081}00081\ \ \ \textcolor{keywordflow}{return}\ cursor;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00082}00082\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00084}\mbox{\hyperlink{class_cayenne_l_p_p_af7fdeea0725c38e886e23f2af066319b}{00084}}\ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_af7fdeea0725c38e886e23f2af066319b}{CayenneLPP::addTemperature}}(\ \textcolor{keywordtype}{float}\ celsius)}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00085}00085\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00086}00086\ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00087}00087\ \ \ int16\_t\ val\ =\ celsius\ *\ 10;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00088}00088\ \ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00089}00089\ \ \ buffer[cursor++]\ =\ val\ >>\ 8;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00090}00090\ \ \ buffer[cursor++]\ =\ val;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00092}00092\ \ \ \textcolor{keywordflow}{return}\ cursor;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00093}00093\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00095}\mbox{\hyperlink{class_cayenne_l_p_p_a7fe5076c6b22656903871d19fa8746d6}{00095}}\ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a7fe5076c6b22656903871d19fa8746d6}{CayenneLPP::addRelativeHumidity}}(\ \textcolor{keywordtype}{float}\ rh)}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00096}00096\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00098}00098\ \ \ buffer[cursor++]\ =\ rh\ *\ 2;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00100}00100\ \ \ \textcolor{keywordflow}{return}\ cursor;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00103}\mbox{\hyperlink{class_cayenne_l_p_p_a1a90661520108931d1456e9792ed2d8d}{00103}}\ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a1a90661520108931d1456e9792ed2d8d}{CayenneLPP::addAccelerometer}}(\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa4f0d3eebc3c443f9be81bf48561a217}{y}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af73583b1e980b0aa03f9884812e9fd4d}{z}})}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00104}00104\ \{}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00106}00106\ \ \ int16\_t\ vx\ =\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}}\ *\ 1000;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00107}00107\ \ \ int16\_t\ vy\ =\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa4f0d3eebc3c443f9be81bf48561a217}{y}}\ *\ 1000;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00108}00108\ \ \ int16\_t\ vz\ =\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af73583b1e980b0aa03f9884812e9fd4d}{z}}\ *\ 1000;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00109}00109\ \ \ buffer[cursor++]\ =\ vx\ >>\ 8;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00110}00110\ \ \ buffer[cursor++]\ =\ vx;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00111}00111\ \ \ buffer[cursor++]\ =\ vy\ >>\ 8;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00112}00112\ \ \ buffer[cursor++]\ =\ vy;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00113}00113\ \ \ buffer[cursor++]\ =\ vz\ >>\ 8;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00114}00114\ \ \ buffer[cursor++]\ =\ vz;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00116}00116\ \ \ \textcolor{keywordflow}{return}\ cursor;}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00117}00117\ \}}
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{_cayenne_l_p_p_8cpp_source_l00120}00120\ }
+
+\end{DoxyCode}

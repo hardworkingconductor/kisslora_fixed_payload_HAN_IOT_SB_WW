@@ -1,0 +1,182 @@
+\doxysection{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h File Reference}
+\hypertarget{_spark_fun___si7021___breakout___library_8h}{}\label{_spark_fun___si7021___breakout___library_8h}\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_weather}{Weather}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}{ADDRESS}}~0x40
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_aa1958e6d76aaeccf063159398e9fba32}{TEMP\+\_\+\+MEASURE\+\_\+\+HOLD}}~0x\+E3
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a07246d9438c90467db277779ecd74960}{HUMD\+\_\+\+MEASURE\+\_\+\+HOLD}}~0x\+E5
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a44457a4e034fb3ae0dae37b86597c8fd}{TEMP\+\_\+\+MEASURE\+\_\+\+NOHOLD}}~0x\+F3
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a7a8b2dc5b1c7611a6ebbc83fb35e7b77}{HUMD\+\_\+\+MEASURE\+\_\+\+NOHOLD}}~0x\+F5
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a1939bc96cbb65ab247c83734ac06fb12}{TEMP\+\_\+\+PREV}}~0x\+E0
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a55ed60e8a2df61a067ef0fb42f79f6b2}{WRITE\+\_\+\+USER\+\_\+\+REG}}~0x\+E6
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_ac8f29e611d6f87ee93d909b98a4db95d}{READ\+\_\+\+USER\+\_\+\+REG}}~0x\+E7
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a74625341a79e3484830c401d8947443c}{SOFT\+\_\+\+RESET}}~0x\+FE
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_ad8b1bf9f34b5b1f953c6b81767a8838e}{HTRE}}~0x02
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a11643f271076024c395a93800b3d9546}{\+\_\+\+BV}}(bit)~(1 $<$$<$ (bit))
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a3a57af5c3275b2f53fa64274b11e8d52}{CRC\+\_\+\+POLY}}~0x988000
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_afa3215f0aa766367f5d34bee80929152}{I2\+C\+\_\+\+TIMEOUT}}~998
+\item 
+\#define \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_a4bae979c4e63b1feeca389e4bb5d22d3}{BAD\+\_\+\+CRC}}~999
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a11643f271076024c395a93800b3d9546}\label{_spark_fun___si7021___breakout___library_8h_a11643f271076024c395a93800b3d9546} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!\_BV@{\_BV}}
+\index{\_BV@{\_BV}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{\_BV}{\_BV}}
+{\footnotesize\ttfamily \#define \+\_\+\+BV(\begin{DoxyParamCaption}\item[{}]{bit }\end{DoxyParamCaption})~(1 $<$$<$ (bit))}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00053}{53}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2}\label{_spark_fun___si7021___breakout___library_8h_a280feb883e9d4a7edcc69c8bcb9f38f2} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!ADDRESS@{ADDRESS}}
+\index{ADDRESS@{ADDRESS}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{ADDRESS}{ADDRESS}}
+{\footnotesize\ttfamily \#define ADDRESS~0x40}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00040}{40}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a4bae979c4e63b1feeca389e4bb5d22d3}\label{_spark_fun___si7021___breakout___library_8h_a4bae979c4e63b1feeca389e4bb5d22d3} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!BAD\_CRC@{BAD\_CRC}}
+\index{BAD\_CRC@{BAD\_CRC}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{BAD\_CRC}{BAD\_CRC}}
+{\footnotesize\ttfamily \#define BAD\+\_\+\+CRC~999}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00059}{59}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a3a57af5c3275b2f53fa64274b11e8d52}\label{_spark_fun___si7021___breakout___library_8h_a3a57af5c3275b2f53fa64274b11e8d52} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!CRC\_POLY@{CRC\_POLY}}
+\index{CRC\_POLY@{CRC\_POLY}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{CRC\_POLY}{CRC\_POLY}}
+{\footnotesize\ttfamily \#define CRC\+\_\+\+POLY~0x988000}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00055}{55}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_ad8b1bf9f34b5b1f953c6b81767a8838e}\label{_spark_fun___si7021___breakout___library_8h_ad8b1bf9f34b5b1f953c6b81767a8838e} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!HTRE@{HTRE}}
+\index{HTRE@{HTRE}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{HTRE}{HTRE}}
+{\footnotesize\ttfamily \#define HTRE~0x02}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00052}{52}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a07246d9438c90467db277779ecd74960}\label{_spark_fun___si7021___breakout___library_8h_a07246d9438c90467db277779ecd74960} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!HUMD\_MEASURE\_HOLD@{HUMD\_MEASURE\_HOLD}}
+\index{HUMD\_MEASURE\_HOLD@{HUMD\_MEASURE\_HOLD}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{HUMD\_MEASURE\_HOLD}{HUMD\_MEASURE\_HOLD}}
+{\footnotesize\ttfamily \#define HUMD\+\_\+\+MEASURE\+\_\+\+HOLD~0x\+E5}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00043}{43}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a7a8b2dc5b1c7611a6ebbc83fb35e7b77}\label{_spark_fun___si7021___breakout___library_8h_a7a8b2dc5b1c7611a6ebbc83fb35e7b77} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!HUMD\_MEASURE\_NOHOLD@{HUMD\_MEASURE\_NOHOLD}}
+\index{HUMD\_MEASURE\_NOHOLD@{HUMD\_MEASURE\_NOHOLD}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{HUMD\_MEASURE\_NOHOLD}{HUMD\_MEASURE\_NOHOLD}}
+{\footnotesize\ttfamily \#define HUMD\+\_\+\+MEASURE\+\_\+\+NOHOLD~0x\+F5}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00045}{45}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_afa3215f0aa766367f5d34bee80929152}\label{_spark_fun___si7021___breakout___library_8h_afa3215f0aa766367f5d34bee80929152} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!I2C\_TIMEOUT@{I2C\_TIMEOUT}}
+\index{I2C\_TIMEOUT@{I2C\_TIMEOUT}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_TIMEOUT}{I2C\_TIMEOUT}}
+{\footnotesize\ttfamily \#define I2\+C\+\_\+\+TIMEOUT~998}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00058}{58}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_ac8f29e611d6f87ee93d909b98a4db95d}\label{_spark_fun___si7021___breakout___library_8h_ac8f29e611d6f87ee93d909b98a4db95d} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!READ\_USER\_REG@{READ\_USER\_REG}}
+\index{READ\_USER\_REG@{READ\_USER\_REG}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{READ\_USER\_REG}{READ\_USER\_REG}}
+{\footnotesize\ttfamily \#define READ\+\_\+\+USER\+\_\+\+REG~0x\+E7}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00049}{49}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a74625341a79e3484830c401d8947443c}\label{_spark_fun___si7021___breakout___library_8h_a74625341a79e3484830c401d8947443c} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!SOFT\_RESET@{SOFT\_RESET}}
+\index{SOFT\_RESET@{SOFT\_RESET}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{SOFT\_RESET}{SOFT\_RESET}}
+{\footnotesize\ttfamily \#define SOFT\+\_\+\+RESET~0x\+FE}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00050}{50}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_aa1958e6d76aaeccf063159398e9fba32}\label{_spark_fun___si7021___breakout___library_8h_aa1958e6d76aaeccf063159398e9fba32} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!TEMP\_MEASURE\_HOLD@{TEMP\_MEASURE\_HOLD}}
+\index{TEMP\_MEASURE\_HOLD@{TEMP\_MEASURE\_HOLD}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{TEMP\_MEASURE\_HOLD}{TEMP\_MEASURE\_HOLD}}
+{\footnotesize\ttfamily \#define TEMP\+\_\+\+MEASURE\+\_\+\+HOLD~0x\+E3}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00042}{42}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a44457a4e034fb3ae0dae37b86597c8fd}\label{_spark_fun___si7021___breakout___library_8h_a44457a4e034fb3ae0dae37b86597c8fd} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!TEMP\_MEASURE\_NOHOLD@{TEMP\_MEASURE\_NOHOLD}}
+\index{TEMP\_MEASURE\_NOHOLD@{TEMP\_MEASURE\_NOHOLD}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{TEMP\_MEASURE\_NOHOLD}{TEMP\_MEASURE\_NOHOLD}}
+{\footnotesize\ttfamily \#define TEMP\+\_\+\+MEASURE\+\_\+\+NOHOLD~0x\+F3}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00044}{44}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a1939bc96cbb65ab247c83734ac06fb12}\label{_spark_fun___si7021___breakout___library_8h_a1939bc96cbb65ab247c83734ac06fb12} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!TEMP\_PREV@{TEMP\_PREV}}
+\index{TEMP\_PREV@{TEMP\_PREV}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{TEMP\_PREV}{TEMP\_PREV}}
+{\footnotesize\ttfamily \#define TEMP\+\_\+\+PREV~0x\+E0}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00046}{46}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+
+\Hypertarget{_spark_fun___si7021___breakout___library_8h_a55ed60e8a2df61a067ef0fb42f79f6b2}\label{_spark_fun___si7021___breakout___library_8h_a55ed60e8a2df61a067ef0fb42f79f6b2} 
+\index{SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}!WRITE\_USER\_REG@{WRITE\_USER\_REG}}
+\index{WRITE\_USER\_REG@{WRITE\_USER\_REG}!SparkFun\_Si7021\_Breakout\_Library.h@{SparkFun\_Si7021\_Breakout\_Library.h}}
+\doxysubsubsection{\texorpdfstring{WRITE\_USER\_REG}{WRITE\_USER\_REG}}
+{\footnotesize\ttfamily \#define WRITE\+\_\+\+USER\+\_\+\+REG~0x\+E6}
+
+
+
+Definition at line \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source_l00048}{48}} of file \mbox{\hyperlink{_spark_fun___si7021___breakout___library_8h_source}{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}}.
+

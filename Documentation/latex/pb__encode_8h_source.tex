@@ -1,0 +1,160 @@
+\doxysection{pb\+\_\+encode.\+h}
+\hypertarget{pb__encode_8h_source}{}\label{pb__encode_8h_source}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/pb\_encode.h@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/pb\_encode.h}}
+\mbox{\hyperlink{pb__encode_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00001}00001\ \textcolor{comment}{/*\ pb\_encode.h:\ Functions\ to\ encode\ protocol\ buffers.\ Depends\ on\ pb\_encode.c.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00002}00002\ \textcolor{comment}{\ *\ The\ main\ function\ is\ pb\_encode.\ You\ also\ need\ an\ output\ stream,\ and\ the}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00003}00003\ \textcolor{comment}{\ *\ field\ descriptions\ created\ by\ nanopb\_generator.py.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00004}00004\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00006}00006\ \textcolor{preprocessor}{\#ifndef\ PB\_ENCODE\_H\_INCLUDED}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00007}00007\ \textcolor{preprocessor}{\#define\ PB\_ENCODE\_H\_INCLUDED}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pb_8h}{pb.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00011}00011\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00012}00012\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00013}00013\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00015}00015\ \textcolor{comment}{/*\ Structure\ for\ defining\ custom\ output\ streams.\ You\ will\ need\ to\ provide}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00016}00016\ \textcolor{comment}{\ *\ a\ callback\ function\ to\ write\ the\ bytes\ to\ your\ storage,\ which\ can\ be}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00017}00017\ \textcolor{comment}{\ *\ for\ example\ a\ file\ or\ a\ network\ socket.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00018}00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00019}00019\ \textcolor{comment}{\ *\ The\ callback\ must\ conform\ to\ these\ rules:}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00020}00020\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00021}00021\ \textcolor{comment}{\ *\ 1)\ Return\ false\ on\ IO\ errors.\ This\ will\ cause\ encoding\ to\ abort.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00022}00022\ \textcolor{comment}{\ *\ 2)\ You\ can\ use\ state\ to\ store\ your\ own\ data\ (e.g.\ buffer\ pointer).}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00023}00023\ \textcolor{comment}{\ *\ 3)\ pb\_write\ will\ update\ bytes\_written\ after\ your\ callback\ runs.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00024}00024\ \textcolor{comment}{\ *\ 4)\ Substreams\ will\ modify\ max\_size\ and\ bytes\_written.\ Don't\ use\ them}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00025}00025\ \textcolor{comment}{\ *\ \ \ \ to\ calculate\ any\ pointers.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00026}00026\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00027}\mbox{\hyperlink{structpb__ostream__s}{00027}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_s}}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00028}00028\ \{}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00029}00029\ \textcolor{preprocessor}{\#ifdef\ PB\_BUFFER\_ONLY}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00030}00030\ \ \ \ \ \textcolor{comment}{/*\ Callback\ pointer\ is\ not\ used\ in\ buffer-\/only\ configuration.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00031}00031\ \textcolor{comment}{\ \ \ \ \ *\ Having\ an\ int\ pointer\ here\ allows\ binary\ compatibility\ but}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00032}00032\ \textcolor{comment}{\ \ \ \ \ *\ gives\ an\ error\ if\ someone\ tries\ to\ assign\ callback\ function.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00033}00033\ \textcolor{comment}{\ \ \ \ \ *\ Also,\ NULL\ pointer\ marks\ a\ 'sizing\ stream'\ that\ does\ not}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00034}00034\ \textcolor{comment}{\ \ \ \ \ *\ write\ anything.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00035}00035\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00036}00036\ \ \ \ \ \textcolor{keywordtype}{int}\ *\mbox{\hyperlink{structpb__ostream__s_a34a54868356bcec08413c3667a87b448}{callback}};}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00037}00037\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00038}\mbox{\hyperlink{structpb__ostream__s_a34a54868356bcec08413c3667a87b448}{00038}}\ \ \ \ \ bool\ (*\mbox{\hyperlink{structpb__ostream__s_a34a54868356bcec08413c3667a87b448}{callback}})(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\_byte\_t}}\ *buf,\ \textcolor{keywordtype}{size\_t}\ count);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00039}00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00040}\mbox{\hyperlink{structpb__ostream__s_a57f678ee862fe6efdc5493c3c7717c2f}{00040}}\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__ostream__s_a57f678ee862fe6efdc5493c3c7717c2f}{state}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Free\ field\ for\ use\ by\ callback\ implementation.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00041}\mbox{\hyperlink{structpb__ostream__s_aaaa7ad79a00a0f89e9e26220995733d0}{00041}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structpb__ostream__s_aaaa7ad79a00a0f89e9e26220995733d0}{max\_size}};\ \ \ \ \ \ \textcolor{comment}{/*\ Limit\ number\ of\ output\ bytes\ written\ (or\ use\ SIZE\_MAX).\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00042}\mbox{\hyperlink{structpb__ostream__s_a1791584091aa6f089ab71238c5f5e50f}{00042}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structpb__ostream__s_a1791584091aa6f089ab71238c5f5e50f}{bytes\_written}};\ \textcolor{comment}{/*\ Number\ of\ bytes\ written\ so\ far.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00043}00043\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00044}00044\ \textcolor{preprocessor}{\#ifndef\ PB\_NO\_ERRMSG}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00045}\mbox{\hyperlink{structpb__ostream__s_a36dc8b35b6dcb9de24d14f384d4c7095}{00045}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structpb__ostream__s_a36dc8b35b6dcb9de24d14f384d4c7095}{errmsg}};}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00046}00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00047}00047\ \};}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00049}00049\ \textcolor{comment}{/***************************}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00050}00050\ \textcolor{comment}{\ *\ Main\ encoding\ functions\ *}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00051}00051\ \textcolor{comment}{\ ***************************/}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00053}00053\ \textcolor{comment}{/*\ Encode\ a\ single\ protocol\ buffers\ message\ from\ C\ structure\ into\ a\ stream.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00054}00054\ \textcolor{comment}{\ *\ Returns\ true\ on\ success,\ false\ on\ any\ failure.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00055}00055\ \textcolor{comment}{\ *\ The\ actual\ struct\ pointed\ to\ by\ src\_struct\ must\ match\ the\ description\ in\ fields.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00056}00056\ \textcolor{comment}{\ *\ All\ required\ fields\ in\ the\ struct\ are\ assumed\ to\ have\ been\ filled\ in.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00057}00057\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00058}00058\ \textcolor{comment}{\ *\ Example\ usage:}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00059}00059\ \textcolor{comment}{\ *\ \ \ \ MyMessage\ msg\ =\ \{\};}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00060}00060\ \textcolor{comment}{\ *\ \ \ \ uint8\_t\ buffer[64];}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00061}00061\ \textcolor{comment}{\ *\ \ \ \ pb\_ostream\_t\ stream;}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00062}00062\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00063}00063\ \textcolor{comment}{\ *\ \ \ \ msg.field1\ =\ 42;}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00064}00064\ \textcolor{comment}{\ *\ \ \ \ stream\ =\ pb\_ostream\_from\_buffer(buffer,\ sizeof(buffer));}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00065}00065\ \textcolor{comment}{\ *\ \ \ \ pb\_encode(\&stream,\ MyMessage\_fields,\ \&msg);}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00066}00066\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00067}00067\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_a37547c3e4cf18f05e4a50c4fba4b9fa6}{pb\_encode}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ fields[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src\_struct);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00069}00069\ \textcolor{comment}{/*\ Same\ as\ pb\_encode,\ but\ prepends\ the\ length\ of\ the\ message\ as\ a\ varint.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00070}00070\ \textcolor{comment}{\ *\ Corresponds\ to\ writeDelimitedTo()\ in\ Google's\ protobuf\ API.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00071}00071\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00072}00072\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_ada25a45ba2ec5aa0baa8c692b0f30361}{pb\_encode\_delimited}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ fields[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src\_struct);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00074}00074\ \textcolor{comment}{/*\ Encode\ the\ message\ to\ get\ the\ size\ of\ the\ encoded\ data,\ but\ do\ not\ store}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00075}00075\ \textcolor{comment}{\ *\ the\ data.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00076}00076\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_a7d0d58fcd08d5020b12133c31bbe57f1}{pb\_get\_encoded\_size}}(\textcolor{keywordtype}{size\_t}\ *size,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ fields[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src\_struct);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00078}00078\ \textcolor{comment}{/**************************************}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00079}00079\ \textcolor{comment}{\ *\ Functions\ for\ manipulating\ streams\ *}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00080}00080\ \textcolor{comment}{\ **************************************/}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00082}00082\ \textcolor{comment}{/*\ Create\ an\ output\ stream\ for\ writing\ into\ a\ memory\ buffer.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00083}00083\ \textcolor{comment}{\ *\ The\ number\ of\ bytes\ written\ can\ be\ found\ in\ stream.bytes\_written\ after}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00084}00084\ \textcolor{comment}{\ *\ encoding\ the\ message.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00085}00085\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00086}00086\ \textcolor{comment}{\ *\ Alternatively,\ you\ can\ use\ a\ custom\ stream\ that\ writes\ directly\ to\ e.g.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00087}00087\ \textcolor{comment}{\ *\ a\ file\ or\ a\ network\ socket.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00088}00088\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00089}00089\ \mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ \mbox{\hyperlink{pb__encode_8h_a8f9802386928400861c1ce20c4812f53}{pb\_ostream\_from\_buffer}}(\mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\_byte\_t}}\ *buf,\ \textcolor{keywordtype}{size\_t}\ bufsize);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00091}00091\ \textcolor{comment}{/*\ Pseudo-\/stream\ for\ measuring\ the\ size\ of\ a\ message\ without\ actually\ storing}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00092}00092\ \textcolor{comment}{\ *\ the\ encoded\ data.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00093}00093\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00094}00094\ \textcolor{comment}{\ *\ Example\ usage:}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00095}00095\ \textcolor{comment}{\ *\ \ \ \ MyMessage\ msg\ =\ \{\};}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00096}00096\ \textcolor{comment}{\ *\ \ \ \ pb\_ostream\_t\ stream\ =\ PB\_OSTREAM\_SIZING;}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00097}00097\ \textcolor{comment}{\ *\ \ \ \ pb\_encode(\&stream,\ MyMessage\_fields,\ \&msg);}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00098}00098\ \textcolor{comment}{\ *\ \ \ \ printf("{}Message\ size\ is\ \%d\(\backslash\)n"{},\ stream.bytes\_written);}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00099}00099\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00100}00100\ \textcolor{preprocessor}{\#ifndef\ PB\_NO\_ERRMSG}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00101}\mbox{\hyperlink{pb__encode_8h_a300bfda58d66418b92c0f4225ab4790e}{00101}}\ \textcolor{preprocessor}{\#define\ PB\_OSTREAM\_SIZING\ \{0,0,0,0,0\}}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00102}00102\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00103}00103\ \textcolor{preprocessor}{\#define\ PB\_OSTREAM\_SIZING\ \{0,0,0,0\}}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00104}00104\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00106}00106\ \textcolor{comment}{/*\ Function\ to\ write\ into\ a\ pb\_ostream\_t\ stream.\ You\ can\ use\ this\ if\ you\ need}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00107}00107\ \textcolor{comment}{\ *\ to\ append\ or\ prepend\ some\ custom\ headers\ to\ the\ message.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00108}00108\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00109}00109\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_a700e033310d3a291f0b2824c118a3fb8}{pb\_write}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\_byte\_t}}\ *buf,\ \textcolor{keywordtype}{size\_t}\ count);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00112}00112\ \textcolor{comment}{/************************************************}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00113}00113\ \textcolor{comment}{\ *\ Helper\ functions\ for\ writing\ field\ callbacks\ *}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00114}00114\ \textcolor{comment}{\ ************************************************/}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00116}00116\ \textcolor{comment}{/*\ Encode\ field\ header\ based\ on\ type\ and\ field\ number\ defined\ in\ the\ field}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00117}00117\ \textcolor{comment}{\ *\ structure.\ Call\ this\ from\ the\ callback\ before\ writing\ out\ field\ contents.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00118}00118\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_a7b2fffb131fc831e7a555ccc79d6bc3d}{pb\_encode\_tag\_for\_field}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ *field);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00120}00120\ \textcolor{comment}{/*\ Encode\ field\ header\ by\ manually\ specifing\ wire\ type.\ You\ need\ to\ use\ this}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00121}00121\ \textcolor{comment}{\ *\ if\ you\ want\ to\ write\ out\ packed\ arrays\ from\ a\ callback\ field.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00122}00122\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_ac8f890fe7cacc4471567a802011f8331}{pb\_encode\_tag}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bf}{pb\_wire\_type\_t}}\ wiretype,\ uint32\_t\ field\_number);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00124}00124\ \textcolor{comment}{/*\ Encode\ an\ integer\ in\ the\ varint\ format.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00125}00125\ \textcolor{comment}{\ *\ This\ works\ for\ bool,\ enum,\ int32,\ int64,\ uint32\ and\ uint64\ field\ types.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00126}00126\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_a35b91ad13c5152a67170f1ab414a7e36}{pb\_encode\_varint}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ uint64\_t\ value);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00128}00128\ \textcolor{comment}{/*\ Encode\ an\ integer\ in\ the\ zig-\/zagged\ svarint\ format.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00129}00129\ \textcolor{comment}{\ *\ This\ works\ for\ sint32\ and\ sint64.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00130}00130\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_ae498d7e25daa6cc75ad5ca2cf5534a27}{pb\_encode\_svarint}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ int64\_t\ value);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00132}00132\ \textcolor{comment}{/*\ Encode\ a\ string\ or\ bytes\ type\ field.\ For\ strings,\ pass\ strlen(s)\ as\ size.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00133}00133\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_af3536cd38e28a8b56d88ca09159a2b03}{pb\_encode\_string}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\_byte\_t}}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00135}00135\ \textcolor{comment}{/*\ Encode\ a\ fixed32,\ sfixed32\ or\ float\ value.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00136}00136\ \textcolor{comment}{\ *\ You\ need\ to\ pass\ a\ pointer\ to\ a\ 4-\/byte\ wide\ C\ variable.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00137}00137\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_aceb01f227cee6dbb6f36d133d672f076}{pb\_encode\_fixed32}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *value);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00139}00139\ \textcolor{comment}{/*\ Encode\ a\ fixed64,\ sfixed64\ or\ double\ value.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00140}00140\ \textcolor{comment}{\ *\ You\ need\ to\ pass\ a\ pointer\ to\ a\ 8-\/byte\ wide\ C\ variable.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00141}00141\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_aa1987a95a7f64803e25a54c016da9385}{pb\_encode\_fixed64}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *value);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00143}00143\ \textcolor{comment}{/*\ Encode\ a\ submessage\ field.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00144}00144\ \textcolor{comment}{\ *\ You\ need\ to\ pass\ the\ pb\_field\_t\ array\ and\ pointer\ to\ struct,\ just\ like}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00145}00145\ \textcolor{comment}{\ *\ with\ pb\_encode().\ This\ internally\ encodes\ the\ submessage\ twice,\ first\ to}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00146}00146\ \textcolor{comment}{\ *\ calculate\ message\ size\ and\ then\ to\ actually\ write\ it\ out.}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00147}00147\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00148}00148\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__encode_8h_ab8471ba1df57aa12f971e32229db25bd}{pb\_encode\_submessage}}(\mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ *stream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ fields[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src\_struct);}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00150}00150\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00151}00151\ \}\ \textcolor{comment}{/*\ extern\ "{}C"{}\ */}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00152}00152\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{pb__encode_8h_source_l00154}00154\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

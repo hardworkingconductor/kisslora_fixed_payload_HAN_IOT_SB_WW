@@ -1,0 +1,1019 @@
+\doxysection{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino File Reference}
+\hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino}{}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino}\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+
+
+Sends packets on TTN using the LISSLo\+Ra gadget. Based on the original code from\+: \href{https://github.com/YourproductSmarter/KISSLoRa-demo}{\texttt{ https\+://github.\+com/\+Yourproduct\+Smarter/\+KISSLo\+Ra-\/demo}}.  
+
+
+{\ttfamily \#include $<$The\+Things\+Network.\+h$>$}\newline
+{\ttfamily \#include $<$Cayenne\+LPP.\+h$>$}\newline
+{\ttfamily \#include "{}Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h"{}}\newline
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+{\ttfamily \#include "{}KISSLo\+Ra\+\_\+sleep.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a5bd9a30fc22d9a737ee060d41a4ec479}{RELEASE}}~4
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a73d72b72592cc30afbd4422632aa9c4c}{IND}}~0
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af0a8dcf251f695023c9e386a66940a87}{OUTD}}~1
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a94f8ac7f3e48b77e3d63604c74ff1dd4}{INA}}~2
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae7a773cd5d4efe75433c1818b93fca18}{OUTA}}~3
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a829c621fe7350f33a3479c2713c2611f}{USB\+\_\+\+CABLE\+\_\+\+CONNECTED}}~(USBSTA\&(1$<$$<$VBUS))
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aaa6bb1479864150131cfa554807b70e4}{lora\+Serial}}~Serial1
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a48c980c73a848c0bdc894671a15ef21f}{debug\+Serial}}~Serial
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a6ddaf6fa6387ade6351ffdfd438005a1}{freq\+Plan}}~TTN\+\_\+\+FP\+\_\+\+EU868
+\begin{DoxyCompactList}\small\item\em The KISS device should only be used in Europe. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a5ead4c02680ad49e80f3155dd4466cab}{APPLICATION\+\_\+\+PORT\+\_\+\+CAYENNE}}~99
+\begin{DoxyCompactList}\small\item\em Lo\+Ra\+WAN port to which kermispackets shall be sent. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a043f91baad65122720adb435fca24dc6}{LPP\+\_\+\+PAYLOAD\+\_\+\+MAX\+\_\+\+SIZE}}~51
+\begin{DoxyCompactList}\small\item\em Maximum payload size of a Lo\+Ra\+WAN packet. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae6688435b2dad9817693d894e4a1e004}{LPP\+\_\+\+CH\+\_\+\+TEMPERATURE}}~0
+\begin{DoxyCompactList}\small\item\em kermis\+CHannel for Temperature \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad137534af0369c10f1653090883aa53b}{LPP\+\_\+\+CH\+\_\+\+HUMIDITY}}~1
+\begin{DoxyCompactList}\small\item\em kermis\+CHannel for Humidity sensor \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a84a1cbe44817f98f61ba16e9fad1fe57}{LPP\+\_\+\+CH\+\_\+\+LUMINOSITY}}~2
+\begin{DoxyCompactList}\small\item\em kermis\+CHannel for Luminosity sensor \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a56ce4146bf3e453a34f592e4e1bb20db}{LPP\+\_\+\+CH\+\_\+\+ROTARYSWITCH}}~3
+\begin{DoxyCompactList}\small\item\em kermis\+CHannel for Rotary switch \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a84540f5d37661c7a16c3d4fe54de8850}{LPP\+\_\+\+CH\+\_\+\+ACCELEROMETER}}~4
+\begin{DoxyCompactList}\small\item\em kermis\+CHannel for Accelerometer \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acb20412f62c6402b0013083aa01880d0}{LPP\+\_\+\+CH\+\_\+\+BOARDVCCVOLTAGE}}~5
+\begin{DoxyCompactList}\small\item\em kermis\+CHannel for Processor voltage \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a1d871a5076e5d41b7262e7e048fcb56c}{LPP\+\_\+\+CH\+\_\+\+PRESENCE}}~6
+\begin{DoxyCompactList}\small\item\em kermis\+CHannel for Alarm \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a19232c6fbb47c9f101602623431cf317}{LPP\+\_\+\+CH\+\_\+\+SET\+\_\+\+INTERVAL}}~20
+\begin{DoxyCompactList}\small\item\em kermis\+CHannel for setting downlink interval \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aeb4da2f0cd4cb09d4c4452ec7f7afe86}{LPP\+\_\+\+CH\+\_\+\+SW\+\_\+\+RELEASE}}~90
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a9e27e49f40e7acbb55bb085f15dabd99}{ALARM}}~0x01
+\begin{DoxyCompactList}\small\item\em Alarm state. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a1757a37987cd02d649eda609c531a33c}{SAFE}}~0x00
+\begin{DoxyCompactList}\small\item\em No-\/alarm state. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_adfd6a3f8aa3f1c719f648de4e3701fba}{LIGHT\+\_\+\+SENSOR\+\_\+\+PIN}}~10
+\begin{DoxyCompactList}\small\item\em Define for Analog input pin. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a911ac419e9431c80c3d5c9d9c07cdd4b}{RGBLED\+\_\+\+RED}}~12
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a2be9fe39486bd70b4e13a59107bb8e3b}{RGBLED\+\_\+\+GREEN}}~6
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a2fdbc31f63ace28a0996b2affb4290dc}{RGBLED\+\_\+\+BLUE}}~11
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a9f8dc88d73ebb6e560c9a60b7943b371}{LED\+\_\+\+LORA}}~8
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afe806e806d9a04df4c44d0f430f7934a}{ROTARY\+\_\+\+PIN\+\_\+0}}~5
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a49c6432e0f6dc0fdcf2fbc9a29c90aaf}{ROTARY\+\_\+\+PIN\+\_\+1}}~13
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa3c64876388f2ce6ca9d1640d2fac2dd}{ROTARY\+\_\+\+PIN\+\_\+2}}~9
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a7c3b56deb89ff9ff87e7a32943989077}{ROTARY\+\_\+\+PIN\+\_\+3}}~0
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_abc2ad14f0789907024ac765711ffd3da}{BUTTON\+\_\+\+PIN}}~7
+\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_adc590dced90ff5331e2a343caa6e3459}{ACC\+\_\+\+RANGE}}~2
+\begin{DoxyCompactList}\small\item\em Set up to read the accelerometer values in range -\/2g to +2g -\/ valid ranges\+: {\ucr}2G,{\ucr}4G or {\ucr}8G. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acbf245752b32094093a21c9051dc5574}{REGULAR\+\_\+\+INTERVAL}}~60000
+\begin{DoxyCompactList}\small\item\em Regular transmission interval in ms. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afa62f429ae6a9d1806bfa440d7797713}{INTERVAL\+\_\+\+ROTARY\+\_\+\+MASK}}~0x07
+\begin{DoxyCompactList}\small\item\em Binary mask\+: 0000 0111. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a235130cef0b9a3b32bdec8f417fff2f8}{INTERVAL\+\_\+\+ROTARY\+\_\+1}}~1
+\begin{DoxyCompactList}\small\item\em 1 minute interval \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aeae50230e2739a57604e2c26a763a48d}{INTERVAL\+\_\+\+ROTARY\+\_\+2}}~2
+\begin{DoxyCompactList}\small\item\em 5 minutes interval \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a97aaaacc4c278b8200de00185f708fb6}{INTERVAL\+\_\+\+ROTARY\+\_\+3}}~3
+\begin{DoxyCompactList}\small\item\em 15 minutes interval \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ace8c48357097acda4db1d5ea266d8275}{INTERVAL\+\_\+\+ROTARY\+\_\+4}}~4
+\begin{DoxyCompactList}\small\item\em 60 minutes interval \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_abfd9f025f9bef37c7850d4846bdefb16}{INTERVAL\+\_\+1}}~60000
+\begin{DoxyCompactList}\small\item\em 1 minute interval \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae87a8f758adebd263024f88c7bf96bec}{INTERVAL\+\_\+2}}~300000
+\begin{DoxyCompactList}\small\item\em 5 minutes interval \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a84d1039757e14075db3a228b3818df37}{INTERVAL\+\_\+3}}~900000
+\begin{DoxyCompactList}\small\item\em 15 minutes interval \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a8c07eb2562797f5e0c607c7eac26b16f}{INTERVAL\+\_\+4}}~3600000
+\begin{DoxyCompactList}\small\item\em 60 minutes interval \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+The\+Things\+Network \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a3ba05aac93c9ec805b3dc5fc6faea08a}{ttn}} (\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aaa6bb1479864150131cfa554807b70e4}{lora\+Serial}}, \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a48c980c73a848c0bdc894671a15ef21f}{debug\+Serial}}, \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a6ddaf6fa6387ade6351ffdfd438005a1}{freq\+Plan}})
+\item 
+void \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\item 
+void \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\item 
+void \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a85d0c0a68a5b67644a083b3c9bac8ba0}{message}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}payload, size\+\_\+t size, port\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em function called at RX message \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a5bac5242d04733be311c7cbf2472baf6}{get\+\_\+lux\+\_\+value}} (void)
+\begin{DoxyCompactList}\small\item\em read luminosty value from sensor Get the lux value from the APDS-\/9007 Ambient Light Photo Sensor \end{DoxyCompactList}\item 
+int8\+\_\+t \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a438db194215582c64e16a2488f1c74e5}{get\+Rotary\+Position}} ()
+\begin{DoxyCompactList}\small\item\em read rotary switch value Poll the rotary switch \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a4d66fa5f591489bbe9b386709ec90389}{button\+Pressed\+ISR}} ()
+\begin{DoxyCompactList}\small\item\em function called at interrupt generated by pushbutton \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a7ac3e18344b14b0b781bc288f24c52eb}{write\+Accelerometer}} (unsigned char REG\+\_\+\+ADDRESS, unsigned char DATA)
+\begin{DoxyCompactList}\small\item\em Write one register to the acceleromter. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ac9ab9823bc476d4cf719da3987b0eae9}{read\+Accelerometer}} (unsigned char REG\+\_\+\+ADDRESS)
+\begin{DoxyCompactList}\small\item\em Read one register from the accelerometer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae6c6b1b705e688c696ed9ca6c0d5c36d}{get\+Acceleration}} (float \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}}, float \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa4f0d3eebc3c443f9be81bf48561a217}{y}}, float \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af73583b1e980b0aa03f9884812e9fd4d}{z}})
+\begin{DoxyCompactList}\small\item\em Read the acceleration from the accelerometer. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad62db77ad3d3b74ec5efd1b4d795794c}{get\+Initial\+Interval}} (uint8\+\_\+t rotary\+Value)
+\begin{DoxyCompactList}\small\item\em Determine interval in ms using rotary value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af672aef14f37859a2819b71b88b80076}{app\+Eui}} = "{}0004A30\+B001\+F6\+B25"{}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a0bc10718e4f376b19855c5d2802fc529}{app\+Key}} = "{}72AACE3\+DE2\+F5\+F01\+A321\+D97\+FC7250\+AE8\+A"{}
+\item 
+\mbox{\hyperlink{class_cayenne_l_p_p}{Cayenne\+LPP}} \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afa2d54430e01037008b63c8b4aefe776}{lpp}} (\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a043f91baad65122720adb435fca24dc6}{LPP\+\_\+\+PAYLOAD\+\_\+\+MAX\+\_\+\+SIZE}})
+\begin{DoxyCompactList}\small\item\em Cayenne object for composing sensor message. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_weather}{Weather}} \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a2f1d7a65f7e1d9b72ce67024a7d92d33}{sensor}}
+\begin{DoxyCompactList}\small\item\em temperature and humidity sensor \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}{x}}
+\item 
+float \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa4f0d3eebc3c443f9be81bf48561a217}{y}}
+\item 
+float \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af73583b1e980b0aa03f9884812e9fd4d}{z}}
+\begin{DoxyCompactList}\small\item\em Variables to hold acellerometer axis values. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a3efa5eca2089c54c346e804f007fcf11}{current\+Interval}} = \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acbf245752b32094093a21c9051dc5574}{REGULAR\+\_\+\+INTERVAL}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a3040802b997d69b823e4062f4d60a8cc}{next\+Interval}} = \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acbf245752b32094093a21c9051dc5574}{REGULAR\+\_\+\+INTERVAL}}
+\item 
+bool \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_abc6062de1f79eeb6d322d5ddb13b4f5c}{alarm}} = \{ false \}
+\begin{DoxyCompactList}\small\item\em Variable to hold alarm state when set in ISR from button. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Sends packets on TTN using the LISSLo\+Ra gadget. Based on the original code from\+: \href{https://github.com/YourproductSmarter/KISSLoRa-demo}{\texttt{ https\+://github.\+com/\+Yourproduct\+Smarter/\+KISSLo\+Ra-\/demo}}. 
+
+\begin{DoxyAuthor}{Author}
+Remko Welling (\href{mailto:remko.welling@han.nl}{\texttt{ remko.\+welling@han.\+nl}})
+\end{DoxyAuthor}
+\hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_autotoc_md6}{}\doxysubsection{\texorpdfstring{Revision history}{Revision history}}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_autotoc_md6}
+\hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Version\texorpdfstring{$\vert$}{|}\+Date \texorpdfstring{$\vert$}{|}\+Note}{Version\texorpdfstring{$\vert$}{|}\+Date \texorpdfstring{$\vert$}{|}\+Note}}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_autotoc_md7}
+1.\+0 \texorpdfstring{$\vert$}{|}nov 2018 \texorpdfstring{$\vert$}{|} Initial release 1.\+1 \texorpdfstring{$\vert$}{|}21-\/12-\/2018\texorpdfstring{$\vert$}{|} Various additions 1.\+2 \texorpdfstring{$\vert$}{|} 5-\/ 1-\/2019\texorpdfstring{$\vert$}{|} added sleepmode for AVR and RN module, added documentation, 1.\+3 \texorpdfstring{$\vert$}{|}15-\/ 1-\/2019\texorpdfstring{$\vert$}{|} Changed add\+Analog\+Output to send right interval to cayenne, 1.\+3.\+1 \texorpdfstring{$\vert$}{|}27-\/03-\/2019\texorpdfstring{$\vert$}{|} Corrected display of downlink setting of interval in serial communication 4 \texorpdfstring{$\vert$}{|}27-\/03-\/2019\texorpdfstring{$\vert$}{|} Added functionality to set initial interval using the rotary encoder. 4.\+1 \texorpdfstring{$\vert$}{|}7-\/9-\/2020 \texorpdfstring{$\vert$}{|} Sinitized code and comments 
+
+Definition in file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_adc590dced90ff5331e2a343caa6e3459}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_adc590dced90ff5331e2a343caa6e3459} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!ACC\_RANGE@{ACC\_RANGE}}
+\index{ACC\_RANGE@{ACC\_RANGE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{ACC\_RANGE}{ACC\_RANGE}}
+{\footnotesize\ttfamily \#define ACC\+\_\+\+RANGE~2}
+
+
+
+Set up to read the accelerometer values in range -\/2g to +2g -\/ valid ranges\+: {\ucr}2G,{\ucr}4G or {\ucr}8G. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00128}{128}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a9e27e49f40e7acbb55bb085f15dabd99}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a9e27e49f40e7acbb55bb085f15dabd99} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!ALARM@{ALARM}}
+\index{ALARM@{ALARM}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{ALARM}{ALARM}}
+{\footnotesize\ttfamily \#define ALARM~0x01}
+
+
+
+Alarm state. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00102}{102}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a5ead4c02680ad49e80f3155dd4466cab}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a5ead4c02680ad49e80f3155dd4466cab} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!APPLICATION\_PORT\_CAYENNE@{APPLICATION\_PORT\_CAYENNE}}
+\index{APPLICATION\_PORT\_CAYENNE@{APPLICATION\_PORT\_CAYENNE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{APPLICATION\_PORT\_CAYENNE}{APPLICATION\_PORT\_CAYENNE}}
+{\footnotesize\ttfamily \#define APPLICATION\+\_\+\+PORT\+\_\+\+CAYENNE~99}
+
+
+
+Lo\+Ra\+WAN port to which kermispackets shall be sent. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00089}{89}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_abc2ad14f0789907024ac765711ffd3da}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_abc2ad14f0789907024ac765711ffd3da} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!BUTTON\_PIN@{BUTTON\_PIN}}
+\index{BUTTON\_PIN@{BUTTON\_PIN}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_PIN}{BUTTON\_PIN}}
+{\footnotesize\ttfamily \#define BUTTON\+\_\+\+PIN~7}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00125}{125}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a48c980c73a848c0bdc894671a15ef21f}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a48c980c73a848c0bdc894671a15ef21f} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!debugSerial@{debugSerial}}
+\index{debugSerial@{debugSerial}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{debugSerial}{debugSerial}}
+{\footnotesize\ttfamily \#define debug\+Serial~Serial}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00075}{75}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a6ddaf6fa6387ade6351ffdfd438005a1}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a6ddaf6fa6387ade6351ffdfd438005a1} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!freqPlan@{freqPlan}}
+\index{freqPlan@{freqPlan}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{freqPlan}{freqPlan}}
+{\footnotesize\ttfamily \#define freq\+Plan~TTN\+\_\+\+FP\+\_\+\+EU868}
+
+
+
+The KISS device should only be used in Europe. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00078}{78}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a94f8ac7f3e48b77e3d63604c74ff1dd4}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a94f8ac7f3e48b77e3d63604c74ff1dd4} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INA@{INA}}
+\index{INA@{INA}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INA}{INA}}
+{\footnotesize\ttfamily \#define INA~2}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00036}{36}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a73d72b72592cc30afbd4422632aa9c4c}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a73d72b72592cc30afbd4422632aa9c4c} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!IND@{IND}}
+\index{IND@{IND}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{IND}{IND}}
+{\footnotesize\ttfamily \#define IND~0}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00034}{34}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_abfd9f025f9bef37c7850d4846bdefb16}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_abfd9f025f9bef37c7850d4846bdefb16} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INTERVAL\_1@{INTERVAL\_1}}
+\index{INTERVAL\_1@{INTERVAL\_1}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_1}{INTERVAL\_1}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+1~60000}
+
+
+
+1 minute interval 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00141}{141}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae87a8f758adebd263024f88c7bf96bec}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae87a8f758adebd263024f88c7bf96bec} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INTERVAL\_2@{INTERVAL\_2}}
+\index{INTERVAL\_2@{INTERVAL\_2}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_2}{INTERVAL\_2}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+2~300000}
+
+
+
+5 minutes interval 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00142}{142}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a84d1039757e14075db3a228b3818df37}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a84d1039757e14075db3a228b3818df37} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INTERVAL\_3@{INTERVAL\_3}}
+\index{INTERVAL\_3@{INTERVAL\_3}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_3}{INTERVAL\_3}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+3~900000}
+
+
+
+15 minutes interval 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00143}{143}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a8c07eb2562797f5e0c607c7eac26b16f}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a8c07eb2562797f5e0c607c7eac26b16f} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INTERVAL\_4@{INTERVAL\_4}}
+\index{INTERVAL\_4@{INTERVAL\_4}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_4}{INTERVAL\_4}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+4~3600000}
+
+
+
+60 minutes interval 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00144}{144}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a235130cef0b9a3b32bdec8f417fff2f8}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a235130cef0b9a3b32bdec8f417fff2f8} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INTERVAL\_ROTARY\_1@{INTERVAL\_ROTARY\_1}}
+\index{INTERVAL\_ROTARY\_1@{INTERVAL\_ROTARY\_1}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_ROTARY\_1}{INTERVAL\_ROTARY\_1}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+\+ROTARY\+\_\+1~1}
+
+
+
+1 minute interval 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00136}{136}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aeae50230e2739a57604e2c26a763a48d}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aeae50230e2739a57604e2c26a763a48d} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INTERVAL\_ROTARY\_2@{INTERVAL\_ROTARY\_2}}
+\index{INTERVAL\_ROTARY\_2@{INTERVAL\_ROTARY\_2}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_ROTARY\_2}{INTERVAL\_ROTARY\_2}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+\+ROTARY\+\_\+2~2}
+
+
+
+5 minutes interval 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00137}{137}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a97aaaacc4c278b8200de00185f708fb6}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a97aaaacc4c278b8200de00185f708fb6} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INTERVAL\_ROTARY\_3@{INTERVAL\_ROTARY\_3}}
+\index{INTERVAL\_ROTARY\_3@{INTERVAL\_ROTARY\_3}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_ROTARY\_3}{INTERVAL\_ROTARY\_3}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+\+ROTARY\+\_\+3~3}
+
+
+
+15 minutes interval 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00138}{138}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ace8c48357097acda4db1d5ea266d8275}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ace8c48357097acda4db1d5ea266d8275} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INTERVAL\_ROTARY\_4@{INTERVAL\_ROTARY\_4}}
+\index{INTERVAL\_ROTARY\_4@{INTERVAL\_ROTARY\_4}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_ROTARY\_4}{INTERVAL\_ROTARY\_4}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+\+ROTARY\+\_\+4~4}
+
+
+
+60 minutes interval 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00139}{139}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afa62f429ae6a9d1806bfa440d7797713}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afa62f429ae6a9d1806bfa440d7797713} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!INTERVAL\_ROTARY\_MASK@{INTERVAL\_ROTARY\_MASK}}
+\index{INTERVAL\_ROTARY\_MASK@{INTERVAL\_ROTARY\_MASK}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_ROTARY\_MASK}{INTERVAL\_ROTARY\_MASK}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+\+ROTARY\+\_\+\+MASK~0x07}
+
+
+
+Binary mask\+: 0000 0111. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00135}{135}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a9f8dc88d73ebb6e560c9a60b7943b371}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a9f8dc88d73ebb6e560c9a60b7943b371} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LED\_LORA@{LED\_LORA}}
+\index{LED\_LORA@{LED\_LORA}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LED\_LORA}{LED\_LORA}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+LORA~8}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00116}{116}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_adfd6a3f8aa3f1c719f648de4e3701fba}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_adfd6a3f8aa3f1c719f648de4e3701fba} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LIGHT\_SENSOR\_PIN@{LIGHT\_SENSOR\_PIN}}
+\index{LIGHT\_SENSOR\_PIN@{LIGHT\_SENSOR\_PIN}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LIGHT\_SENSOR\_PIN}{LIGHT\_SENSOR\_PIN}}
+{\footnotesize\ttfamily \#define LIGHT\+\_\+\+SENSOR\+\_\+\+PIN~10}
+
+
+
+Define for Analog input pin. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00110}{110}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aaa6bb1479864150131cfa554807b70e4}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aaa6bb1479864150131cfa554807b70e4} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!loraSerial@{loraSerial}}
+\index{loraSerial@{loraSerial}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{loraSerial}{loraSerial}}
+{\footnotesize\ttfamily \#define lora\+Serial~Serial1}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00074}{74}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a84540f5d37661c7a16c3d4fe54de8850}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a84540f5d37661c7a16c3d4fe54de8850} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_CH\_ACCELEROMETER@{LPP\_CH\_ACCELEROMETER}}
+\index{LPP\_CH\_ACCELEROMETER@{LPP\_CH\_ACCELEROMETER}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_CH\_ACCELEROMETER}{LPP\_CH\_ACCELEROMETER}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+CH\+\_\+\+ACCELEROMETER~4}
+
+
+
+kermis\+CHannel for Accelerometer 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00096}{96}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acb20412f62c6402b0013083aa01880d0}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acb20412f62c6402b0013083aa01880d0} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_CH\_BOARDVCCVOLTAGE@{LPP\_CH\_BOARDVCCVOLTAGE}}
+\index{LPP\_CH\_BOARDVCCVOLTAGE@{LPP\_CH\_BOARDVCCVOLTAGE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_CH\_BOARDVCCVOLTAGE}{LPP\_CH\_BOARDVCCVOLTAGE}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+CH\+\_\+\+BOARDVCCVOLTAGE~5}
+
+
+
+kermis\+CHannel for Processor voltage 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00097}{97}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad137534af0369c10f1653090883aa53b}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad137534af0369c10f1653090883aa53b} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_CH\_HUMIDITY@{LPP\_CH\_HUMIDITY}}
+\index{LPP\_CH\_HUMIDITY@{LPP\_CH\_HUMIDITY}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_CH\_HUMIDITY}{LPP\_CH\_HUMIDITY}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+CH\+\_\+\+HUMIDITY~1}
+
+
+
+kermis\+CHannel for Humidity sensor 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00093}{93}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a84a1cbe44817f98f61ba16e9fad1fe57}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a84a1cbe44817f98f61ba16e9fad1fe57} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_CH\_LUMINOSITY@{LPP\_CH\_LUMINOSITY}}
+\index{LPP\_CH\_LUMINOSITY@{LPP\_CH\_LUMINOSITY}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_CH\_LUMINOSITY}{LPP\_CH\_LUMINOSITY}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+CH\+\_\+\+LUMINOSITY~2}
+
+
+
+kermis\+CHannel for Luminosity sensor 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00094}{94}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a1d871a5076e5d41b7262e7e048fcb56c}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a1d871a5076e5d41b7262e7e048fcb56c} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_CH\_PRESENCE@{LPP\_CH\_PRESENCE}}
+\index{LPP\_CH\_PRESENCE@{LPP\_CH\_PRESENCE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_CH\_PRESENCE}{LPP\_CH\_PRESENCE}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+CH\+\_\+\+PRESENCE~6}
+
+
+
+kermis\+CHannel for Alarm 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00098}{98}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a56ce4146bf3e453a34f592e4e1bb20db}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a56ce4146bf3e453a34f592e4e1bb20db} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_CH\_ROTARYSWITCH@{LPP\_CH\_ROTARYSWITCH}}
+\index{LPP\_CH\_ROTARYSWITCH@{LPP\_CH\_ROTARYSWITCH}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_CH\_ROTARYSWITCH}{LPP\_CH\_ROTARYSWITCH}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+CH\+\_\+\+ROTARYSWITCH~3}
+
+
+
+kermis\+CHannel for Rotary switch 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00095}{95}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a19232c6fbb47c9f101602623431cf317}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a19232c6fbb47c9f101602623431cf317} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_CH\_SET\_INTERVAL@{LPP\_CH\_SET\_INTERVAL}}
+\index{LPP\_CH\_SET\_INTERVAL@{LPP\_CH\_SET\_INTERVAL}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_CH\_SET\_INTERVAL}{LPP\_CH\_SET\_INTERVAL}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+CH\+\_\+\+SET\+\_\+\+INTERVAL~20}
+
+
+
+kermis\+CHannel for setting downlink interval 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00099}{99}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aeb4da2f0cd4cb09d4c4452ec7f7afe86}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aeb4da2f0cd4cb09d4c4452ec7f7afe86} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_CH\_SW\_RELEASE@{LPP\_CH\_SW\_RELEASE}}
+\index{LPP\_CH\_SW\_RELEASE@{LPP\_CH\_SW\_RELEASE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_CH\_SW\_RELEASE}{LPP\_CH\_SW\_RELEASE}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+CH\+\_\+\+SW\+\_\+\+RELEASE~90}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00100}{100}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae6688435b2dad9817693d894e4a1e004}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae6688435b2dad9817693d894e4a1e004} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_CH\_TEMPERATURE@{LPP\_CH\_TEMPERATURE}}
+\index{LPP\_CH\_TEMPERATURE@{LPP\_CH\_TEMPERATURE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_CH\_TEMPERATURE}{LPP\_CH\_TEMPERATURE}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+CH\+\_\+\+TEMPERATURE~0}
+
+
+
+kermis\+CHannel for Temperature 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00092}{92}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a043f91baad65122720adb435fca24dc6}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a043f91baad65122720adb435fca24dc6} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!LPP\_PAYLOAD\_MAX\_SIZE@{LPP\_PAYLOAD\_MAX\_SIZE}}
+\index{LPP\_PAYLOAD\_MAX\_SIZE@{LPP\_PAYLOAD\_MAX\_SIZE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{LPP\_PAYLOAD\_MAX\_SIZE}{LPP\_PAYLOAD\_MAX\_SIZE}}
+{\footnotesize\ttfamily \#define LPP\+\_\+\+PAYLOAD\+\_\+\+MAX\+\_\+\+SIZE~51}
+
+
+
+Maximum payload size of a Lo\+Ra\+WAN packet. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00090}{90}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae7a773cd5d4efe75433c1818b93fca18}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae7a773cd5d4efe75433c1818b93fca18} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!OUTA@{OUTA}}
+\index{OUTA@{OUTA}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{OUTA}{OUTA}}
+{\footnotesize\ttfamily \#define OUTA~3}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00037}{37}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af0a8dcf251f695023c9e386a66940a87}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af0a8dcf251f695023c9e386a66940a87} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!OUTD@{OUTD}}
+\index{OUTD@{OUTD}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{OUTD}{OUTD}}
+{\footnotesize\ttfamily \#define OUTD~1}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00035}{35}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acbf245752b32094093a21c9051dc5574}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acbf245752b32094093a21c9051dc5574} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!REGULAR\_INTERVAL@{REGULAR\_INTERVAL}}
+\index{REGULAR\_INTERVAL@{REGULAR\_INTERVAL}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{REGULAR\_INTERVAL}{REGULAR\_INTERVAL}}
+{\footnotesize\ttfamily \#define REGULAR\+\_\+\+INTERVAL~60000}
+
+
+
+Regular transmission interval in ms. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00133}{133}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a5bd9a30fc22d9a737ee060d41a4ec479}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a5bd9a30fc22d9a737ee060d41a4ec479} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!RELEASE@{RELEASE}}
+\index{RELEASE@{RELEASE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{RELEASE}{RELEASE}}
+{\footnotesize\ttfamily \#define RELEASE~4}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00032}{32}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a2fdbc31f63ace28a0996b2affb4290dc}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a2fdbc31f63ace28a0996b2affb4290dc} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!RGBLED\_BLUE@{RGBLED\_BLUE}}
+\index{RGBLED\_BLUE@{RGBLED\_BLUE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{RGBLED\_BLUE}{RGBLED\_BLUE}}
+{\footnotesize\ttfamily \#define RGBLED\+\_\+\+BLUE~11}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00115}{115}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a2be9fe39486bd70b4e13a59107bb8e3b}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a2be9fe39486bd70b4e13a59107bb8e3b} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!RGBLED\_GREEN@{RGBLED\_GREEN}}
+\index{RGBLED\_GREEN@{RGBLED\_GREEN}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{RGBLED\_GREEN}{RGBLED\_GREEN}}
+{\footnotesize\ttfamily \#define RGBLED\+\_\+\+GREEN~6}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00114}{114}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a911ac419e9431c80c3d5c9d9c07cdd4b}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a911ac419e9431c80c3d5c9d9c07cdd4b} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!RGBLED\_RED@{RGBLED\_RED}}
+\index{RGBLED\_RED@{RGBLED\_RED}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{RGBLED\_RED}{RGBLED\_RED}}
+{\footnotesize\ttfamily \#define RGBLED\+\_\+\+RED~12}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00113}{113}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afe806e806d9a04df4c44d0f430f7934a}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afe806e806d9a04df4c44d0f430f7934a} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!ROTARY\_PIN\_0@{ROTARY\_PIN\_0}}
+\index{ROTARY\_PIN\_0@{ROTARY\_PIN\_0}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{ROTARY\_PIN\_0}{ROTARY\_PIN\_0}}
+{\footnotesize\ttfamily \#define ROTARY\+\_\+\+PIN\+\_\+0~5}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00119}{119}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a49c6432e0f6dc0fdcf2fbc9a29c90aaf}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a49c6432e0f6dc0fdcf2fbc9a29c90aaf} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!ROTARY\_PIN\_1@{ROTARY\_PIN\_1}}
+\index{ROTARY\_PIN\_1@{ROTARY\_PIN\_1}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{ROTARY\_PIN\_1}{ROTARY\_PIN\_1}}
+{\footnotesize\ttfamily \#define ROTARY\+\_\+\+PIN\+\_\+1~13}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00120}{120}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa3c64876388f2ce6ca9d1640d2fac2dd}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa3c64876388f2ce6ca9d1640d2fac2dd} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!ROTARY\_PIN\_2@{ROTARY\_PIN\_2}}
+\index{ROTARY\_PIN\_2@{ROTARY\_PIN\_2}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{ROTARY\_PIN\_2}{ROTARY\_PIN\_2}}
+{\footnotesize\ttfamily \#define ROTARY\+\_\+\+PIN\+\_\+2~9}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00121}{121}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a7c3b56deb89ff9ff87e7a32943989077}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a7c3b56deb89ff9ff87e7a32943989077} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!ROTARY\_PIN\_3@{ROTARY\_PIN\_3}}
+\index{ROTARY\_PIN\_3@{ROTARY\_PIN\_3}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{ROTARY\_PIN\_3}{ROTARY\_PIN\_3}}
+{\footnotesize\ttfamily \#define ROTARY\+\_\+\+PIN\+\_\+3~0}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00122}{122}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a1757a37987cd02d649eda609c531a33c}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a1757a37987cd02d649eda609c531a33c} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!SAFE@{SAFE}}
+\index{SAFE@{SAFE}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{SAFE}{SAFE}}
+{\footnotesize\ttfamily \#define SAFE~0x00}
+
+
+
+No-\/alarm state. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00103}{103}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a829c621fe7350f33a3479c2713c2611f}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a829c621fe7350f33a3479c2713c2611f} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!USB\_CABLE\_CONNECTED@{USB\_CABLE\_CONNECTED}}
+\index{USB\_CABLE\_CONNECTED@{USB\_CABLE\_CONNECTED}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{USB\_CABLE\_CONNECTED}{USB\_CABLE\_CONNECTED}}
+{\footnotesize\ttfamily \#define USB\+\_\+\+CABLE\+\_\+\+CONNECTED~(USBSTA\&(1$<$$<$VBUS))}
+
+\hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{To use this board\+:}{To use this board\+:}}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_autotoc_md8}
+Install the USB drivers for the Spark\+Fun boards, following the steps \href{https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/installing-windows}{\texttt{ for Windows}} or \href{https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/installing-mac--linux}{\texttt{ for Linux and Mac}}. In the Arduino IDE go to {\bfseries{File-\/\texorpdfstring{$>$}{>}Preferences-\/\texorpdfstring{$>$}{>}Additional Boards Manager URLs}} and add\+: {\ttfamily \href{https://raw.githubusercontent.com/sparkfun/Arduino_Boards/master/IDE_Board_Manager/package_sparkfun_index.json}{\texttt{ https\+://raw.\+githubusercontent.\+com/sparkfun/\+Arduino\+\_\+\+Boards/master/\+IDE\+\_\+\+Board\+\_\+\+Manager/package\+\_\+sparkfun\+\_\+index.\+json}}} Go to {\bfseries{Tools-\/\texorpdfstring{$>$}{>}Board-\/\texorpdfstring{$>$}{>}Boards Manager}}, search for {\bfseries{Spark\+Fun AVR Boards}} and click on {\bfseries{install}}. Go to {\bfseries{Tools-\/\texorpdfstring{$>$}{>}Board}} and select {\bfseries{Spark\+Fun Pro Micro}}. Go to {\bfseries{Tools-\/\texorpdfstring{$>$}{>}Processor}} and select {\bfseries{ATmega32\+U4 (3.\+3V, 8MHz)}}.\hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{Uploading Firmware}{Uploading Firmware}}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_autotoc_md9}
+\begin{quote}
+The serial monitor must be closed before uploading code to the device. \end{quote}
+
+\begin{DoxyEnumerate}
+\item Switch the KISS Lo\+Ra device off.
+\item Plug it into your computer using a micro USB cable.
+\item In the Arduino IDE make sure the correct {\bfseries{Tools-\/\texorpdfstring{$>$}{>}Board}} (Spark\+Fun Pro Micro) and {\bfseries{Tools-\/\texorpdfstring{$>$}{>}Processor}} (ATmega 32U4, 8MHz) are selected.
+\item Switch the device on and make sure the correct {\bfseries{Tools-\/\texorpdfstring{$>$}{>}Port}} is selected.
+\item Switch the device off again.
+\item Press and hold the {\bfseries{Push Button}} on the kiss device.
+\item In the Arduino IDE, choose {\bfseries{Sketch-\/\texorpdfstring{$>$}{>}Upload}}.
+\item As soon as you see {\ttfamily PORTS \{\} / \{\} =\texorpdfstring{$>$}{>} \{\}} printed in the output window turn KISSLo\+Ra on.
+\item When the upload process continue past showing {\ttfamily PORTS \{\} / \{\} =\texorpdfstring{$>$}{>} \{\}}, you can release the push button. 
+\end{DoxyEnumerate}
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00071}{71}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a4d66fa5f591489bbe9b386709ec90389}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a4d66fa5f591489bbe9b386709ec90389} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!buttonPressedISR@{buttonPressedISR}}
+\index{buttonPressedISR@{buttonPressedISR}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{buttonPressedISR()}{buttonPressedISR()}}
+{\footnotesize\ttfamily void button\+Pressed\+ISR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+function called at interrupt generated by pushbutton 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00369}{369}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a5bac5242d04733be311c7cbf2472baf6}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a5bac5242d04733be311c7cbf2472baf6} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!get\_lux\_value@{get\_lux\_value}}
+\index{get\_lux\_value@{get\_lux\_value}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{get\_lux\_value()}{get\_lux\_value()}}
+{\footnotesize\ttfamily float get\+\_\+lux\+\_\+value (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+read luminosty value from sensor Get the lux value from the APDS-\/9007 Ambient Light Photo Sensor 
+
+\begin{DoxyReturn}{Returns}
+luminosity in Lux. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00348}{348}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae6c6b1b705e688c696ed9ca6c0d5c36d}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ae6c6b1b705e688c696ed9ca6c0d5c36d} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!getAcceleration@{getAcceleration}}
+\index{getAcceleration@{getAcceleration}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{getAcceleration()}{getAcceleration()}}
+{\footnotesize\ttfamily void get\+Acceleration (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{x,  }\item[{float \texorpdfstring{$\ast$}{*}}]{y,  }\item[{float \texorpdfstring{$\ast$}{*}}]{z }\end{DoxyParamCaption})}
+
+
+
+Read the acceleration from the accelerometer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & pointer to x-\/value \\
+\hline
+{\em y} & pointer to y-\/value \\
+\hline
+{\em z} & pointer to z-\/value \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00437}{437}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad62db77ad3d3b74ec5efd1b4d795794c}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad62db77ad3d3b74ec5efd1b4d795794c} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!getInitialInterval@{getInitialInterval}}
+\index{getInitialInterval@{getInitialInterval}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{getInitialInterval()}{getInitialInterval()}}
+{\footnotesize\ttfamily uint32\+\_\+t get\+Initial\+Interval (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{rotary\+Value }\end{DoxyParamCaption})}
+
+
+
+Determine interval in ms using rotary value. 
+
+\begin{DoxyPrecond}{Precondition}
+This function is only using bits 4, 2, and 1 while ignoring bit 8. Set this using define INTERVAL\+\_\+\+ROTARY\+\_\+\+MASK 
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em rotary\+Value} & actual value from rotary encoder. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+interval in ms 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00510}{510}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a438db194215582c64e16a2488f1c74e5}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a438db194215582c64e16a2488f1c74e5} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!getRotaryPosition@{getRotaryPosition}}
+\index{getRotaryPosition@{getRotaryPosition}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{getRotaryPosition()}{getRotaryPosition()}}
+{\footnotesize\ttfamily int8\+\_\+t get\+Rotary\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+read rotary switch value Poll the rotary switch 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em binary} & representation of rotarty switch position ( 0 to 9) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00359}{359}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afe461d27b9c48d5921c00d521181f12f}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afe461d27b9c48d5921c00d521181f12f} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!loop@{loop}}
+\index{loop@{loop}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+get accelerometer
+
+get VDD form RN module
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00218}{218}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a85d0c0a68a5b67644a083b3c9bac8ba0}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a85d0c0a68a5b67644a083b3c9bac8ba0} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!message@{message}}
+\index{message@{message}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{message()}{message()}}
+{\footnotesize\ttfamily void message (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{payload,  }\item[{size\+\_\+t}]{size,  }\item[{port\+\_\+t}]{port }\end{DoxyParamCaption})}
+
+
+
+function called at RX message 
+
+
+\begin{DoxyParams}{Parameters}
+{\em payload} & pointer to received payload \\
+\hline
+{\em size} & payload size \\
+\hline
+{\em port} & Application port \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00310}{310}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ac9ab9823bc476d4cf719da3987b0eae9}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ac9ab9823bc476d4cf719da3987b0eae9} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!readAccelerometer@{readAccelerometer}}
+\index{readAccelerometer@{readAccelerometer}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{readAccelerometer()}{readAccelerometer()}}
+{\footnotesize\ttfamily uint8\+\_\+t read\+Accelerometer (\begin{DoxyParamCaption}\item[{unsigned char}]{REG\+\_\+\+ADDRESS }\end{DoxyParamCaption})}
+
+
+
+Read one register from the accelerometer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em REG\+\_\+\+ADDRESS} & address of registry to be read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Value at given registry address 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00386}{386}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a4fc01d736fe50cf5b977f755b675f11d}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a4fc01d736fe50cf5b977f755b675f11d} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!setup@{setup}}
+\index{setup@{setup}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00152}{152}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a3ba05aac93c9ec805b3dc5fc6faea08a}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a3ba05aac93c9ec805b3dc5fc6faea08a} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!ttn@{ttn}}
+\index{ttn@{ttn}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{ttn()}{ttn()}}
+{\footnotesize\ttfamily The\+Things\+Network ttn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aaa6bb1479864150131cfa554807b70e4}{lora\+Serial}}}]{,  }\item[{\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a48c980c73a848c0bdc894671a15ef21f}{debug\+Serial}}}]{,  }\item[{\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a6ddaf6fa6387ade6351ffdfd438005a1}{freq\+Plan}}}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a7ac3e18344b14b0b781bc288f24c52eb}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a7ac3e18344b14b0b781bc288f24c52eb} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!writeAccelerometer@{writeAccelerometer}}
+\index{writeAccelerometer@{writeAccelerometer}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{writeAccelerometer()}{writeAccelerometer()}}
+{\footnotesize\ttfamily void write\+Accelerometer (\begin{DoxyParamCaption}\item[{unsigned char}]{REG\+\_\+\+ADDRESS,  }\item[{unsigned char}]{DATA }\end{DoxyParamCaption})}
+
+
+
+Write one register to the acceleromter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em REG\+\_\+\+ADDRESS} & address of register\\
+\hline
+\end{DoxyParams}
+DATA to be written to that address. 
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00376}{376}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_abc6062de1f79eeb6d322d5ddb13b4f5c}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_abc6062de1f79eeb6d322d5ddb13b4f5c} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!alarm@{alarm}}
+\index{alarm@{alarm}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{alarm}{alarm}}
+{\footnotesize\ttfamily bool alarm = \{ false \}}
+
+
+
+Variable to hold alarm state when set in ISR from button. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00149}{149}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af672aef14f37859a2819b71b88b80076}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af672aef14f37859a2819b71b88b80076} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!appEui@{appEui}}
+\index{appEui@{appEui}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{appEui}{appEui}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} app\+Eui = "{}0004A30\+B001\+F6\+B25"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00082}{82}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a0bc10718e4f376b19855c5d2802fc529}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a0bc10718e4f376b19855c5d2802fc529} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!appKey@{appKey}}
+\index{appKey@{appKey}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{appKey}{appKey}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} app\+Key = "{}72AACE3\+DE2\+F5\+F01\+A321\+D97\+FC7250\+AE8\+A"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00083}{83}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a3efa5eca2089c54c346e804f007fcf11}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a3efa5eca2089c54c346e804f007fcf11} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!currentInterval@{currentInterval}}
+\index{currentInterval@{currentInterval}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{currentInterval}{currentInterval}}
+{\footnotesize\ttfamily uint32\+\_\+t current\+Interval = \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acbf245752b32094093a21c9051dc5574}{REGULAR\+\_\+\+INTERVAL}}}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00146}{146}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afa2d54430e01037008b63c8b4aefe776}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_afa2d54430e01037008b63c8b4aefe776} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!lpp@{lpp}}
+\index{lpp@{lpp}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{lpp}{lpp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_cayenne_l_p_p}{Cayenne\+LPP}} lpp(\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a043f91baad65122720adb435fca24dc6}{LPP\+\_\+\+PAYLOAD\+\_\+\+MAX\+\_\+\+SIZE}}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a043f91baad65122720adb435fca24dc6}{LPP\+\_\+\+PAYLOAD\+\_\+\+MAX\+\_\+\+SIZE}}}]{ }\end{DoxyParamCaption})}
+
+
+
+Cayenne object for composing sensor message. 
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a3040802b997d69b823e4062f4d60a8cc}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a3040802b997d69b823e4062f4d60a8cc} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!nextInterval@{nextInterval}}
+\index{nextInterval@{nextInterval}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{nextInterval}{nextInterval}}
+{\footnotesize\ttfamily uint32\+\_\+t next\+Interval = \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_acbf245752b32094093a21c9051dc5574}{REGULAR\+\_\+\+INTERVAL}}}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00147}{147}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a2f1d7a65f7e1d9b72ce67024a7d92d33}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a2f1d7a65f7e1d9b72ce67024a7d92d33} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!sensor@{sensor}}
+\index{sensor@{sensor}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{sensor}{sensor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_weather}{Weather}} sensor}
+
+
+
+temperature and humidity sensor 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00108}{108}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_ad0da36b2558901e21e7a30f6c227a45e} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!x@{x}}
+\index{x@{x}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily float x}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00130}{130}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa4f0d3eebc3c443f9be81bf48561a217}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_aa4f0d3eebc3c443f9be81bf48561a217} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!y@{y}}
+\index{y@{y}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily float y}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00130}{130}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+
+\Hypertarget{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af73583b1e980b0aa03f9884812e9fd4d}\label{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_af73583b1e980b0aa03f9884812e9fd4d} 
+\index{LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}!z@{z}}
+\index{z@{z}!LoRa\_TX\_RX\_Cayenne\_HAN.ino@{LoRa\_TX\_RX\_Cayenne\_HAN.ino}}
+\doxysubsubsection{\texorpdfstring{z}{z}}
+{\footnotesize\ttfamily float z}
+
+
+
+Variables to hold acellerometer axis values. 
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source_l00130}{130}} of file \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_source}{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN.\+ino}}.
+

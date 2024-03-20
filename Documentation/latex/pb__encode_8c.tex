@@ -1,0 +1,203 @@
+\doxysection{C\+:/\+Users/coole/\+One\+Drive/\+HAN Elec Engineering Year 3/\+S6/\+Io\+T/\+Payload\+\_\+\+Encoder/\+The\+Things\+Network/src/pb\+\_\+encode.c File Reference}
+\hypertarget{pb__encode_8c}{}\label{pb__encode_8c}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/pb\_encode.c@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/pb\_encode.c}}
+{\ttfamily \#include "{}pb.\+h"{}}\newline
+{\ttfamily \#include "{}pb\+\_\+encode.\+h"{}}\newline
+{\ttfamily \#include "{}pb\+\_\+common.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{pb__encode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef bool(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{pb__encode_8c_a97fb5d2a4a36b03cc477f301641af615}{pb\+\_\+encoder\+\_\+t}}) (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} \texorpdfstring{$\ast$}{*}field, const void \texorpdfstring{$\ast$}{*}src) \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \mbox{\hyperlink{pb__encode_8c_a8f9802386928400861c1ce20c4812f53}{pb\+\_\+ostream\+\_\+from\+\_\+buffer}} (\mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\+\_\+byte\+\_\+t}} \texorpdfstring{$\ast$}{*}buf, size\+\_\+t bufsize)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_a51722b3d1c00f2aaecfe1ae100c781fe}{pb\+\_\+write}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const \mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\+\_\+byte\+\_\+t}} \texorpdfstring{$\ast$}{*}buf, size\+\_\+t count)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_af44dde5296bd546d99be35f15658af3e}{pb\+\_\+encode}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} fields\mbox{[}$\,$\mbox{]}, const void \texorpdfstring{$\ast$}{*}src\+\_\+struct)
+\item 
+bool \mbox{\hyperlink{pb__encode_8c_ada25a45ba2ec5aa0baa8c692b0f30361}{pb\+\_\+encode\+\_\+delimited}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} fields\mbox{[}$\,$\mbox{]}, const void \texorpdfstring{$\ast$}{*}src\+\_\+struct)
+\item 
+bool \mbox{\hyperlink{pb__encode_8c_a7d0d58fcd08d5020b12133c31bbe57f1}{pb\+\_\+get\+\_\+encoded\+\_\+size}} (size\+\_\+t \texorpdfstring{$\ast$}{*}size, const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} fields\mbox{[}$\,$\mbox{]}, const void \texorpdfstring{$\ast$}{*}src\+\_\+struct)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_a568e2eb180774ef4e07de89508edb52b}{pb\+\_\+encode\+\_\+varint}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, uint64\+\_\+t value)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_a5cac93c05232ceb03e4be4abede22006}{pb\+\_\+encode\+\_\+svarint}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, int64\+\_\+t value)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_a10f037686377976d07531ce87f1cd913}{pb\+\_\+encode\+\_\+fixed32}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const void \texorpdfstring{$\ast$}{*}value)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_ae61c01d23aaa60452a9f5d01e9a17833}{pb\+\_\+encode\+\_\+fixed64}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const void \texorpdfstring{$\ast$}{*}value)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_acfbcc89e5e4355b8c263d6d4f2bc8c6f}{pb\+\_\+encode\+\_\+tag}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, \mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bf}{pb\+\_\+wire\+\_\+type\+\_\+t}} wiretype, uint32\+\_\+t field\+\_\+number)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_a3e0f1ac29dce37f78220ecd6b9d21cba}{pb\+\_\+encode\+\_\+tag\+\_\+for\+\_\+field}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} \texorpdfstring{$\ast$}{*}field)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_a17f6d01fe19caa02aca35908212f590e}{pb\+\_\+encode\+\_\+string}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const \mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\+\_\+byte\+\_\+t}} \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t size)
+\item 
+bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} \mbox{\hyperlink{pb__encode_8c_a5c19520cad847fead01fae854b8a6f86}{pb\+\_\+encode\+\_\+submessage}} (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} fields\mbox{[}$\,$\mbox{]}, const void \texorpdfstring{$\ast$}{*}src\+\_\+struct)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{pb__encode_8c_ab244d5a64365c2522908485bcfd2415d}\label{pb__encode_8c_ab244d5a64365c2522908485bcfd2415d} 
+\index{pb\_encode.c@{pb\_encode.c}!checkreturn@{checkreturn}}
+\index{checkreturn@{checkreturn}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{checkreturn}{checkreturn}}
+{\footnotesize\ttfamily \#define checkreturn}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00015}{15}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{pb__encode_8c_a97fb5d2a4a36b03cc477f301641af615}\label{pb__encode_8c_a97fb5d2a4a36b03cc477f301641af615} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encoder\_t@{pb\_encoder\_t}}
+\index{pb\_encoder\_t@{pb\_encoder\_t}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encoder\_t}{pb\_encoder\_t}}
+{\footnotesize\ttfamily typedef bool(\texorpdfstring{$\ast$}{*} pb\+\_\+encoder\+\_\+t) (\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}stream, const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} \texorpdfstring{$\ast$}{*}field, const void \texorpdfstring{$\ast$}{*}src) \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}}}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00023}{23}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{pb__encode_8c_af44dde5296bd546d99be35f15658af3e}\label{pb__encode_8c_af44dde5296bd546d99be35f15658af3e} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode@{pb\_encode}}
+\index{pb\_encode@{pb\_encode}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode()}{pb\_encode()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}}}]{fields\mbox{[}$\,$\mbox{]},  }\item[{const void \texorpdfstring{$\ast$}{*}}]{src\+\_\+struct }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00371}{371}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_ada25a45ba2ec5aa0baa8c692b0f30361}\label{pb__encode_8c_ada25a45ba2ec5aa0baa8c692b0f30361} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode\_delimited@{pb\_encode\_delimited}}
+\index{pb\_encode\_delimited@{pb\_encode\_delimited}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode\_delimited()}{pb\_encode\_delimited()}}
+{\footnotesize\ttfamily bool pb\+\_\+encode\+\_\+delimited (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}}}]{fields\mbox{[}$\,$\mbox{]},  }\item[{const void \texorpdfstring{$\ast$}{*}}]{src\+\_\+struct }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00395}{395}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_a10f037686377976d07531ce87f1cd913}\label{pb__encode_8c_a10f037686377976d07531ce87f1cd913} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode\_fixed32@{pb\_encode\_fixed32}}
+\index{pb\_encode\_fixed32@{pb\_encode\_fixed32}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode\_fixed32()}{pb\_encode\_fixed32()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+encode\+\_\+fixed32 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00447}{447}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_ae61c01d23aaa60452a9f5d01e9a17833}\label{pb__encode_8c_ae61c01d23aaa60452a9f5d01e9a17833} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode\_fixed64@{pb\_encode\_fixed64}}
+\index{pb\_encode\_fixed64@{pb\_encode\_fixed64}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode\_fixed64()}{pb\_encode\_fixed64()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+encode\+\_\+fixed64 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00458}{458}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_a17f6d01fe19caa02aca35908212f590e}\label{pb__encode_8c_a17f6d01fe19caa02aca35908212f590e} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode\_string@{pb\_encode\_string}}
+\index{pb\_encode\_string@{pb\_encode\_string}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode\_string()}{pb\_encode\_string()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+encode\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{const \mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\+\_\+byte\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00511}{511}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_a5c19520cad847fead01fae854b8a6f86}\label{pb__encode_8c_a5c19520cad847fead01fae854b8a6f86} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode\_submessage@{pb\_encode\_submessage}}
+\index{pb\_encode\_submessage@{pb\_encode\_submessage}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode\_submessage()}{pb\_encode\_submessage()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+encode\+\_\+submessage (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}}}]{fields\mbox{[}$\,$\mbox{]},  }\item[{const void \texorpdfstring{$\ast$}{*}}]{src\+\_\+struct }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00519}{519}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_a5cac93c05232ceb03e4be4abede22006}\label{pb__encode_8c_a5cac93c05232ceb03e4be4abede22006} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode\_svarint@{pb\_encode\_svarint}}
+\index{pb\_encode\_svarint@{pb\_encode\_svarint}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode\_svarint()}{pb\_encode\_svarint()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+encode\+\_\+svarint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{int64\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00436}{436}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_acfbcc89e5e4355b8c263d6d4f2bc8c6f}\label{pb__encode_8c_acfbcc89e5e4355b8c263d6d4f2bc8c6f} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode\_tag@{pb\_encode\_tag}}
+\index{pb\_encode\_tag@{pb\_encode\_tag}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode\_tag()}{pb\_encode\_tag()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+encode\+\_\+tag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{\mbox{\hyperlink{pb_8h_ac815846d88d0f550fe93ea99096430bf}{pb\+\_\+wire\+\_\+type\+\_\+t}}}]{wiretype,  }\item[{uint32\+\_\+t}]{field\+\_\+number }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00473}{473}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_a3e0f1ac29dce37f78220ecd6b9d21cba}\label{pb__encode_8c_a3e0f1ac29dce37f78220ecd6b9d21cba} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode\_tag\_for\_field@{pb\_encode\_tag\_for\_field}}
+\index{pb\_encode\_tag\_for\_field@{pb\_encode\_tag\_for\_field}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode\_tag\_for\_field()}{pb\_encode\_tag\_for\_field()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+encode\+\_\+tag\+\_\+for\+\_\+field (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{field }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00479}{479}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_a568e2eb180774ef4e07de89508edb52b}\label{pb__encode_8c_a568e2eb180774ef4e07de89508edb52b} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_encode\_varint@{pb\_encode\_varint}}
+\index{pb\_encode\_varint@{pb\_encode\_varint}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_encode\_varint()}{pb\_encode\_varint()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+encode\+\_\+varint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{uint64\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00414}{414}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_a7d0d58fcd08d5020b12133c31bbe57f1}\label{pb__encode_8c_a7d0d58fcd08d5020b12133c31bbe57f1} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_get\_encoded\_size@{pb\_get\_encoded\_size}}
+\index{pb\_get\_encoded\_size@{pb\_get\_encoded\_size}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_get\_encoded\_size()}{pb\_get\_encoded\_size()}}
+{\footnotesize\ttfamily bool pb\+\_\+get\+\_\+encoded\+\_\+size (\begin{DoxyParamCaption}\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{size,  }\item[{const \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\+\_\+field\+\_\+t}}}]{fields\mbox{[}$\,$\mbox{]},  }\item[{const void \texorpdfstring{$\ast$}{*}}]{src\+\_\+struct }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00400}{400}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_a8f9802386928400861c1ce20c4812f53}\label{pb__encode_8c_a8f9802386928400861c1ce20c4812f53} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_ostream\_from\_buffer@{pb\_ostream\_from\_buffer}}
+\index{pb\_ostream\_from\_buffer@{pb\_ostream\_from\_buffer}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_ostream\_from\_buffer()}{pb\_ostream\_from\_buffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} pb\+\_\+ostream\+\_\+from\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\+\_\+byte\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{size\+\_\+t}]{bufsize }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00070}{70}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+
+\Hypertarget{pb__encode_8c_a51722b3d1c00f2aaecfe1ae100c781fe}\label{pb__encode_8c_a51722b3d1c00f2aaecfe1ae100c781fe} 
+\index{pb\_encode.c@{pb\_encode.c}!pb\_write@{pb\_write}}
+\index{pb\_write@{pb\_write}!pb\_encode.c@{pb\_encode.c}}
+\doxysubsubsection{\texorpdfstring{pb\_write()}{pb\_write()}}
+{\footnotesize\ttfamily bool \mbox{\hyperlink{pb__decode_8c_ab244d5a64365c2522908485bcfd2415d}{checkreturn}} pb\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{pb_8h_a0a2d46c69fdcda81627431d7b58b0bac}{pb\+\_\+ostream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{stream,  }\item[{const \mbox{\hyperlink{pb_8h_a25ed6987f3543891dbf205fadc10ba2c}{pb\+\_\+byte\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pb__encode_8c_source_l00087}{87}} of file \mbox{\hyperlink{pb__encode_8c_source}{pb\+\_\+encode.\+c}}.
+

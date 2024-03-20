@@ -1,0 +1,33 @@
+\doxysection{The\+Things\+Message.\+cpp}
+\hypertarget{_the_things_message_8cpp_source}{}\label{_the_things_message_8cpp_source}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/TheThingsMessage.cpp@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/TheThingsMessage.cpp}}
+\mbox{\hyperlink{_the_things_message_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00001}00001\ \textcolor{comment}{//\ Copyright\ ©\ 2017\ The\ Things\ Network}}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00002}00002\ \textcolor{comment}{//\ Use\ of\ this\ source\ code\ is\ governed\ by\ the\ MIT\ license\ that\ can\ be\ found\ in\ the\ LICENSE\ file.}}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_the_things_message_8h}{TheThingsMessage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00006}\mbox{\hyperlink{class_the_things_message_a18613dd53585cfd32d2a80e594ed9f41}{00006}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_the_things_message_a18613dd53585cfd32d2a80e594ed9f41}{TheThingsMessage::decodeAppData}}(\mbox{\hyperlink{struct__api___app_data}{appdata\_t}}\ *receiveData,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{byte}\ *payload,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00007}00007\ \{}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00008}00008\ \ \ \mbox{\hyperlink{structpb__istream__s}{pb\_istream\_t}}\ stream\ =\ \mbox{\hyperlink{pb__decode_8c_aa2f1648fa736205118f5603625f08021}{pb\_istream\_from\_buffer}}(payload,\ length);}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00009}00009\ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{pb__decode_8c_a75c9a727abe84bfaaef633ac68d48cfa}{pb\_decode}}(\&stream,\ \mbox{\hyperlink{app_data_8pb_8c_af1bb7a3a74453b9194dfe442f96f8006}{api\_AppData\_fields}},\ receiveData))}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00010}00010\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00012}00012\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#ifdef\ LED\_BUILTIN}}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00014}00014\ \ \ receiveData-\/>\mbox{\hyperlink{struct__api___app_data_a7f12f6258607c3c69130b44da4bb7a2e}{light}}\ ?\ digitalWrite(LED\_BUILTIN,\ HIGH)\ :\ digitalWrite(LED\_BUILTIN,\ LOW);}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00016}00016\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00017}00017\ \}}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00019}\mbox{\hyperlink{class_the_things_message_a4d9a008210d43e45d602992616829f55}{00019}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_the_things_message_a4d9a008210d43e45d602992616829f55}{TheThingsMessage::encodeDeviceData}}(\mbox{\hyperlink{struct__api___device_data}{devicedata\_t}}\ *data,\ \textcolor{keywordtype}{byte}\ **buffer,\ \textcolor{keywordtype}{size\_t}\ *size)}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00020}00020\ \{}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00021}00021\ \ \ \textcolor{keywordtype}{byte}\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a85d0c0a68a5b67644a083b3c9bac8ba0}{message}}[\mbox{\hyperlink{_the_things_network_8h_ac05781acdb585b44989ea0092ff4da02}{TTN\_BUFFER\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00023}00023\ \ \ \mbox{\hyperlink{structpb__ostream__s}{pb\_ostream\_t}}\ sendStream\ =\ \mbox{\hyperlink{pb__encode_8c_a8f9802386928400861c1ce20c4812f53}{pb\_ostream\_from\_buffer}}(\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a85d0c0a68a5b67644a083b3c9bac8ba0}{message}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a85d0c0a68a5b67644a083b3c9bac8ba0}{message}}));}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00024}00024\ \ \ \mbox{\hyperlink{pb__encode_8c_af44dde5296bd546d99be35f15658af3e}{pb\_encode}}(\&sendStream,\ \mbox{\hyperlink{device_data_8pb_8c_a39fbb493f37f1bb4a7d96acd39c82431}{api\_DeviceData\_fields}},\ data);}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00025}00025\ \ \ *buffer\ =\ \mbox{\hyperlink{_lo_ra___t_x___r_x___cayenne___h_a_n_8ino_a85d0c0a68a5b67644a083b3c9bac8ba0}{message}};}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00026}00026\ \ \ *size\ =\ sendStream.\mbox{\hyperlink{structpb__ostream__s_a1791584091aa6f089ab71238c5f5e50f}{bytes\_written}};}
+\DoxyCodeLine{\Hypertarget{_the_things_message_8cpp_source_l00027}00027\ \}}
+
+\end{DoxyCode}

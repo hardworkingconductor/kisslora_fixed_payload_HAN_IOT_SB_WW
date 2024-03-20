@@ -1,0 +1,48 @@
+\doxysection{pb\+\_\+common.\+h}
+\hypertarget{pb__common_8h_source}{}\label{pb__common_8h_source}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/pb\_common.h@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/pb\_common.h}}
+\mbox{\hyperlink{pb__common_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00001}00001\ \textcolor{comment}{/*\ pb\_common.h:\ Common\ support\ functions\ for\ pb\_encode.c\ and\ pb\_decode.c.}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00002}00002\ \textcolor{comment}{\ *\ These\ functions\ are\ rarely\ needed\ by\ applications\ directly.}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00003}00003\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ PB\_COMMON\_H\_INCLUDED}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ PB\_COMMON\_H\_INCLUDED}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pb_8h}{pb.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00010}00010\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00011}00011\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00012}00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00014}00014\ \textcolor{comment}{/*\ Iterator\ for\ pb\_field\_t\ list\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00015}\mbox{\hyperlink{structpb__field__iter__s}{00015}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__field__iter__s}{pb\_field\_iter\_s}}\ \{}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00016}\mbox{\hyperlink{structpb__field__iter__s_a83a046f0f4b53f14ae4c85e6acecb636}{00016}}\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ *\mbox{\hyperlink{structpb__field__iter__s_a83a046f0f4b53f14ae4c85e6acecb636}{start}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ Start\ of\ the\ pb\_field\_t\ array\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00017}\mbox{\hyperlink{structpb__field__iter__s_a29eb62299ab421f2bfe3cd0c5392c3fc}{00017}}\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ *\mbox{\hyperlink{structpb__field__iter__s_a29eb62299ab421f2bfe3cd0c5392c3fc}{pos}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Current\ position\ of\ the\ iterator\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00018}\mbox{\hyperlink{structpb__field__iter__s_a59a9d9890890d32f23189b36185709f5}{00018}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{structpb__field__iter__s_a59a9d9890890d32f23189b36185709f5}{required\_field\_index}};\ \textcolor{comment}{/*\ Zero-\/based\ index\ that\ counts\ only\ the\ required\ fields\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00019}\mbox{\hyperlink{structpb__field__iter__s_addde4b720d47d6d0a02024de78e9d84a}{00019}}\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__field__iter__s_addde4b720d47d6d0a02024de78e9d84a}{dest\_struct}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Pointer\ to\ start\ of\ the\ structure\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00020}\mbox{\hyperlink{structpb__field__iter__s_a5292ffed1e3bb9f20d123597af8c765a}{00020}}\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__field__iter__s_a5292ffed1e3bb9f20d123597af8c765a}{pData}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Pointer\ to\ current\ field\ value\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00021}\mbox{\hyperlink{structpb__field__iter__s_a654d267c6e8ccc475cd10446c9f2a89f}{00021}}\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__field__iter__s_a654d267c6e8ccc475cd10446c9f2a89f}{pSize}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Pointer\ to\ count/has\ field\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00022}00022\ \};}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00023}\mbox{\hyperlink{pb__common_8h_a52cc1f1483fba378e5af59eae9eda6fc}{00023}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpb__field__iter__s}{pb\_field\_iter\_s}}\ \mbox{\hyperlink{structpb__field__iter__s}{pb\_field\_iter\_t}};}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00025}00025\ \textcolor{comment}{/*\ Initialize\ the\ field\ iterator\ structure\ to\ beginning.}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00026}00026\ \textcolor{comment}{\ *\ Returns\ false\ if\ the\ message\ type\ is\ empty.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00027}00027\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__common_8h_aa407d47d99724ee32121046b2d1f4a43}{pb\_field\_iter\_begin}}(\mbox{\hyperlink{structpb__field__iter__s}{pb\_field\_iter\_t}}\ *iter,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{pb_8h_ad55e030e1d2ef325cad3ba3512fdc6ba}{pb\_field\_t}}\ *fields,\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structpb__field__iter__s_addde4b720d47d6d0a02024de78e9d84a}{dest\_struct}});}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00029}00029\ \textcolor{comment}{/*\ Advance\ the\ iterator\ to\ the\ next\ field.}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00030}00030\ \textcolor{comment}{\ *\ Returns\ false\ when\ the\ iterator\ wraps\ back\ to\ the\ first\ field.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00031}00031\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__common_8h_a2abc532c22fe4e9e72ca8c35807721a5}{pb\_field\_iter\_next}}(\mbox{\hyperlink{structpb__field__iter__s}{pb\_field\_iter\_t}}\ *iter);}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00033}00033\ \textcolor{comment}{/*\ Advance\ the\ iterator\ until\ it\ points\ at\ a\ field\ with\ the\ given\ tag.}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00034}00034\ \textcolor{comment}{\ *\ Returns\ false\ if\ no\ such\ field\ exists.\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00035}00035\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pb__common_8h_ab39eff37c2f2f79b751ee724cb1776b3}{pb\_field\_iter\_find}}(\mbox{\hyperlink{structpb__field__iter__s}{pb\_field\_iter\_t}}\ *iter,\ uint32\_t\ tag);}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00037}00037\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00038}00038\ \}\ \textcolor{comment}{/*\ extern\ "{}C"{}\ */}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00039}00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00041}00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pb__common_8h_source_l00042}00042\ }
+
+\end{DoxyCode}

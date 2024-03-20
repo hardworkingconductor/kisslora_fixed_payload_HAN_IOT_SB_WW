@@ -1,0 +1,1741 @@
+\doxysection{C\+:/\+Users/coole/\+One\+Drive/\+HAN Elec Engineering Year 3/\+S6/\+Io\+T/\+Payload\+\_\+\+Encoder/\+The\+Things\+Network/src/\+The\+Things\+Network.cpp File Reference}
+\hypertarget{_the_things_network_8cpp}{}\label{_the_things_network_8cpp}\index{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/TheThingsNetwork.cpp@{C:/Users/coole/OneDrive/HAN Elec Engineering Year 3/S6/IoT/Payload\_Encoder/TheThingsNetwork/src/TheThingsNetwork.cpp}}
+{\ttfamily \#include "{}The\+Things\+Network.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a07d7724c63457553d3d2742a8fe3ed75}{debug\+Print\+Ln}}(...)
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a9305f84379044bddfddd031280834a28}{debug\+Print}}(...)
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a2210d9552ea2342928d37335d0c37590}{TTN\+\_\+\+HEX\+\_\+\+CHAR\+\_\+\+TO\+\_\+\+NIBBLE}}(c)~((c $>$= \textquotesingle{}A\textquotesingle{}) ? (c -\/ \textquotesingle{}A\textquotesingle{} + 0x0A) \+: (c -\/ \textquotesingle{}0\textquotesingle{}))
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a6a2afa1ecf7fb939a96262dabaaf937c}{TTN\+\_\+\+HEX\+\_\+\+PAIR\+\_\+\+TO\+\_\+\+BYTE}}(h,  l)~((\mbox{\hyperlink{_the_things_network_8cpp_a2210d9552ea2342928d37335d0c37590}{TTN\+\_\+\+HEX\+\_\+\+CHAR\+\_\+\+TO\+\_\+\+NIBBLE}}(h) $<$$<$ 4) + \mbox{\hyperlink{_the_things_network_8cpp_a2210d9552ea2342928d37335d0c37590}{TTN\+\_\+\+HEX\+\_\+\+CHAR\+\_\+\+TO\+\_\+\+NIBBLE}}(l))
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a4018af02b812386d8f92562a3d23ab61}{CMP\+\_\+\+OK}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_afe0f962b7fe443fc538b3df7ccee62e0}{CMP\+\_\+\+ON}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a80b52b6a61a99c595e5f19856a337f1a}{CMP\+\_\+\+OFF}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a9edfbd2dc4598c741859853f28fbea05}{CMP\+\_\+\+ACCEPTED}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_af5e1e703c353a1489bf297e5345d1d13}{CMP\+\_\+\+MAC\+\_\+\+TX\+\_\+\+OK}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a52a69e46449d7d1feb8f82af92ebee74}{CMP\+\_\+\+MAC\+\_\+\+RX}}~5
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aa6954f6a3cb78fc9d2feaf616b67835b}{CMP\+\_\+\+MAC\+\_\+\+ERR}}~6
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ae3eee1a6eabd70160d64fa2c27ad6bc8}{CMP\+\_\+\+RN2483}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a212993102b07d206f645c4a14b1165f3}{CMP\+\_\+\+RN2483A}}~8
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ad5c1ec8c27ae933b34d1a5e6699664a5}{CMP\+\_\+\+RN2903}}~9
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a2161536b3f76099994624c34fe924c3b}{CMP\+\_\+\+RN2903\+AS}}~10
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a129569990f73965cf20ac87e2afd0184}{CMP\+\_\+\+ERR\+\_\+\+OK}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a0cef2bc66258e202f4d3e8d15cbcfc60}{CMP\+\_\+\+ERR\+\_\+\+BUSY}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ab88c7af8eaec002f3f80c9492ba54b5c}{CMP\+\_\+\+ERR\+\_\+\+FRMCNT}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ab1327afab1b969cc7ac5731ae26f8896}{CMP\+\_\+\+ERR\+\_\+\+INVCLS}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_af324071ce76d2dc3ec0dc7d32c1921a8}{CMP\+\_\+\+ERR\+\_\+\+INVDLEN}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ae060a1b997da83608216ab15a60bf2ff}{CMP\+\_\+\+ERR\+\_\+\+INVPAR}}~5
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a6311b278e7b3a675791a6d46ded25c1b}{CMP\+\_\+\+ERR\+\_\+\+NKEYINT}}~6
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_adf0e788b1cf56473721e34f1bac893d9}{CMP\+\_\+\+ERR\+\_\+\+MACPAUSE}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a0dd98f447bf04de72a5a0b7c1512e8e0}{CMP\+\_\+\+ERR\+\_\+\+NKYMLTCST}}~8
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aac931b8af7ac37538cda82f08e8a4af8}{CMP\+\_\+\+ERR\+\_\+\+NFRCHN}}~9
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aff5fb90f6e3f3f013a860261f21802c2}{CMP\+\_\+\+ERR\+\_\+\+NJOIN}}~10
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a3bc99de051f861f8b1a85b3a398d6bdb}{CMP\+\_\+\+ERR\+\_\+\+SILENT}}~11
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aca6f284e712194451a75f7d86235381c}{CMP\+\_\+\+ERR\+\_\+\+ERR}}~12
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a0672ec57324b821f549028ef0fc05ff7}{CMP\+\_\+\+ERR\+\_\+\+LAST}}~\mbox{\hyperlink{_the_things_network_8cpp_aca6f284e712194451a75f7d86235381c}{CMP\+\_\+\+ERR\+\_\+\+ERR}}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ab6aaa08c0bfb6feb3e54a78d9211af56}{SENDING}}~"{}Sending\+: "{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a40b277187d96be14bbcc8b6a7c18e663}{SEND\+\_\+\+MSG}}~"{}\textbackslash{}r\textbackslash{}n"{}
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a7355f0e56027e070cb888356f9eb483f}{SHOW\+\_\+\+EUI}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a214c2e76fc3dbfb4a3def614ac05f120}{SHOW\+\_\+\+BATTERY}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a96a6f2c9341389749ad0dcb1f87d991a}{SHOW\+\_\+\+APPEUI}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a6345028743015d62bc857040013bbf8f}{SHOW\+\_\+\+DEVEUI}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aa109bd1f62235bc924bf1b6bdda916d3}{SHOW\+\_\+\+BAND}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a406d0120ecef6640399df66c147ac59a}{SHOW\+\_\+\+DATA\+\_\+\+RATE}}~5
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a3d4aeaf5af67ac2efae151a5b1c7390c}{SHOW\+\_\+\+RX\+\_\+\+DELAY\+\_\+1}}~6
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_af979b0be37f358142793a2819441ee84}{SHOW\+\_\+\+RX\+\_\+\+DELAY\+\_\+2}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a49df5947a3d9f779aa05b8d55aa09e06}{SHOW\+\_\+\+VERSION}}~8
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a084719b1786fe440f03873b4f8714390}{SHOW\+\_\+\+MODEL}}~9
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a40d386ddd7c5df6708fee142c2e242f3}{SHOW\+\_\+\+DEVADDR}}~10
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a1b94f5909cdd8a239d89b8c5d8e276b5}{ERR\+\_\+\+INVALID\+\_\+\+SF}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ad1cccd0dd36debd5052638697527c8d9}{ERR\+\_\+\+INVALID\+\_\+\+FP}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a46ecac51e3be1684baf9f3e2d7a6d4fe}{ERR\+\_\+\+UNEXPECTED\+\_\+\+RESPONSE}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a8e85ac1d90d63b62ef4ba500748dd81c}{ERR\+\_\+\+SEND\+\_\+\+COMMAND\+\_\+\+FAILED}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a67c02dc1d3b8a6690a2b413a615b2ef2}{ERR\+\_\+\+JOIN\+\_\+\+FAILED}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a9880ab1bb4a04d880109e86067e5a9b8}{ERR\+\_\+\+JOIN\+\_\+\+NOT\+\_\+\+ACCEPTED}}~5
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a38de18dbf253dfc23b46616a1837b762}{ERR\+\_\+\+PERSONALIZE\+\_\+\+NOT\+\_\+\+ACCEPTED}}~6
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aaf260ad248abd64985cd506e9a7609bb}{ERR\+\_\+\+RESPONSE\+\_\+\+IS\+\_\+\+NOT\+\_\+\+OK}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a274c734e792ee029e0e9a3b0ecb1fe50}{ERR\+\_\+\+KEY\+\_\+\+LENGTH}}~8
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a8487bdf047b4233a6da3a15f6e87f4dc}{ERR\+\_\+\+CHECK\+\_\+\+CONFIGURATION}}~9
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a10a4ef7bd430657218510fcb444a2944}{ERR\+\_\+\+NO\+\_\+\+RESPONSE}}~10
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a283050c9cf83762100902ff4a45a48bc}{ERR\+\_\+\+INVALID\+\_\+\+MODULE}}~11
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a1fd8e4d017ae995cff2fcf1cd2bc5e91}{SCS\+\_\+\+PERSONALIZE\+\_\+\+ACCEPTED}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a6560ff7858443e04949c17fd6c1b824c}{SCS\+\_\+\+JOIN\+\_\+\+ACCEPTED}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a21c95a891f90aa901da250a31c4f62bb}{SCS\+\_\+\+SUCCESSFUL\+\_\+\+TRANSMISSION}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a7af04d737dff191274fab75044ef61e2}{SCS\+\_\+\+SUCCESSFUL\+\_\+\+TRANSMISSION\+\_\+\+RECEIVED}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ad6e0bf6203696698945a6b4d862cf4a9}{SCS\+\_\+\+VALID\+\_\+\+MODULE}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a7465ef8435900bbbe2d1e83e8747040c}{RADIO\+\_\+\+PREFIX}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ab923f628f6237eb6a39d60dbbab48b5d}{RADIO\+\_\+\+SET}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ad22c0a5915151e86f9ff134c2fd99d66}{RADIO\+\_\+\+GET}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a1ee36b582747f0d6cabd95c6acd9f6dd}{RADIO\+\_\+\+GET\+\_\+\+BW}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a0690d1af89332f0fe83e562d4fbdc8cd}{RADIO\+\_\+\+GET\+\_\+\+PRLEN}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a24a385558641611a315b48fb1426f26d}{RADIO\+\_\+\+GET\+\_\+\+CRC}}~5
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ae65c30be8cf49e6bdb2f1c0ea3365aff}{RADIO\+\_\+\+GET\+\_\+\+CR}}~6
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ade8535d04f835c0f3784e6311a4ba829}{RADIO\+\_\+\+GET\+\_\+\+SF}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a49c52f96362112401bc0d1a73df9a2c6}{RADIO\+\_\+\+GET\+\_\+\+FREQ}}~8
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a014fb5aae67a138639e4bd0064df427b}{RADIO\+\_\+\+GET\+\_\+\+RXBW}}~9
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a13bb21f38080d9cd14063012adf5db3c}{RADIO\+\_\+\+GET\+\_\+\+WDT}}~10
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aa51ffe8f1d4ce569ea86fdaeeb0ab327}{RADIO\+\_\+\+GET\+\_\+\+PWR}}~11
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aba0ac574e887fb43518fe77ef90a9cf1}{RADIO\+\_\+\+GET\+\_\+\+RSSI}}~12
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a81ec8f058f4a1fda9d8315c83f6dcfcd}{RADIO\+\_\+\+GET\+\_\+\+SNR}}~13
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ae9afbd11d257230eb4acbf397230a3bf}{SYS\+\_\+\+PREFIX}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a9fb867967ebb3fd89af40625a4a7b9be}{SYS\+\_\+\+SLEEP}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aaa55239ca06533d1222153f6dd8c3335}{SYS\+\_\+\+RESET}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aa088cbe6d79bf22970a61a1856d87918}{SYS\+\_\+\+ERASE\+\_\+\+FW}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a3b28ffccd49bea13302949449c7cd9eb}{SYS\+\_\+\+FACTORY\+\_\+\+RST}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_abff29754f7ff127337427c5b9a968ba4}{SYS\+\_\+\+SET}}~5
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ac0018a71f217b28ac18e622bba8a326b}{SYS\+\_\+\+GET}}~6
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ad6e2061d8b7a66c7a2ca909ed955d133}{SYS\+\_\+\+GET\+\_\+\+VER}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a07c453d82de1126da7657afc768a28e8}{SYS\+\_\+\+GET\+\_\+\+VDD}}~8
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a5a9d5d96acacd8d6a652fe85b1df312f}{SYS\+\_\+\+GET\+\_\+\+HWEUI}}~9
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ad84cae0d4c114c0c10560658cbeedb26}{SYS\+\_\+\+SET\+\_\+\+GET\+\_\+\+NVM}}~10
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a83824ab1d2f3342959f9b213dbd4dc68}{SYS\+\_\+\+SET\+\_\+\+PINDIG}}~11
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a1c8c5652d0d3f46c81014158b9a58cb5}{MAC\+\_\+\+PREFIX}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ab69e3d7b315bf834879921385977a6e3}{MAC\+\_\+\+RESET}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a13345971fdaea2453b9038f8b18c8ef9}{MAC\+\_\+\+TX}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a4720d42e8dc80d030e5c394f45f1faa1}{MAC\+\_\+\+JOIN}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a9bf79b0f55ac24e6d3e24a40940f44cf}{MAC\+\_\+\+SAVE}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a88c8fb8c120eebe9331e5e75d1a14ad5}{MAC\+\_\+\+FORCE\+\_\+\+ENABLE}}~5
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a184c72ff0768146574e02dd21a65a1f7}{MAC\+\_\+\+PAUSE}}~6
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aa7245bc7bf78d5911c52e7515736f5a5}{MAC\+\_\+\+RESUME}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a7ba3456690258ef31a31a662b24190a9}{MAC\+\_\+\+SET}}~8
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a007114166400769cd8bc6a9f97f05967}{MAC\+\_\+\+GET}}~9
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a7960874864c768014339837ee2fb9186}{MAC\+\_\+\+DEVADDR}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aacce991d16b1bbbe7096880616773b5e}{MAC\+\_\+\+DEVEUI}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a25f22a2fccdf07a8281aa666a9ba3b11}{MAC\+\_\+\+APPEUI}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aab2cf32b77463db772ebd2aea16315e2}{MAC\+\_\+\+NWKSKEY}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a3c521e478175c77e7cdf96c02931ec31}{MAC\+\_\+\+APPSKEY}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aa20fbab6bfeeeba721927c26e1824454}{MAC\+\_\+\+APPKEY}}~5
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_afe0473b3d79e7b762fdb56d5c0779a98}{MAC\+\_\+\+PWRIDX}}~6
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a49a9a046867aca7f1f5f54e4551122f8}{MAC\+\_\+\+DR}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a83b580eaa55c7b0dffafef0a30a1f796}{MAC\+\_\+\+ADR}}~8
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a0490f4c66629b1c3b8bf60b028749580}{MAC\+\_\+\+BAT}}~9
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a3c70f57aebe74539bea217ae6343ff25}{MAC\+\_\+\+RETX}}~10
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_af9aeafd4f2e18f50281e12c2f75382fd}{MAC\+\_\+\+LINKCHK}}~11
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aef297ed52860375341e6e5147c5e4d1e}{MAC\+\_\+\+RXDELAY1}}~12
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aaf659048fd73e0c226b35a6fb155169c}{MAC\+\_\+\+RXDELAY2}}~13
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ac7d5e7fe8e0a1db1f5daa8916f845eb9}{MAC\+\_\+\+BAND}}~14
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a8dba703977d4ef99ab0f63301d1e5c86}{MAC\+\_\+\+AR}}~15
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a39573852968e28dba9c510be145b668d}{MAC\+\_\+\+RX2}}~16
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ac76a47adf481d41496886244a95a2285}{MAC\+\_\+\+CH}}~17
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ac214a795220a337c6cace724438c3101}{MAC\+\_\+\+GWNB}}~18
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a90b19fddae1686a6a5fe43dd4b005665}{MAC\+\_\+\+MRGN}}~19
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a7c45c076534cb2783704d785ddf8d5da}{MAC\+\_\+\+CLASS}}~20
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ad85b4055a46617cdba06841ba5ee5b4b}{MAC\+\_\+\+STATUS}}~21
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a3f685f6a390df92ec840eb6ec5aaa64d}{MAC\+\_\+\+UPCTR}}~22
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aca9989585fb5b2711ee3dfad1e630fc7}{MAC\+\_\+\+DNCTR}}~23
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ac991858ee7393124d1dbd82cfd59febf}{MAC\+\_\+\+JOIN\+\_\+\+MODE\+\_\+\+OTAA}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_acdc5862579f6fdee0ab34afa785cb088}{MAC\+\_\+\+JOIN\+\_\+\+MODE\+\_\+\+ABP}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_aa73a3a1c7781259b69241d66bda4aee3}{MAC\+\_\+\+CHANNEL\+\_\+\+DCYCLE}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a8f039d35066a76686bb9b052c36b96e1}{MAC\+\_\+\+CHANNEL\+\_\+\+DRRANGE}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a1eadb7f0ea9c50cce7164d763d0a0914}{MAC\+\_\+\+CHANNEL\+\_\+\+FREQ}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ade131f6d4b4a8524613c479b60f85dc7}{MAC\+\_\+\+CHANNEL\+\_\+\+STATUS}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a2119d3347630c39acca07b7d9a196050}{MAC\+\_\+\+TX\+\_\+\+TYPE\+\_\+\+CNF}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a36d4506dbcadeb935c57a93caa2827ef}{MAC\+\_\+\+TX\+\_\+\+TYPE\+\_\+\+UCNF}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a0844f58b92ae03a840d3d9ce2fd58d72}{MAC\+\_\+\+TABLE}}~0
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a0a8cb6e28f9b1e3ff88f5ad3c07887e5}{MAC\+\_\+\+GET\+\_\+\+SET\+\_\+\+TABLE}}~1
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a11f9f64c1c07719febd8986f196cedee}{MAC\+\_\+\+JOIN\+\_\+\+TABLE}}~2
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ae9a1c09532c548c28e30feec03aae9a0}{MAC\+\_\+\+CH\+\_\+\+TABLE}}~3
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a6e541355f42dc6ddabbfe20cc31dc759}{MAC\+\_\+\+TX\+\_\+\+TABLE}}~4
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ad83bb0b1197529b463258bd61b235123}{SYS\+\_\+\+TABLE}}~5
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_ac6479e732fc3d3c3eb8e87d80c1105f3}{RADIO\+\_\+\+TABLE}}~6
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a4b3ab7702ac78455ee64be8a0667053c}{ERR\+\_\+\+MESSAGE}}~7
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a0df22aa1e7595b5492c2d87000337aed}{SUCCESS\+\_\+\+MESSAGE}}~8
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a1021a43296202f483c05dfb183d7b9b5}{CMP\+\_\+\+TABLE}}~9
+\item 
+\#define \mbox{\hyperlink{_the_things_network_8cpp_a0f2499aec481bef25c16b33314c7bfb0}{CMP\+\_\+\+ERR\+\_\+\+TABLE}}~10
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_the_things_network_8cpp_a6c2c6402e8d97884b2b9939b654dccec}{pgmstrcmp}} (const char \texorpdfstring{$\ast$}{*}str1, uint8\+\_\+t str2\+Index, uint8\+\_\+t table=\mbox{\hyperlink{_the_things_network_8cpp_a1021a43296202f483c05dfb183d7b9b5}{CMP\+\_\+\+TABLE}})
+\item 
+uint8\+\_\+t \mbox{\hyperlink{_the_things_network_8cpp_a46f6cb71d1e27cdbb5600ea06a28ba1b}{digits}} (uint8\+\_\+t port)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{_the_things_network_8cpp_ad4bed88e835dccb1cb86d757c4f9188c}{received\+Port}} (const char \texorpdfstring{$\ast$}{*}s)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char ok\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{_the_things_network_8cpp_a67117f3f2bd2eb9f537ed76675407985}{PROGMEM}} = "{}ok"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_the_things_network_8cpp_a9edfbd2dc4598c741859853f28fbea05}\label{_the_things_network_8cpp_a9edfbd2dc4598c741859853f28fbea05} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ACCEPTED@{CMP\_ACCEPTED}}
+\index{CMP\_ACCEPTED@{CMP\_ACCEPTED}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ACCEPTED}{CMP\_ACCEPTED}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ACCEPTED~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00037}{37}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a0cef2bc66258e202f4d3e8d15cbcfc60}\label{_the_things_network_8cpp_a0cef2bc66258e202f4d3e8d15cbcfc60} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_BUSY@{CMP\_ERR\_BUSY}}
+\index{CMP\_ERR\_BUSY@{CMP\_ERR\_BUSY}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_BUSY}{CMP\_ERR\_BUSY}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+BUSY~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00063}{63}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aca6f284e712194451a75f7d86235381c}\label{_the_things_network_8cpp_aca6f284e712194451a75f7d86235381c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_ERR@{CMP\_ERR\_ERR}}
+\index{CMP\_ERR\_ERR@{CMP\_ERR\_ERR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_ERR}{CMP\_ERR\_ERR}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+ERR~12}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00074}{74}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ab88c7af8eaec002f3f80c9492ba54b5c}\label{_the_things_network_8cpp_ab88c7af8eaec002f3f80c9492ba54b5c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_FRMCNT@{CMP\_ERR\_FRMCNT}}
+\index{CMP\_ERR\_FRMCNT@{CMP\_ERR\_FRMCNT}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_FRMCNT}{CMP\_ERR\_FRMCNT}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+FRMCNT~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00064}{64}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ab1327afab1b969cc7ac5731ae26f8896}\label{_the_things_network_8cpp_ab1327afab1b969cc7ac5731ae26f8896} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_INVCLS@{CMP\_ERR\_INVCLS}}
+\index{CMP\_ERR\_INVCLS@{CMP\_ERR\_INVCLS}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_INVCLS}{CMP\_ERR\_INVCLS}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+INVCLS~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00065}{65}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_af324071ce76d2dc3ec0dc7d32c1921a8}\label{_the_things_network_8cpp_af324071ce76d2dc3ec0dc7d32c1921a8} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_INVDLEN@{CMP\_ERR\_INVDLEN}}
+\index{CMP\_ERR\_INVDLEN@{CMP\_ERR\_INVDLEN}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_INVDLEN}{CMP\_ERR\_INVDLEN}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+INVDLEN~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00066}{66}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ae060a1b997da83608216ab15a60bf2ff}\label{_the_things_network_8cpp_ae060a1b997da83608216ab15a60bf2ff} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_INVPAR@{CMP\_ERR\_INVPAR}}
+\index{CMP\_ERR\_INVPAR@{CMP\_ERR\_INVPAR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_INVPAR}{CMP\_ERR\_INVPAR}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+INVPAR~5}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00067}{67}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a0672ec57324b821f549028ef0fc05ff7}\label{_the_things_network_8cpp_a0672ec57324b821f549028ef0fc05ff7} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_LAST@{CMP\_ERR\_LAST}}
+\index{CMP\_ERR\_LAST@{CMP\_ERR\_LAST}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_LAST}{CMP\_ERR\_LAST}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+LAST~\mbox{\hyperlink{_the_things_network_8cpp_aca6f284e712194451a75f7d86235381c}{CMP\+\_\+\+ERR\+\_\+\+ERR}}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00076}{76}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_adf0e788b1cf56473721e34f1bac893d9}\label{_the_things_network_8cpp_adf0e788b1cf56473721e34f1bac893d9} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_MACPAUSE@{CMP\_ERR\_MACPAUSE}}
+\index{CMP\_ERR\_MACPAUSE@{CMP\_ERR\_MACPAUSE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_MACPAUSE}{CMP\_ERR\_MACPAUSE}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+MACPAUSE~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00069}{69}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aac931b8af7ac37538cda82f08e8a4af8}\label{_the_things_network_8cpp_aac931b8af7ac37538cda82f08e8a4af8} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_NFRCHN@{CMP\_ERR\_NFRCHN}}
+\index{CMP\_ERR\_NFRCHN@{CMP\_ERR\_NFRCHN}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_NFRCHN}{CMP\_ERR\_NFRCHN}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+NFRCHN~9}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00071}{71}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aff5fb90f6e3f3f013a860261f21802c2}\label{_the_things_network_8cpp_aff5fb90f6e3f3f013a860261f21802c2} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_NJOIN@{CMP\_ERR\_NJOIN}}
+\index{CMP\_ERR\_NJOIN@{CMP\_ERR\_NJOIN}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_NJOIN}{CMP\_ERR\_NJOIN}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+NJOIN~10}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00072}{72}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a6311b278e7b3a675791a6d46ded25c1b}\label{_the_things_network_8cpp_a6311b278e7b3a675791a6d46ded25c1b} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_NKEYINT@{CMP\_ERR\_NKEYINT}}
+\index{CMP\_ERR\_NKEYINT@{CMP\_ERR\_NKEYINT}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_NKEYINT}{CMP\_ERR\_NKEYINT}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+NKEYINT~6}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00068}{68}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a0dd98f447bf04de72a5a0b7c1512e8e0}\label{_the_things_network_8cpp_a0dd98f447bf04de72a5a0b7c1512e8e0} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_NKYMLTCST@{CMP\_ERR\_NKYMLTCST}}
+\index{CMP\_ERR\_NKYMLTCST@{CMP\_ERR\_NKYMLTCST}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_NKYMLTCST}{CMP\_ERR\_NKYMLTCST}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+NKYMLTCST~8}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00070}{70}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a129569990f73965cf20ac87e2afd0184}\label{_the_things_network_8cpp_a129569990f73965cf20ac87e2afd0184} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_OK@{CMP\_ERR\_OK}}
+\index{CMP\_ERR\_OK@{CMP\_ERR\_OK}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_OK}{CMP\_ERR\_OK}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+OK~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00062}{62}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a3bc99de051f861f8b1a85b3a398d6bdb}\label{_the_things_network_8cpp_a3bc99de051f861f8b1a85b3a398d6bdb} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_SILENT@{CMP\_ERR\_SILENT}}
+\index{CMP\_ERR\_SILENT@{CMP\_ERR\_SILENT}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_SILENT}{CMP\_ERR\_SILENT}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+SILENT~11}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00073}{73}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a0f2499aec481bef25c16b33314c7bfb0}\label{_the_things_network_8cpp_a0f2499aec481bef25c16b33314c7bfb0} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ERR\_TABLE@{CMP\_ERR\_TABLE}}
+\index{CMP\_ERR\_TABLE@{CMP\_ERR\_TABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ERR\_TABLE}{CMP\_ERR\_TABLE}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ERR\+\_\+\+TABLE~10}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00324}{324}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aa6954f6a3cb78fc9d2feaf616b67835b}\label{_the_things_network_8cpp_aa6954f6a3cb78fc9d2feaf616b67835b} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_MAC\_ERR@{CMP\_MAC\_ERR}}
+\index{CMP\_MAC\_ERR@{CMP\_MAC\_ERR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_MAC\_ERR}{CMP\_MAC\_ERR}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+MAC\+\_\+\+ERR~6}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00040}{40}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a52a69e46449d7d1feb8f82af92ebee74}\label{_the_things_network_8cpp_a52a69e46449d7d1feb8f82af92ebee74} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_MAC\_RX@{CMP\_MAC\_RX}}
+\index{CMP\_MAC\_RX@{CMP\_MAC\_RX}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_MAC\_RX}{CMP\_MAC\_RX}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+MAC\+\_\+\+RX~5}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00039}{39}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_af5e1e703c353a1489bf297e5345d1d13}\label{_the_things_network_8cpp_af5e1e703c353a1489bf297e5345d1d13} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_MAC\_TX\_OK@{CMP\_MAC\_TX\_OK}}
+\index{CMP\_MAC\_TX\_OK@{CMP\_MAC\_TX\_OK}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_MAC\_TX\_OK}{CMP\_MAC\_TX\_OK}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+MAC\+\_\+\+TX\+\_\+\+OK~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00038}{38}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a80b52b6a61a99c595e5f19856a337f1a}\label{_the_things_network_8cpp_a80b52b6a61a99c595e5f19856a337f1a} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_OFF@{CMP\_OFF}}
+\index{CMP\_OFF@{CMP\_OFF}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_OFF}{CMP\_OFF}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+OFF~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00036}{36}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a4018af02b812386d8f92562a3d23ab61}\label{_the_things_network_8cpp_a4018af02b812386d8f92562a3d23ab61} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_OK@{CMP\_OK}}
+\index{CMP\_OK@{CMP\_OK}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_OK}{CMP\_OK}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+OK~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00034}{34}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_afe0f962b7fe443fc538b3df7ccee62e0}\label{_the_things_network_8cpp_afe0f962b7fe443fc538b3df7ccee62e0} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_ON@{CMP\_ON}}
+\index{CMP\_ON@{CMP\_ON}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_ON}{CMP\_ON}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+ON~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00035}{35}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ae3eee1a6eabd70160d64fa2c27ad6bc8}\label{_the_things_network_8cpp_ae3eee1a6eabd70160d64fa2c27ad6bc8} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_RN2483@{CMP\_RN2483}}
+\index{CMP\_RN2483@{CMP\_RN2483}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_RN2483}{CMP\_RN2483}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+RN2483~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00041}{41}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a212993102b07d206f645c4a14b1165f3}\label{_the_things_network_8cpp_a212993102b07d206f645c4a14b1165f3} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_RN2483A@{CMP\_RN2483A}}
+\index{CMP\_RN2483A@{CMP\_RN2483A}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_RN2483A}{CMP\_RN2483A}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+RN2483A~8}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00042}{42}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ad5c1ec8c27ae933b34d1a5e6699664a5}\label{_the_things_network_8cpp_ad5c1ec8c27ae933b34d1a5e6699664a5} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_RN2903@{CMP\_RN2903}}
+\index{CMP\_RN2903@{CMP\_RN2903}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_RN2903}{CMP\_RN2903}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+RN2903~9}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00043}{43}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a2161536b3f76099994624c34fe924c3b}\label{_the_things_network_8cpp_a2161536b3f76099994624c34fe924c3b} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_RN2903AS@{CMP\_RN2903AS}}
+\index{CMP\_RN2903AS@{CMP\_RN2903AS}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_RN2903AS}{CMP\_RN2903AS}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+RN2903\+AS~10}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00044}{44}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a1021a43296202f483c05dfb183d7b9b5}\label{_the_things_network_8cpp_a1021a43296202f483c05dfb183d7b9b5} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!CMP\_TABLE@{CMP\_TABLE}}
+\index{CMP\_TABLE@{CMP\_TABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{CMP\_TABLE}{CMP\_TABLE}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+TABLE~9}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00323}{323}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a9305f84379044bddfddd031280834a28}\label{_the_things_network_8cpp_a9305f84379044bddfddd031280834a28} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!debugPrint@{debugPrint}}
+\index{debugPrint@{debugPrint}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{debugPrint}{debugPrint}}
+{\footnotesize\ttfamily \#define debug\+Print(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (debugStream)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ debugStream-\/>print(\_\_VA\_ARGS\_\_);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00011}{11}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a07d7724c63457553d3d2742a8fe3ed75}\label{_the_things_network_8cpp_a07d7724c63457553d3d2742a8fe3ed75} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!debugPrintLn@{debugPrintLn}}
+\index{debugPrintLn@{debugPrintLn}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{debugPrintLn}{debugPrintLn}}
+{\footnotesize\ttfamily \#define debug\+Print\+Ln(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (debugStream)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ debugStream-\/>println(\_\_VA\_ARGS\_\_);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a8487bdf047b4233a6da3a15f6e87f4dc}\label{_the_things_network_8cpp_a8487bdf047b4233a6da3a15f6e87f4dc} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_CHECK\_CONFIGURATION@{ERR\_CHECK\_CONFIGURATION}}
+\index{ERR\_CHECK\_CONFIGURATION@{ERR\_CHECK\_CONFIGURATION}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_CHECK\_CONFIGURATION}{ERR\_CHECK\_CONFIGURATION}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+CHECK\+\_\+\+CONFIGURATION~9}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00131}{131}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ad1cccd0dd36debd5052638697527c8d9}\label{_the_things_network_8cpp_ad1cccd0dd36debd5052638697527c8d9} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_INVALID\_FP@{ERR\_INVALID\_FP}}
+\index{ERR\_INVALID\_FP@{ERR\_INVALID\_FP}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_INVALID\_FP}{ERR\_INVALID\_FP}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+INVALID\+\_\+\+FP~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00123}{123}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a283050c9cf83762100902ff4a45a48bc}\label{_the_things_network_8cpp_a283050c9cf83762100902ff4a45a48bc} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_INVALID\_MODULE@{ERR\_INVALID\_MODULE}}
+\index{ERR\_INVALID\_MODULE@{ERR\_INVALID\_MODULE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_INVALID\_MODULE}{ERR\_INVALID\_MODULE}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+INVALID\+\_\+\+MODULE~11}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00133}{133}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a1b94f5909cdd8a239d89b8c5d8e276b5}\label{_the_things_network_8cpp_a1b94f5909cdd8a239d89b8c5d8e276b5} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_INVALID\_SF@{ERR\_INVALID\_SF}}
+\index{ERR\_INVALID\_SF@{ERR\_INVALID\_SF}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_INVALID\_SF}{ERR\_INVALID\_SF}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+INVALID\+\_\+\+SF~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00122}{122}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a67c02dc1d3b8a6690a2b413a615b2ef2}\label{_the_things_network_8cpp_a67c02dc1d3b8a6690a2b413a615b2ef2} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_JOIN\_FAILED@{ERR\_JOIN\_FAILED}}
+\index{ERR\_JOIN\_FAILED@{ERR\_JOIN\_FAILED}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_JOIN\_FAILED}{ERR\_JOIN\_FAILED}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+JOIN\+\_\+\+FAILED~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00126}{126}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a9880ab1bb4a04d880109e86067e5a9b8}\label{_the_things_network_8cpp_a9880ab1bb4a04d880109e86067e5a9b8} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_JOIN\_NOT\_ACCEPTED@{ERR\_JOIN\_NOT\_ACCEPTED}}
+\index{ERR\_JOIN\_NOT\_ACCEPTED@{ERR\_JOIN\_NOT\_ACCEPTED}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_JOIN\_NOT\_ACCEPTED}{ERR\_JOIN\_NOT\_ACCEPTED}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+JOIN\+\_\+\+NOT\+\_\+\+ACCEPTED~5}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00127}{127}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a274c734e792ee029e0e9a3b0ecb1fe50}\label{_the_things_network_8cpp_a274c734e792ee029e0e9a3b0ecb1fe50} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_KEY\_LENGTH@{ERR\_KEY\_LENGTH}}
+\index{ERR\_KEY\_LENGTH@{ERR\_KEY\_LENGTH}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_KEY\_LENGTH}{ERR\_KEY\_LENGTH}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+KEY\+\_\+\+LENGTH~8}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00130}{130}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a4b3ab7702ac78455ee64be8a0667053c}\label{_the_things_network_8cpp_a4b3ab7702ac78455ee64be8a0667053c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_MESSAGE@{ERR\_MESSAGE}}
+\index{ERR\_MESSAGE@{ERR\_MESSAGE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_MESSAGE}{ERR\_MESSAGE}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+MESSAGE~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00321}{321}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a10a4ef7bd430657218510fcb444a2944}\label{_the_things_network_8cpp_a10a4ef7bd430657218510fcb444a2944} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_NO\_RESPONSE@{ERR\_NO\_RESPONSE}}
+\index{ERR\_NO\_RESPONSE@{ERR\_NO\_RESPONSE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_NO\_RESPONSE}{ERR\_NO\_RESPONSE}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+NO\+\_\+\+RESPONSE~10}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00132}{132}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a38de18dbf253dfc23b46616a1837b762}\label{_the_things_network_8cpp_a38de18dbf253dfc23b46616a1837b762} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_PERSONALIZE\_NOT\_ACCEPTED@{ERR\_PERSONALIZE\_NOT\_ACCEPTED}}
+\index{ERR\_PERSONALIZE\_NOT\_ACCEPTED@{ERR\_PERSONALIZE\_NOT\_ACCEPTED}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_PERSONALIZE\_NOT\_ACCEPTED}{ERR\_PERSONALIZE\_NOT\_ACCEPTED}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+PERSONALIZE\+\_\+\+NOT\+\_\+\+ACCEPTED~6}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00128}{128}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aaf260ad248abd64985cd506e9a7609bb}\label{_the_things_network_8cpp_aaf260ad248abd64985cd506e9a7609bb} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_RESPONSE\_IS\_NOT\_OK@{ERR\_RESPONSE\_IS\_NOT\_OK}}
+\index{ERR\_RESPONSE\_IS\_NOT\_OK@{ERR\_RESPONSE\_IS\_NOT\_OK}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_RESPONSE\_IS\_NOT\_OK}{ERR\_RESPONSE\_IS\_NOT\_OK}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+RESPONSE\+\_\+\+IS\+\_\+\+NOT\+\_\+\+OK~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00129}{129}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a8e85ac1d90d63b62ef4ba500748dd81c}\label{_the_things_network_8cpp_a8e85ac1d90d63b62ef4ba500748dd81c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_SEND\_COMMAND\_FAILED@{ERR\_SEND\_COMMAND\_FAILED}}
+\index{ERR\_SEND\_COMMAND\_FAILED@{ERR\_SEND\_COMMAND\_FAILED}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_SEND\_COMMAND\_FAILED}{ERR\_SEND\_COMMAND\_FAILED}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+SEND\+\_\+\+COMMAND\+\_\+\+FAILED~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00125}{125}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a46ecac51e3be1684baf9f3e2d7a6d4fe}\label{_the_things_network_8cpp_a46ecac51e3be1684baf9f3e2d7a6d4fe} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!ERR\_UNEXPECTED\_RESPONSE@{ERR\_UNEXPECTED\_RESPONSE}}
+\index{ERR\_UNEXPECTED\_RESPONSE@{ERR\_UNEXPECTED\_RESPONSE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{ERR\_UNEXPECTED\_RESPONSE}{ERR\_UNEXPECTED\_RESPONSE}}
+{\footnotesize\ttfamily \#define ERR\+\_\+\+UNEXPECTED\+\_\+\+RESPONSE~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00124}{124}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a83b580eaa55c7b0dffafef0a30a1f796}\label{_the_things_network_8cpp_a83b580eaa55c7b0dffafef0a30a1f796} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_ADR@{MAC\_ADR}}
+\index{MAC\_ADR@{MAC\_ADR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_ADR}{MAC\_ADR}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+ADR~8}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00269}{269}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a25f22a2fccdf07a8281aa666a9ba3b11}\label{_the_things_network_8cpp_a25f22a2fccdf07a8281aa666a9ba3b11} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_APPEUI@{MAC\_APPEUI}}
+\index{MAC\_APPEUI@{MAC\_APPEUI}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_APPEUI}{MAC\_APPEUI}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+APPEUI~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00263}{263}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aa20fbab6bfeeeba721927c26e1824454}\label{_the_things_network_8cpp_aa20fbab6bfeeeba721927c26e1824454} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_APPKEY@{MAC\_APPKEY}}
+\index{MAC\_APPKEY@{MAC\_APPKEY}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_APPKEY}{MAC\_APPKEY}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+APPKEY~5}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00266}{266}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a3c521e478175c77e7cdf96c02931ec31}\label{_the_things_network_8cpp_a3c521e478175c77e7cdf96c02931ec31} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_APPSKEY@{MAC\_APPSKEY}}
+\index{MAC\_APPSKEY@{MAC\_APPSKEY}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_APPSKEY}{MAC\_APPSKEY}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+APPSKEY~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00265}{265}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a8dba703977d4ef99ab0f63301d1e5c86}\label{_the_things_network_8cpp_a8dba703977d4ef99ab0f63301d1e5c86} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_AR@{MAC\_AR}}
+\index{MAC\_AR@{MAC\_AR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_AR}{MAC\_AR}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+AR~15}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00276}{276}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ac7d5e7fe8e0a1db1f5daa8916f845eb9}\label{_the_things_network_8cpp_ac7d5e7fe8e0a1db1f5daa8916f845eb9} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_BAND@{MAC\_BAND}}
+\index{MAC\_BAND@{MAC\_BAND}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_BAND}{MAC\_BAND}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+BAND~14}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00275}{275}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a0490f4c66629b1c3b8bf60b028749580}\label{_the_things_network_8cpp_a0490f4c66629b1c3b8bf60b028749580} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_BAT@{MAC\_BAT}}
+\index{MAC\_BAT@{MAC\_BAT}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_BAT}{MAC\_BAT}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+BAT~9}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00270}{270}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ac76a47adf481d41496886244a95a2285}\label{_the_things_network_8cpp_ac76a47adf481d41496886244a95a2285} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_CH@{MAC\_CH}}
+\index{MAC\_CH@{MAC\_CH}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_CH}{MAC\_CH}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+CH~17}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00278}{278}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ae9a1c09532c548c28e30feec03aae9a0}\label{_the_things_network_8cpp_ae9a1c09532c548c28e30feec03aae9a0} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_CH\_TABLE@{MAC\_CH\_TABLE}}
+\index{MAC\_CH\_TABLE@{MAC\_CH\_TABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_CH\_TABLE}{MAC\_CH\_TABLE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+CH\+\_\+\+TABLE~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00317}{317}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aa73a3a1c7781259b69241d66bda4aee3}\label{_the_things_network_8cpp_aa73a3a1c7781259b69241d66bda4aee3} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_CHANNEL\_DCYCLE@{MAC\_CHANNEL\_DCYCLE}}
+\index{MAC\_CHANNEL\_DCYCLE@{MAC\_CHANNEL\_DCYCLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_CHANNEL\_DCYCLE}{MAC\_CHANNEL\_DCYCLE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+CHANNEL\+\_\+\+DCYCLE~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00301}{301}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a8f039d35066a76686bb9b052c36b96e1}\label{_the_things_network_8cpp_a8f039d35066a76686bb9b052c36b96e1} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_CHANNEL\_DRRANGE@{MAC\_CHANNEL\_DRRANGE}}
+\index{MAC\_CHANNEL\_DRRANGE@{MAC\_CHANNEL\_DRRANGE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_CHANNEL\_DRRANGE}{MAC\_CHANNEL\_DRRANGE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+CHANNEL\+\_\+\+DRRANGE~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00302}{302}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a1eadb7f0ea9c50cce7164d763d0a0914}\label{_the_things_network_8cpp_a1eadb7f0ea9c50cce7164d763d0a0914} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_CHANNEL\_FREQ@{MAC\_CHANNEL\_FREQ}}
+\index{MAC\_CHANNEL\_FREQ@{MAC\_CHANNEL\_FREQ}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_CHANNEL\_FREQ}{MAC\_CHANNEL\_FREQ}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+CHANNEL\+\_\+\+FREQ~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00303}{303}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ade131f6d4b4a8524613c479b60f85dc7}\label{_the_things_network_8cpp_ade131f6d4b4a8524613c479b60f85dc7} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_CHANNEL\_STATUS@{MAC\_CHANNEL\_STATUS}}
+\index{MAC\_CHANNEL\_STATUS@{MAC\_CHANNEL\_STATUS}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_CHANNEL\_STATUS}{MAC\_CHANNEL\_STATUS}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+CHANNEL\+\_\+\+STATUS~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00304}{304}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a7c45c076534cb2783704d785ddf8d5da}\label{_the_things_network_8cpp_a7c45c076534cb2783704d785ddf8d5da} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_CLASS@{MAC\_CLASS}}
+\index{MAC\_CLASS@{MAC\_CLASS}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_CLASS}{MAC\_CLASS}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+CLASS~20}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00281}{281}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a7960874864c768014339837ee2fb9186}\label{_the_things_network_8cpp_a7960874864c768014339837ee2fb9186} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_DEVADDR@{MAC\_DEVADDR}}
+\index{MAC\_DEVADDR@{MAC\_DEVADDR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_DEVADDR}{MAC\_DEVADDR}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+DEVADDR~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00261}{261}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aacce991d16b1bbbe7096880616773b5e}\label{_the_things_network_8cpp_aacce991d16b1bbbe7096880616773b5e} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_DEVEUI@{MAC\_DEVEUI}}
+\index{MAC\_DEVEUI@{MAC\_DEVEUI}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_DEVEUI}{MAC\_DEVEUI}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+DEVEUI~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00262}{262}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aca9989585fb5b2711ee3dfad1e630fc7}\label{_the_things_network_8cpp_aca9989585fb5b2711ee3dfad1e630fc7} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_DNCTR@{MAC\_DNCTR}}
+\index{MAC\_DNCTR@{MAC\_DNCTR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_DNCTR}{MAC\_DNCTR}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+DNCTR~23}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00284}{284}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a49a9a046867aca7f1f5f54e4551122f8}\label{_the_things_network_8cpp_a49a9a046867aca7f1f5f54e4551122f8} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_DR@{MAC\_DR}}
+\index{MAC\_DR@{MAC\_DR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_DR}{MAC\_DR}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+DR~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00268}{268}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a88c8fb8c120eebe9331e5e75d1a14ad5}\label{_the_things_network_8cpp_a88c8fb8c120eebe9331e5e75d1a14ad5} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_FORCE\_ENABLE@{MAC\_FORCE\_ENABLE}}
+\index{MAC\_FORCE\_ENABLE@{MAC\_FORCE\_ENABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_FORCE\_ENABLE}{MAC\_FORCE\_ENABLE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+FORCE\+\_\+\+ENABLE~5}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00227}{227}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a007114166400769cd8bc6a9f97f05967}\label{_the_things_network_8cpp_a007114166400769cd8bc6a9f97f05967} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_GET@{MAC\_GET}}
+\index{MAC\_GET@{MAC\_GET}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_GET}{MAC\_GET}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+GET~9}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00231}{231}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a0a8cb6e28f9b1e3ff88f5ad3c07887e5}\label{_the_things_network_8cpp_a0a8cb6e28f9b1e3ff88f5ad3c07887e5} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_GET\_SET\_TABLE@{MAC\_GET\_SET\_TABLE}}
+\index{MAC\_GET\_SET\_TABLE@{MAC\_GET\_SET\_TABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_GET\_SET\_TABLE}{MAC\_GET\_SET\_TABLE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+GET\+\_\+\+SET\+\_\+\+TABLE~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00315}{315}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ac214a795220a337c6cace724438c3101}\label{_the_things_network_8cpp_ac214a795220a337c6cace724438c3101} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_GWNB@{MAC\_GWNB}}
+\index{MAC\_GWNB@{MAC\_GWNB}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_GWNB}{MAC\_GWNB}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+GWNB~18}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00279}{279}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a4720d42e8dc80d030e5c394f45f1faa1}\label{_the_things_network_8cpp_a4720d42e8dc80d030e5c394f45f1faa1} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_JOIN@{MAC\_JOIN}}
+\index{MAC\_JOIN@{MAC\_JOIN}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_JOIN}{MAC\_JOIN}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+JOIN~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00225}{225}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_acdc5862579f6fdee0ab34afa785cb088}\label{_the_things_network_8cpp_acdc5862579f6fdee0ab34afa785cb088} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_JOIN\_MODE\_ABP@{MAC\_JOIN\_MODE\_ABP}}
+\index{MAC\_JOIN\_MODE\_ABP@{MAC\_JOIN\_MODE\_ABP}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_JOIN\_MODE\_ABP}{MAC\_JOIN\_MODE\_ABP}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+JOIN\+\_\+\+MODE\+\_\+\+ABP~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00292}{292}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ac991858ee7393124d1dbd82cfd59febf}\label{_the_things_network_8cpp_ac991858ee7393124d1dbd82cfd59febf} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_JOIN\_MODE\_OTAA@{MAC\_JOIN\_MODE\_OTAA}}
+\index{MAC\_JOIN\_MODE\_OTAA@{MAC\_JOIN\_MODE\_OTAA}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_JOIN\_MODE\_OTAA}{MAC\_JOIN\_MODE\_OTAA}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+JOIN\+\_\+\+MODE\+\_\+\+OTAA~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00291}{291}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a11f9f64c1c07719febd8986f196cedee}\label{_the_things_network_8cpp_a11f9f64c1c07719febd8986f196cedee} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_JOIN\_TABLE@{MAC\_JOIN\_TABLE}}
+\index{MAC\_JOIN\_TABLE@{MAC\_JOIN\_TABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_JOIN\_TABLE}{MAC\_JOIN\_TABLE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+JOIN\+\_\+\+TABLE~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00316}{316}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_af9aeafd4f2e18f50281e12c2f75382fd}\label{_the_things_network_8cpp_af9aeafd4f2e18f50281e12c2f75382fd} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_LINKCHK@{MAC\_LINKCHK}}
+\index{MAC\_LINKCHK@{MAC\_LINKCHK}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_LINKCHK}{MAC\_LINKCHK}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+LINKCHK~11}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00272}{272}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a90b19fddae1686a6a5fe43dd4b005665}\label{_the_things_network_8cpp_a90b19fddae1686a6a5fe43dd4b005665} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_MRGN@{MAC\_MRGN}}
+\index{MAC\_MRGN@{MAC\_MRGN}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_MRGN}{MAC\_MRGN}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+MRGN~19}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00280}{280}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aab2cf32b77463db772ebd2aea16315e2}\label{_the_things_network_8cpp_aab2cf32b77463db772ebd2aea16315e2} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_NWKSKEY@{MAC\_NWKSKEY}}
+\index{MAC\_NWKSKEY@{MAC\_NWKSKEY}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_NWKSKEY}{MAC\_NWKSKEY}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+NWKSKEY~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00264}{264}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a184c72ff0768146574e02dd21a65a1f7}\label{_the_things_network_8cpp_a184c72ff0768146574e02dd21a65a1f7} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_PAUSE@{MAC\_PAUSE}}
+\index{MAC\_PAUSE@{MAC\_PAUSE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_PAUSE}{MAC\_PAUSE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+PAUSE~6}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00228}{228}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a1c8c5652d0d3f46c81014158b9a58cb5}\label{_the_things_network_8cpp_a1c8c5652d0d3f46c81014158b9a58cb5} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_PREFIX@{MAC\_PREFIX}}
+\index{MAC\_PREFIX@{MAC\_PREFIX}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_PREFIX}{MAC\_PREFIX}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+PREFIX~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00222}{222}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_afe0473b3d79e7b762fdb56d5c0779a98}\label{_the_things_network_8cpp_afe0473b3d79e7b762fdb56d5c0779a98} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_PWRIDX@{MAC\_PWRIDX}}
+\index{MAC\_PWRIDX@{MAC\_PWRIDX}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_PWRIDX}{MAC\_PWRIDX}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+PWRIDX~6}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00267}{267}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ab69e3d7b315bf834879921385977a6e3}\label{_the_things_network_8cpp_ab69e3d7b315bf834879921385977a6e3} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_RESET@{MAC\_RESET}}
+\index{MAC\_RESET@{MAC\_RESET}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_RESET}{MAC\_RESET}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+RESET~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00223}{223}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aa7245bc7bf78d5911c52e7515736f5a5}\label{_the_things_network_8cpp_aa7245bc7bf78d5911c52e7515736f5a5} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_RESUME@{MAC\_RESUME}}
+\index{MAC\_RESUME@{MAC\_RESUME}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_RESUME}{MAC\_RESUME}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+RESUME~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00229}{229}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a3c70f57aebe74539bea217ae6343ff25}\label{_the_things_network_8cpp_a3c70f57aebe74539bea217ae6343ff25} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_RETX@{MAC\_RETX}}
+\index{MAC\_RETX@{MAC\_RETX}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_RETX}{MAC\_RETX}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+RETX~10}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00271}{271}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a39573852968e28dba9c510be145b668d}\label{_the_things_network_8cpp_a39573852968e28dba9c510be145b668d} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_RX2@{MAC\_RX2}}
+\index{MAC\_RX2@{MAC\_RX2}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_RX2}{MAC\_RX2}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+RX2~16}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00277}{277}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aef297ed52860375341e6e5147c5e4d1e}\label{_the_things_network_8cpp_aef297ed52860375341e6e5147c5e4d1e} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_RXDELAY1@{MAC\_RXDELAY1}}
+\index{MAC\_RXDELAY1@{MAC\_RXDELAY1}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_RXDELAY1}{MAC\_RXDELAY1}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+RXDELAY1~12}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00273}{273}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aaf659048fd73e0c226b35a6fb155169c}\label{_the_things_network_8cpp_aaf659048fd73e0c226b35a6fb155169c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_RXDELAY2@{MAC\_RXDELAY2}}
+\index{MAC\_RXDELAY2@{MAC\_RXDELAY2}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_RXDELAY2}{MAC\_RXDELAY2}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+RXDELAY2~13}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00274}{274}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a9bf79b0f55ac24e6d3e24a40940f44cf}\label{_the_things_network_8cpp_a9bf79b0f55ac24e6d3e24a40940f44cf} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_SAVE@{MAC\_SAVE}}
+\index{MAC\_SAVE@{MAC\_SAVE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_SAVE}{MAC\_SAVE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+SAVE~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00226}{226}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a7ba3456690258ef31a31a662b24190a9}\label{_the_things_network_8cpp_a7ba3456690258ef31a31a662b24190a9} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_SET@{MAC\_SET}}
+\index{MAC\_SET@{MAC\_SET}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_SET}{MAC\_SET}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+SET~8}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00230}{230}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ad85b4055a46617cdba06841ba5ee5b4b}\label{_the_things_network_8cpp_ad85b4055a46617cdba06841ba5ee5b4b} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_STATUS@{MAC\_STATUS}}
+\index{MAC\_STATUS@{MAC\_STATUS}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_STATUS}{MAC\_STATUS}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+STATUS~21}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00282}{282}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a0844f58b92ae03a840d3d9ce2fd58d72}\label{_the_things_network_8cpp_a0844f58b92ae03a840d3d9ce2fd58d72} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_TABLE@{MAC\_TABLE}}
+\index{MAC\_TABLE@{MAC\_TABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_TABLE}{MAC\_TABLE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+TABLE~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00314}{314}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a13345971fdaea2453b9038f8b18c8ef9}\label{_the_things_network_8cpp_a13345971fdaea2453b9038f8b18c8ef9} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_TX@{MAC\_TX}}
+\index{MAC\_TX@{MAC\_TX}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_TX}{MAC\_TX}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+TX~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00224}{224}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a6e541355f42dc6ddabbfe20cc31dc759}\label{_the_things_network_8cpp_a6e541355f42dc6ddabbfe20cc31dc759} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_TX\_TABLE@{MAC\_TX\_TABLE}}
+\index{MAC\_TX\_TABLE@{MAC\_TX\_TABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_TX\_TABLE}{MAC\_TX\_TABLE}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+TX\+\_\+\+TABLE~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00318}{318}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a2119d3347630c39acca07b7d9a196050}\label{_the_things_network_8cpp_a2119d3347630c39acca07b7d9a196050} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_TX\_TYPE\_CNF@{MAC\_TX\_TYPE\_CNF}}
+\index{MAC\_TX\_TYPE\_CNF@{MAC\_TX\_TYPE\_CNF}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_TX\_TYPE\_CNF}{MAC\_TX\_TYPE\_CNF}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+TX\+\_\+\+TYPE\+\_\+\+CNF~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00311}{311}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a36d4506dbcadeb935c57a93caa2827ef}\label{_the_things_network_8cpp_a36d4506dbcadeb935c57a93caa2827ef} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_TX\_TYPE\_UCNF@{MAC\_TX\_TYPE\_UCNF}}
+\index{MAC\_TX\_TYPE\_UCNF@{MAC\_TX\_TYPE\_UCNF}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_TX\_TYPE\_UCNF}{MAC\_TX\_TYPE\_UCNF}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+TX\+\_\+\+TYPE\+\_\+\+UCNF~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00312}{312}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a3f685f6a390df92ec840eb6ec5aaa64d}\label{_the_things_network_8cpp_a3f685f6a390df92ec840eb6ec5aaa64d} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!MAC\_UPCTR@{MAC\_UPCTR}}
+\index{MAC\_UPCTR@{MAC\_UPCTR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{MAC\_UPCTR}{MAC\_UPCTR}}
+{\footnotesize\ttfamily \#define MAC\+\_\+\+UPCTR~22}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00283}{283}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ad22c0a5915151e86f9ff134c2fd99d66}\label{_the_things_network_8cpp_ad22c0a5915151e86f9ff134c2fd99d66} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET@{RADIO\_GET}}
+\index{RADIO\_GET@{RADIO\_GET}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET}{RADIO\_GET}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00168}{168}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a1ee36b582747f0d6cabd95c6acd9f6dd}\label{_the_things_network_8cpp_a1ee36b582747f0d6cabd95c6acd9f6dd} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_BW@{RADIO\_GET\_BW}}
+\index{RADIO\_GET\_BW@{RADIO\_GET\_BW}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_BW}{RADIO\_GET\_BW}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+BW~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00169}{169}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ae65c30be8cf49e6bdb2f1c0ea3365aff}\label{_the_things_network_8cpp_ae65c30be8cf49e6bdb2f1c0ea3365aff} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_CR@{RADIO\_GET\_CR}}
+\index{RADIO\_GET\_CR@{RADIO\_GET\_CR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_CR}{RADIO\_GET\_CR}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+CR~6}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00172}{172}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a24a385558641611a315b48fb1426f26d}\label{_the_things_network_8cpp_a24a385558641611a315b48fb1426f26d} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_CRC@{RADIO\_GET\_CRC}}
+\index{RADIO\_GET\_CRC@{RADIO\_GET\_CRC}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_CRC}{RADIO\_GET\_CRC}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+CRC~5}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00171}{171}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a49c52f96362112401bc0d1a73df9a2c6}\label{_the_things_network_8cpp_a49c52f96362112401bc0d1a73df9a2c6} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_FREQ@{RADIO\_GET\_FREQ}}
+\index{RADIO\_GET\_FREQ@{RADIO\_GET\_FREQ}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_FREQ}{RADIO\_GET\_FREQ}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+FREQ~8}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00174}{174}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a0690d1af89332f0fe83e562d4fbdc8cd}\label{_the_things_network_8cpp_a0690d1af89332f0fe83e562d4fbdc8cd} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_PRLEN@{RADIO\_GET\_PRLEN}}
+\index{RADIO\_GET\_PRLEN@{RADIO\_GET\_PRLEN}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_PRLEN}{RADIO\_GET\_PRLEN}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+PRLEN~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00170}{170}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aa51ffe8f1d4ce569ea86fdaeeb0ab327}\label{_the_things_network_8cpp_aa51ffe8f1d4ce569ea86fdaeeb0ab327} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_PWR@{RADIO\_GET\_PWR}}
+\index{RADIO\_GET\_PWR@{RADIO\_GET\_PWR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_PWR}{RADIO\_GET\_PWR}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+PWR~11}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00177}{177}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aba0ac574e887fb43518fe77ef90a9cf1}\label{_the_things_network_8cpp_aba0ac574e887fb43518fe77ef90a9cf1} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_RSSI@{RADIO\_GET\_RSSI}}
+\index{RADIO\_GET\_RSSI@{RADIO\_GET\_RSSI}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_RSSI}{RADIO\_GET\_RSSI}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+RSSI~12}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00178}{178}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a014fb5aae67a138639e4bd0064df427b}\label{_the_things_network_8cpp_a014fb5aae67a138639e4bd0064df427b} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_RXBW@{RADIO\_GET\_RXBW}}
+\index{RADIO\_GET\_RXBW@{RADIO\_GET\_RXBW}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_RXBW}{RADIO\_GET\_RXBW}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+RXBW~9}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00175}{175}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ade8535d04f835c0f3784e6311a4ba829}\label{_the_things_network_8cpp_ade8535d04f835c0f3784e6311a4ba829} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_SF@{RADIO\_GET\_SF}}
+\index{RADIO\_GET\_SF@{RADIO\_GET\_SF}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_SF}{RADIO\_GET\_SF}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+SF~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00173}{173}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a81ec8f058f4a1fda9d8315c83f6dcfcd}\label{_the_things_network_8cpp_a81ec8f058f4a1fda9d8315c83f6dcfcd} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_SNR@{RADIO\_GET\_SNR}}
+\index{RADIO\_GET\_SNR@{RADIO\_GET\_SNR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_SNR}{RADIO\_GET\_SNR}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+SNR~13}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00179}{179}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a13bb21f38080d9cd14063012adf5db3c}\label{_the_things_network_8cpp_a13bb21f38080d9cd14063012adf5db3c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_GET\_WDT@{RADIO\_GET\_WDT}}
+\index{RADIO\_GET\_WDT@{RADIO\_GET\_WDT}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_GET\_WDT}{RADIO\_GET\_WDT}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+GET\+\_\+\+WDT~10}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00176}{176}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a7465ef8435900bbbe2d1e83e8747040c}\label{_the_things_network_8cpp_a7465ef8435900bbbe2d1e83e8747040c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_PREFIX@{RADIO\_PREFIX}}
+\index{RADIO\_PREFIX@{RADIO\_PREFIX}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_PREFIX}{RADIO\_PREFIX}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+PREFIX~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00166}{166}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ab923f628f6237eb6a39d60dbbab48b5d}\label{_the_things_network_8cpp_ab923f628f6237eb6a39d60dbbab48b5d} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_SET@{RADIO\_SET}}
+\index{RADIO\_SET@{RADIO\_SET}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_SET}{RADIO\_SET}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+SET~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00167}{167}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ac6479e732fc3d3c3eb8e87d80c1105f3}\label{_the_things_network_8cpp_ac6479e732fc3d3c3eb8e87d80c1105f3} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!RADIO\_TABLE@{RADIO\_TABLE}}
+\index{RADIO\_TABLE@{RADIO\_TABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{RADIO\_TABLE}{RADIO\_TABLE}}
+{\footnotesize\ttfamily \#define RADIO\+\_\+\+TABLE~6}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00320}{320}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a6560ff7858443e04949c17fd6c1b824c}\label{_the_things_network_8cpp_a6560ff7858443e04949c17fd6c1b824c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SCS\_JOIN\_ACCEPTED@{SCS\_JOIN\_ACCEPTED}}
+\index{SCS\_JOIN\_ACCEPTED@{SCS\_JOIN\_ACCEPTED}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SCS\_JOIN\_ACCEPTED}{SCS\_JOIN\_ACCEPTED}}
+{\footnotesize\ttfamily \#define SCS\+\_\+\+JOIN\+\_\+\+ACCEPTED~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00144}{144}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a1fd8e4d017ae995cff2fcf1cd2bc5e91}\label{_the_things_network_8cpp_a1fd8e4d017ae995cff2fcf1cd2bc5e91} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SCS\_PERSONALIZE\_ACCEPTED@{SCS\_PERSONALIZE\_ACCEPTED}}
+\index{SCS\_PERSONALIZE\_ACCEPTED@{SCS\_PERSONALIZE\_ACCEPTED}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SCS\_PERSONALIZE\_ACCEPTED}{SCS\_PERSONALIZE\_ACCEPTED}}
+{\footnotesize\ttfamily \#define SCS\+\_\+\+PERSONALIZE\+\_\+\+ACCEPTED~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00143}{143}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a21c95a891f90aa901da250a31c4f62bb}\label{_the_things_network_8cpp_a21c95a891f90aa901da250a31c4f62bb} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SCS\_SUCCESSFUL\_TRANSMISSION@{SCS\_SUCCESSFUL\_TRANSMISSION}}
+\index{SCS\_SUCCESSFUL\_TRANSMISSION@{SCS\_SUCCESSFUL\_TRANSMISSION}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SCS\_SUCCESSFUL\_TRANSMISSION}{SCS\_SUCCESSFUL\_TRANSMISSION}}
+{\footnotesize\ttfamily \#define SCS\+\_\+\+SUCCESSFUL\+\_\+\+TRANSMISSION~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00145}{145}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a7af04d737dff191274fab75044ef61e2}\label{_the_things_network_8cpp_a7af04d737dff191274fab75044ef61e2} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SCS\_SUCCESSFUL\_TRANSMISSION\_RECEIVED@{SCS\_SUCCESSFUL\_TRANSMISSION\_RECEIVED}}
+\index{SCS\_SUCCESSFUL\_TRANSMISSION\_RECEIVED@{SCS\_SUCCESSFUL\_TRANSMISSION\_RECEIVED}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SCS\_SUCCESSFUL\_TRANSMISSION\_RECEIVED}{SCS\_SUCCESSFUL\_TRANSMISSION\_RECEIVED}}
+{\footnotesize\ttfamily \#define SCS\+\_\+\+SUCCESSFUL\+\_\+\+TRANSMISSION\+\_\+\+RECEIVED~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00146}{146}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ad6e0bf6203696698945a6b4d862cf4a9}\label{_the_things_network_8cpp_ad6e0bf6203696698945a6b4d862cf4a9} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SCS\_VALID\_MODULE@{SCS\_VALID\_MODULE}}
+\index{SCS\_VALID\_MODULE@{SCS\_VALID\_MODULE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SCS\_VALID\_MODULE}{SCS\_VALID\_MODULE}}
+{\footnotesize\ttfamily \#define SCS\+\_\+\+VALID\+\_\+\+MODULE~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00147}{147}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a40b277187d96be14bbcc8b6a7c18e663}\label{_the_things_network_8cpp_a40b277187d96be14bbcc8b6a7c18e663} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SEND\_MSG@{SEND\_MSG}}
+\index{SEND\_MSG@{SEND\_MSG}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SEND\_MSG}{SEND\_MSG}}
+{\footnotesize\ttfamily \#define SEND\+\_\+\+MSG~"{}\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00079}{79}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ab6aaa08c0bfb6feb3e54a78d9211af56}\label{_the_things_network_8cpp_ab6aaa08c0bfb6feb3e54a78d9211af56} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SENDING@{SENDING}}
+\index{SENDING@{SENDING}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SENDING}{SENDING}}
+{\footnotesize\ttfamily \#define SENDING~"{}Sending\+: "{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00078}{78}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a96a6f2c9341389749ad0dcb1f87d991a}\label{_the_things_network_8cpp_a96a6f2c9341389749ad0dcb1f87d991a} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_APPEUI@{SHOW\_APPEUI}}
+\index{SHOW\_APPEUI@{SHOW\_APPEUI}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_APPEUI}{SHOW\_APPEUI}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+APPEUI~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00097}{97}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aa109bd1f62235bc924bf1b6bdda916d3}\label{_the_things_network_8cpp_aa109bd1f62235bc924bf1b6bdda916d3} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_BAND@{SHOW\_BAND}}
+\index{SHOW\_BAND@{SHOW\_BAND}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_BAND}{SHOW\_BAND}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+BAND~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00099}{99}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a214c2e76fc3dbfb4a3def614ac05f120}\label{_the_things_network_8cpp_a214c2e76fc3dbfb4a3def614ac05f120} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_BATTERY@{SHOW\_BATTERY}}
+\index{SHOW\_BATTERY@{SHOW\_BATTERY}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_BATTERY}{SHOW\_BATTERY}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+BATTERY~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00096}{96}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a406d0120ecef6640399df66c147ac59a}\label{_the_things_network_8cpp_a406d0120ecef6640399df66c147ac59a} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_DATA\_RATE@{SHOW\_DATA\_RATE}}
+\index{SHOW\_DATA\_RATE@{SHOW\_DATA\_RATE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_DATA\_RATE}{SHOW\_DATA\_RATE}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+DATA\+\_\+\+RATE~5}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00100}{100}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a40d386ddd7c5df6708fee142c2e242f3}\label{_the_things_network_8cpp_a40d386ddd7c5df6708fee142c2e242f3} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_DEVADDR@{SHOW\_DEVADDR}}
+\index{SHOW\_DEVADDR@{SHOW\_DEVADDR}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_DEVADDR}{SHOW\_DEVADDR}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+DEVADDR~10}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00105}{105}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a6345028743015d62bc857040013bbf8f}\label{_the_things_network_8cpp_a6345028743015d62bc857040013bbf8f} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_DEVEUI@{SHOW\_DEVEUI}}
+\index{SHOW\_DEVEUI@{SHOW\_DEVEUI}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_DEVEUI}{SHOW\_DEVEUI}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+DEVEUI~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00098}{98}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a7355f0e56027e070cb888356f9eb483f}\label{_the_things_network_8cpp_a7355f0e56027e070cb888356f9eb483f} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_EUI@{SHOW\_EUI}}
+\index{SHOW\_EUI@{SHOW\_EUI}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_EUI}{SHOW\_EUI}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+EUI~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00095}{95}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a084719b1786fe440f03873b4f8714390}\label{_the_things_network_8cpp_a084719b1786fe440f03873b4f8714390} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_MODEL@{SHOW\_MODEL}}
+\index{SHOW\_MODEL@{SHOW\_MODEL}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_MODEL}{SHOW\_MODEL}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+MODEL~9}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00104}{104}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a3d4aeaf5af67ac2efae151a5b1c7390c}\label{_the_things_network_8cpp_a3d4aeaf5af67ac2efae151a5b1c7390c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_RX\_DELAY\_1@{SHOW\_RX\_DELAY\_1}}
+\index{SHOW\_RX\_DELAY\_1@{SHOW\_RX\_DELAY\_1}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_RX\_DELAY\_1}{SHOW\_RX\_DELAY\_1}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+RX\+\_\+\+DELAY\+\_\+1~6}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00101}{101}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_af979b0be37f358142793a2819441ee84}\label{_the_things_network_8cpp_af979b0be37f358142793a2819441ee84} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_RX\_DELAY\_2@{SHOW\_RX\_DELAY\_2}}
+\index{SHOW\_RX\_DELAY\_2@{SHOW\_RX\_DELAY\_2}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_RX\_DELAY\_2}{SHOW\_RX\_DELAY\_2}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+RX\+\_\+\+DELAY\+\_\+2~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00102}{102}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a49df5947a3d9f779aa05b8d55aa09e06}\label{_the_things_network_8cpp_a49df5947a3d9f779aa05b8d55aa09e06} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SHOW\_VERSION@{SHOW\_VERSION}}
+\index{SHOW\_VERSION@{SHOW\_VERSION}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SHOW\_VERSION}{SHOW\_VERSION}}
+{\footnotesize\ttfamily \#define SHOW\+\_\+\+VERSION~8}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00103}{103}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a0df22aa1e7595b5492c2d87000337aed}\label{_the_things_network_8cpp_a0df22aa1e7595b5492c2d87000337aed} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SUCCESS\_MESSAGE@{SUCCESS\_MESSAGE}}
+\index{SUCCESS\_MESSAGE@{SUCCESS\_MESSAGE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SUCCESS\_MESSAGE}{SUCCESS\_MESSAGE}}
+{\footnotesize\ttfamily \#define SUCCESS\+\_\+\+MESSAGE~8}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00322}{322}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aa088cbe6d79bf22970a61a1856d87918}\label{_the_things_network_8cpp_aa088cbe6d79bf22970a61a1856d87918} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_ERASE\_FW@{SYS\_ERASE\_FW}}
+\index{SYS\_ERASE\_FW@{SYS\_ERASE\_FW}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_ERASE\_FW}{SYS\_ERASE\_FW}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+ERASE\+\_\+\+FW~3}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00199}{199}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a3b28ffccd49bea13302949449c7cd9eb}\label{_the_things_network_8cpp_a3b28ffccd49bea13302949449c7cd9eb} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_FACTORY\_RST@{SYS\_FACTORY\_RST}}
+\index{SYS\_FACTORY\_RST@{SYS\_FACTORY\_RST}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_FACTORY\_RST}{SYS\_FACTORY\_RST}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+FACTORY\+\_\+\+RST~4}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00200}{200}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ac0018a71f217b28ac18e622bba8a326b}\label{_the_things_network_8cpp_ac0018a71f217b28ac18e622bba8a326b} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_GET@{SYS\_GET}}
+\index{SYS\_GET@{SYS\_GET}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_GET}{SYS\_GET}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+GET~6}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00202}{202}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a5a9d5d96acacd8d6a652fe85b1df312f}\label{_the_things_network_8cpp_a5a9d5d96acacd8d6a652fe85b1df312f} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_GET\_HWEUI@{SYS\_GET\_HWEUI}}
+\index{SYS\_GET\_HWEUI@{SYS\_GET\_HWEUI}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_GET\_HWEUI}{SYS\_GET\_HWEUI}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+GET\+\_\+\+HWEUI~9}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00205}{205}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a07c453d82de1126da7657afc768a28e8}\label{_the_things_network_8cpp_a07c453d82de1126da7657afc768a28e8} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_GET\_VDD@{SYS\_GET\_VDD}}
+\index{SYS\_GET\_VDD@{SYS\_GET\_VDD}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_GET\_VDD}{SYS\_GET\_VDD}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+GET\+\_\+\+VDD~8}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00204}{204}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ad6e2061d8b7a66c7a2ca909ed955d133}\label{_the_things_network_8cpp_ad6e2061d8b7a66c7a2ca909ed955d133} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_GET\_VER@{SYS\_GET\_VER}}
+\index{SYS\_GET\_VER@{SYS\_GET\_VER}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_GET\_VER}{SYS\_GET\_VER}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+GET\+\_\+\+VER~7}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00203}{203}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ae9afbd11d257230eb4acbf397230a3bf}\label{_the_things_network_8cpp_ae9afbd11d257230eb4acbf397230a3bf} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_PREFIX@{SYS\_PREFIX}}
+\index{SYS\_PREFIX@{SYS\_PREFIX}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_PREFIX}{SYS\_PREFIX}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+PREFIX~0}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00196}{196}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_aaa55239ca06533d1222153f6dd8c3335}\label{_the_things_network_8cpp_aaa55239ca06533d1222153f6dd8c3335} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_RESET@{SYS\_RESET}}
+\index{SYS\_RESET@{SYS\_RESET}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_RESET}{SYS\_RESET}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+RESET~2}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00198}{198}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_abff29754f7ff127337427c5b9a968ba4}\label{_the_things_network_8cpp_abff29754f7ff127337427c5b9a968ba4} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_SET@{SYS\_SET}}
+\index{SYS\_SET@{SYS\_SET}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_SET}{SYS\_SET}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+SET~5}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00201}{201}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ad84cae0d4c114c0c10560658cbeedb26}\label{_the_things_network_8cpp_ad84cae0d4c114c0c10560658cbeedb26} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_SET\_GET\_NVM@{SYS\_SET\_GET\_NVM}}
+\index{SYS\_SET\_GET\_NVM@{SYS\_SET\_GET\_NVM}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_SET\_GET\_NVM}{SYS\_SET\_GET\_NVM}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+SET\+\_\+\+GET\+\_\+\+NVM~10}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00206}{206}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a83824ab1d2f3342959f9b213dbd4dc68}\label{_the_things_network_8cpp_a83824ab1d2f3342959f9b213dbd4dc68} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_SET\_PINDIG@{SYS\_SET\_PINDIG}}
+\index{SYS\_SET\_PINDIG@{SYS\_SET\_PINDIG}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_SET\_PINDIG}{SYS\_SET\_PINDIG}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+SET\+\_\+\+PINDIG~11}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00207}{207}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a9fb867967ebb3fd89af40625a4a7b9be}\label{_the_things_network_8cpp_a9fb867967ebb3fd89af40625a4a7b9be} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_SLEEP@{SYS\_SLEEP}}
+\index{SYS\_SLEEP@{SYS\_SLEEP}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_SLEEP}{SYS\_SLEEP}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+SLEEP~1}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00197}{197}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ad83bb0b1197529b463258bd61b235123}\label{_the_things_network_8cpp_ad83bb0b1197529b463258bd61b235123} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!SYS\_TABLE@{SYS\_TABLE}}
+\index{SYS\_TABLE@{SYS\_TABLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{SYS\_TABLE}{SYS\_TABLE}}
+{\footnotesize\ttfamily \#define SYS\+\_\+\+TABLE~5}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00319}{319}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a2210d9552ea2342928d37335d0c37590}\label{_the_things_network_8cpp_a2210d9552ea2342928d37335d0c37590} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!TTN\_HEX\_CHAR\_TO\_NIBBLE@{TTN\_HEX\_CHAR\_TO\_NIBBLE}}
+\index{TTN\_HEX\_CHAR\_TO\_NIBBLE@{TTN\_HEX\_CHAR\_TO\_NIBBLE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{TTN\_HEX\_CHAR\_TO\_NIBBLE}{TTN\_HEX\_CHAR\_TO\_NIBBLE}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+HEX\+\_\+\+CHAR\+\_\+\+TO\+\_\+\+NIBBLE(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~((c $>$= \textquotesingle{}A\textquotesingle{}) ? (c -\/ \textquotesingle{}A\textquotesingle{} + 0x0A) \+: (c -\/ \textquotesingle{}0\textquotesingle{}))}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a6a2afa1ecf7fb939a96262dabaaf937c}\label{_the_things_network_8cpp_a6a2afa1ecf7fb939a96262dabaaf937c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!TTN\_HEX\_PAIR\_TO\_BYTE@{TTN\_HEX\_PAIR\_TO\_BYTE}}
+\index{TTN\_HEX\_PAIR\_TO\_BYTE@{TTN\_HEX\_PAIR\_TO\_BYTE}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{TTN\_HEX\_PAIR\_TO\_BYTE}{TTN\_HEX\_PAIR\_TO\_BYTE}}
+{\footnotesize\ttfamily \#define TTN\+\_\+\+HEX\+\_\+\+PAIR\+\_\+\+TO\+\_\+\+BYTE(\begin{DoxyParamCaption}\item[{}]{h,  }\item[{}]{l }\end{DoxyParamCaption})~((\mbox{\hyperlink{_the_things_network_8cpp_a2210d9552ea2342928d37335d0c37590}{TTN\+\_\+\+HEX\+\_\+\+CHAR\+\_\+\+TO\+\_\+\+NIBBLE}}(h) $<$$<$ 4) + \mbox{\hyperlink{_the_things_network_8cpp_a2210d9552ea2342928d37335d0c37590}{TTN\+\_\+\+HEX\+\_\+\+CHAR\+\_\+\+TO\+\_\+\+NIBBLE}}(l))}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_the_things_network_8cpp_a46f6cb71d1e27cdbb5600ea06a28ba1b}\label{_the_things_network_8cpp_a46f6cb71d1e27cdbb5600ea06a28ba1b} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!digits@{digits}}
+\index{digits@{digits}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{digits()}{digits()}}
+{\footnotesize\ttfamily uint8\+\_\+t digits (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00346}{346}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_a6c2c6402e8d97884b2b9939b654dccec}\label{_the_things_network_8cpp_a6c2c6402e8d97884b2b9939b654dccec} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!pgmstrcmp@{pgmstrcmp}}
+\index{pgmstrcmp@{pgmstrcmp}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{pgmstrcmp()}{pgmstrcmp()}}
+{\footnotesize\ttfamily int pgmstrcmp (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str1,  }\item[{uint8\+\_\+t}]{str2\+Index,  }\item[{uint8\+\_\+t}]{table = {\ttfamily \mbox{\hyperlink{_the_things_network_8cpp_a1021a43296202f483c05dfb183d7b9b5}{CMP\+\_\+\+TABLE}}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00326}{326}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+\Hypertarget{_the_things_network_8cpp_ad4bed88e835dccb1cb86d757c4f9188c}\label{_the_things_network_8cpp_ad4bed88e835dccb1cb86d757c4f9188c} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!receivedPort@{receivedPort}}
+\index{receivedPort@{receivedPort}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{receivedPort()}{receivedPort()}}
+{\footnotesize\ttfamily uint8\+\_\+t received\+Port (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00359}{359}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_the_things_network_8cpp_a67117f3f2bd2eb9f537ed76675407985}\label{_the_things_network_8cpp_a67117f3f2bd2eb9f537ed76675407985} 
+\index{TheThingsNetwork.cpp@{TheThingsNetwork.cpp}!PROGMEM@{PROGMEM}}
+\index{PROGMEM@{PROGMEM}!TheThingsNetwork.cpp@{TheThingsNetwork.cpp}}
+\doxysubsubsection{\texorpdfstring{PROGMEM}{PROGMEM}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} const mac\+\_\+tx\+\_\+table \mbox{[}$\,$\mbox{]} PROGMEM = "{}ok"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_the_things_network_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{_the_things_network_8cpp_source}{The\+Things\+Network.\+cpp}}.
+
